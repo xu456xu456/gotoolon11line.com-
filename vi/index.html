@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>GoToolOnline — 30+ Free Online Tools (All-in-One)</title>
+  <meta name="description" content="All tools on one page: calculators, converters, calendars, time, writing, and developer utilities. Big fonts & bold buttons. More tools coming soon.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://gotoolonline.com/">
+
+  <!-- Icons & Fonts -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🛠️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GoToolOnline">
+  <meta property="og:title" content="GoToolOnline — 30+ Free Online Tools (All-in-One)">
+  <meta property="og:description" content="All tools on one page: calculators, converters, calendars, time, writing, and developer utilities.">
+  <meta property="og:url" content="https://gotoolonline.com/">
+  <!-- Recommended social preview image (replace with your real file path) -->
+  <meta property="og:image" content="https://gotoolonline.com/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GoToolOnline — 30+ Free Online Tools (All-in-One)">
+  <meta name="twitter:description" content="All tools on one page: calculators, converters, calendars, time, writing, and developer utilities.">
+  <meta name="twitter:image" content="https://gotoolonline.com/og.jpg">
+
+  <!-- JSON-LD: Organization + WebSite (SearchAction) + Breadcrumb + FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"GoToolOnline",
+    "url":"https://gotoolonline.com",
+    "logo":"https://gotoolonline.com/logo.png",
+    "sameAs":[]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"GoToolOnline",
+    "url":"https://gotoolonline.com/",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://gotoolonline.com/?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://gotoolonline.com/"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Are these tools free to use?",
+        "acceptedAnswer":{"@type":"Answer","text":"Yes. GoToolOnline tools are free to use with no sign-up required."}
+      },
+      {
+        "@type":"Question",
+        "name":"Do they work offline?",
+        "acceptedAnswer":{"@type":"Answer","text":"Most tools run locally in your browser. The currency converter supports manual rates for offline use, and can fetch live rates when online."}
+      },
+      {
+        "@type":"Question",
+        "name":"How is my privacy protected?",
+        "acceptedAnswer":{"@type":"Answer","text":"Most tools process your input only in the browser and do not upload data to servers. See our Privacy Policy for details."}
+      },
+      {
+        "@type":"Question",
+        "name":"Can I bookmark tools I use often?",
+        "acceptedAnswer":{"@type":"Answer","text":"Absolutely. Bookmark any tool page to open it instantly next time."}
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);}
+    header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px;}
+    header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+    main{max-width:1200px;margin:10px auto 64px;padding:0 18px}
+    h1{font-size:34px;margin:10px 0 10px}
+    h2{font-size:26px;margin:18px 0 10px}
+    p,label,.muted{font-size:18px;line-height:1.6}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
+    .toolbar{display:flex;gap:12px;flex-wrap:wrap}
+    input,select,button{padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:var(--fg);font-size:18px}
+    button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
+    button:hover{filter:brightness(1.06)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:12px}
+    .tool{display:block;background:#0d142a;border:1px solid #1b2c52;border-radius:16px;padding:16px;text-decoration:none;color:var(--fg)}
+    .tool strong{font-size:20px;display:block;margin-bottom:6px}
+    .tool:hover{border-color:var(--acc);box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    .muted{color:var(--muted)}
+    footer{max-width:1200px;margin:40px auto;padding:0 18px;color:var(--muted);font-size:15px}
+    .chip{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;cursor:pointer;font-size:16px}
+    .chip.active{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    .group{margin-top:8px}
+    .hide{display:none!important}
+    @media print{ header,footer,.no-print{display:none!important} body{background:#fff;color:#000} .card,.tool{border:none} }
+
+    /* Section headers */
+    h2.group{
+      background: linear-gradient(180deg,#0b1732,#0b1d3f);
+      color: #cfe5ff;
+      border: 1px solid #20355e;
+      border-left: 5px solid #4fb3ff;
+      border-radius: 14px;
+      padding: 10px 14px;
+      letter-spacing: .2px;
+      margin: 36px 0 12px;
+    }
+    h2.group + section.grid{ margin-top: 10px; }
+    section.grid{ margin-bottom: 22px; }
+    @media (min-width: 900px){
+      h2.group{
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(11,23,50,.88);
+        backdrop-filter: blur(6px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="/" aria-label="GoToolOnline home"><span>🛠️</span><strong>GoToolOnline</strong></a>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>All Tools — One Page (30+)</h1>
+
+      <div class="toolbar no-print" role="search" aria-label="Site search">
+        <input id="search" type="search" placeholder="Search tools… (e.g. calendar, json, base64, bmi)" style="flex:1" aria-label="Search tools">
+        <button id="clear" aria-label="Clear search">Clear</button>
+      </div>
+
+      <p class="muted" style="margin-top:8px">
+        Tip: type to filter instantly. Click a chip to filter by category. <strong>More tools coming soon.</strong>
+      </p>
+
+      <!-- Textual quick links with descriptive anchors -->
+      <p class="muted" style="margin-top:6px">
+        Quick links:
+        <a href="/converter/unit-converter/">Online Unit Converter</a> ·
+        <a href="/currency/currency-converter/">Free Currency Converter (live + manual)</a> ·
+        <a href="/time/timezone-converter/">World Time by Country/City</a> ·
+        <a href="/time/countdown-timer/">Countdown Timer</a> ·
+        <a href="/time/stopwatch/">Stopwatch</a> ·
+        <a href="/developer/json-formatter/">JSON Formatter</a>
+      </p>
+
+      <nav class="toolbar no-print" id="chips" style="margin-top:8px" aria-label="Filter by category">
+        <span class="chip active" data-cat="all">All</span>
+        <span class="chip" data-cat="calculators">Calculators</span>
+        <span class="chip" data-cat="converter">Converters</span>
+        <span class="chip" data-cat="time">Time</span>
+        <span class="chip" data-cat="calendar">Calendars</span>
+        <span class="chip" data-cat="tools">Utilities</span>
+        <span class="chip" data-cat="writing">Writing</span>
+        <span class="chip" data-cat="developer">Dev</span>
+      </nav>
+    </section>
+
+    <!-- Calculators -->
+    <h2 class="group" id="calculators">Calculators</h2>
+    <section class="grid" data-group="calculators">
+      <a class="tool calculators" href="/calculators/basic-calculator/"><strong>🧮 Basic Calculator</strong><div class="muted">Four functions, percent, memory</div></a>
+      <a class="tool calculators" href="/calculators/scientific-calculator/"><strong>🧪 Scientific Calculator</strong><div class="muted">Functions, DEG/RAD, history</div></a>
+      <a class="tool calculators" href="/calculators/mortgage/"><strong>🏠 Mortgage Calculator</strong><div class="muted">Payment & amortization</div></a>
+      <a class="tool calculators" href="/calculators/tip-split/"><strong>🍽️ Tip & Split Bill</strong><div class="muted">Per-person share</div></a>
+      <a class="tool calculators" href="/calculators/age-calculator/"><strong>🧮 Age Calculator</strong><div class="muted">Exact age in years, months, days</div></a>
+      <a class="tool calculators" href="/calculators/bmi-calculator/"><strong>⚖️ BMI Calculator</strong><div class="muted">Body Mass Index</div></a>
+      <a class="tool calculators" href="/calculators/percentage-calculator/"><strong>➗ Percentage Calculator</strong><div class="muted">Percent of / change</div></a>
+      <a class="tool calculators" href="/calculators/date-difference/"><strong>📅 Date Difference</strong><div class="muted">Days between dates</div></a>
+    </section>
+
+    <!-- Converters -->
+    <h2 class="group" id="converter">Converters</h2>
+    <section class="grid" data-group="converter">
+      <a class="tool converter" href="/converter/unit-converter/">
+        <strong>🔁 Unit Converter</strong>
+        <div class="muted">18 categories · 300+ units</div>
+      </a>
+      <a class="tool converter" href="/currency/currency-converter/">
+        <strong>💱 Currency Converter</strong>
+        <div class="muted">Live FX + manual rate</div>
+      </a>
+    </section>
+
+    <!-- Time -->
+    <h2 class="group" id="time">Time</h2>
+    <section class="grid" data-group="time">
+      <a class="tool time" href="/time/timezone-converter/">
+        <strong>🌍🕒 World Time (by Country)</strong>
+        <div class="muted">See local time across countries</div>
+      </a>
+      <a class="tool time" href="/time/unix-timestamp/">
+        <strong>🕰️ Unix Timestamp Converter</strong>
+        <div class="muted">Epoch ↔ Local/UTC</div>
+      </a>
+      <a class="tool time" href="/time/countdown-timer/"><strong>⏳ Countdown Timer</strong><div class="muted">Simple countdown</div></a>
+      <a class="tool time" href="/time/stopwatch/"><strong>⏱️ Stopwatch</strong><div class="muted">Online stopwatch</div></a>
+      <a class="tool calendar" href="/calendar/week-number-finder/"><strong>📅# Week Number Finder</strong><div class="muted">ISO week from date</div></a>
+    </section>
+
+    <!-- Calendars -->
+    <h2 class="group" id="calendar">Calendars</h2>
+    <section class="grid" data-group="calendar">
+      <a class="tool calendar" href="/calendar/printable-2026-calendar/"><strong>🖨️📅 Printable Calendar</strong><div class="muted">PDF-ready monthly pages</div></a>
+    </section>
+
+    <!-- Utilities -->
+    <h2 class="group" id="tools">Utilities</h2>
+    <section class="grid" data-group="tools">
+      <a class="tool tools" href="/tools/password-generator/"><strong>🔐 Password Generator</strong><div class="muted">Strong random passwords</div></a>
+      <a class="tool tools" href="/tools/ip-lookup/"><strong>🌐 IP Address Lookup</strong><div class="muted">Your public IP</div></a>
+      <a class="tool tools" href="/tools/random-number-generator/"><strong>🎲 Random Number Generator</strong><div class="muted">Secure RNG when available</div></a>
+      <a class="tool tools" href="/tools/qr-code-generator/"><strong>🔳 QR Code Generator</strong><div class="muted">Create QR codes</div></a>
+      <a class="tool tools" href="/tools/color-picker/"><strong>🎨 Color Picker</strong><div class="muted">Pick & copy hex</div></a>
+      <a class="tool tools" href="/tools/qr-code-scanner/"><strong>📷 QR Code Scanner</strong><div class="muted">Camera or image</div></a>
+      <a class="tool tools" href="/tools/palette-extractor/"><strong>🎨 Palette from Image</strong><div class="muted">Extract colors</div></a>
+      <a class="tool tools" href="/tools/lottery-number-generator/">
+        <strong>🎟️ Lottery Number Generator</strong>
+        <div class="muted">For entertainment only</div>
+      </a>
+    </section>
+
+    <!-- Writing -->
+    <h2 class="group" id="writing">Writing</h2>
+    <section class="grid" data-group="writing">
+      <a class="tool writing" href="/writing/word-counter/"><strong>📝 Word Counter</strong><div class="muted">Words & chars</div></a>
+      <a class="tool writing" href="/writing/character-counter/"><strong>🔡 Character Counter</strong><div class="muted">Counts all chars</div></a>
+      <a class="tool writing" href="/writing/text-case-converter/"><strong>🔠 Text Case Converter</strong><div class="muted">UPPER / lower / Title</div></a>
+    </section>
+
+    <!-- Developer -->
+    <h2 class="group" id="developer">Developer</h2>
+    <section class="grid" data-group="developer">
+      <a class="tool developer" href="/developer/url-encoder-decoder/"><strong>🔗 URL Encoder / Decoder</strong><div class="muted">Encode or decode URLs</div></a>
+      <a class="tool developer" href="/developer/json-formatter/"><strong>🧩 JSON Formatter / Validator</strong><div class="muted">Validate & pretty-print</div></a>
+      <a class="tool developer" href="/developer/html-minifier/"><strong>🧹 HTML Minifier (Basic)</strong><div class="muted">Collapse whitespace</div></a>
+      <a class="tool developer" href="/developer/base64-encoder/"><strong>📦 Base64 Encoder / Decoder</strong><div class="muted">Text ⇄ Base64</div></a>
+      <a class="tool developer" href="/developer/hash-generator/"><strong>🔒 SHA-256 Hash Generator</strong><div class="muted">WebCrypto hashing</div></a>
+      <a class="tool developer" href="/developer/jwt-decoder/"><strong>🔑 JWT Decoder</strong><div class="muted">Local decode</div></a>
+    </section>
+
+    <!-- Homepage FAQ -->
+    <section class="card" id="homepage-faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading" style="margin:0 0 8px">FAQ</h2>
+      <details>
+        <summary>Are these tools free to use?</summary>
+        <p>Yes. GoToolOnline tools are free to use with no sign-up required.</p>
+      </details>
+      <details>
+        <summary>Do they work offline?</summary>
+        <p>Most tools run locally in your browser. The currency converter supports manual rates for offline use, and can fetch live rates when online.</p>
+      </details>
+      <details>
+        <summary>How is my privacy protected?</summary>
+        <p>Most tools process your input only in the browser and do not upload data to servers. See our <a href="/privacy/">Privacy Policy</a> for details.</p>
+      </details>
+      <details>
+        <summary>Can I bookmark tools I use often?</summary>
+        <p>Absolutely. Bookmark any tool page to open it instantly next time.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="y"></span> GoToolOnline.com · Free online tools for everyone ·
+    <a href="/about/" style="color:#8cd1ff">About</a> ·
+    <a href="/privacy/" style="color:#8cd1ff">Privacy</a> ·
+    <a href="/terms/" style="color:#8cd1ff">Terms</a> ·
+    <a href="/contact/" style="color:#8cd1ff">Contact</a>
+
+    <p class="muted" style="margin-top:14px">
+      GoToolOnline brings 30+ fast, free tools together: calculators, unit & currency converters, world time, countdowns and stopwatches, printable calendars, plus handy writing and developer utilities (JSON formatter, URL/Base64, hash, and more). Big buttons, clean layout, privacy-friendly, and many tools work offline.
+    </p>
+  </footer>
+
+  <noscript>
+    <div style="max-width:1200px;margin:0 auto 24px;padding:0 18px;color:#ffd1d1">
+      JavaScript is disabled. You can still browse tools via the links above.
+    </div>
+  </noscript>
+
+  <script>
+    // Dynamic year
+    (function(){ var y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear(); })();
+
+    // Filter by text & category
+    const search = document.getElementById('search');
+    const clearBtn = document.getElementById('clear');
+    const chips = document.querySelectorAll('#chips .chip');
+    let activeCat = 'all';
+
+    function applyFilter(){
+      const q = (search.value || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('.tool');
+      cards.forEach(el=>{
+        const text = el.textContent.toLowerCase();
+        const inCat = (activeCat==='all') ? true : el.classList.contains(activeCat);
+        const match = !q || text.includes(q);
+        el.classList.toggle('hide', !(inCat && match));
+      });
+
+      // Hide empty groups (header + grid)
+      document.querySelectorAll('section.grid').forEach(group=>{
+        const anyVisible = Array.from(group.querySelectorAll('.tool')).some(x=>!x.classList.contains('hide'));
+        const header = group.previousElementSibling;
+        if (header && header.matches('h2.group')){
+          header.classList.toggle('hide', !anyVisible);
+        }
+        group.classList.toggle('hide', !anyVisible);
+      });
+    }
+
+    search.addEventListener('input', applyFilter);
+    clearBtn.addEventListener('click', ()=>{ search.value=''; applyFilter(); });
+
+    chips.forEach(c=>{
+      c.addEventListener('click', ()=>{
+        chips.forEach(x=>x.classList.remove('active'));
+        c.classList.add('active');
+        activeCat = c.dataset.cat;
+        applyFilter();
+        // Update URL hash for UX (optional)
+        if (activeCat !== 'all') history.replaceState({}, '', '#'+activeCat);
+        else history.replaceState({}, '', location.pathname);
+      });
+    });
+
+    // Optional: open category from hash
+    (function(){
+      const hash = (location.hash||'').replace('#','');
+      if (hash && document.querySelector(`#chips .chip[data-cat="${hash}"]`)) {
+        document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('active'));
+        const chip = document.querySelector(`#chips .chip[data-cat="${hash}"]`);
+        chip.classList.add('active');
+        activeCat = hash;
+      }
+      applyFilter();
+    })();
+  </script>
+</body>
+</html>

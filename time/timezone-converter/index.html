@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Time Zone Converter — Country & City Local Time (Multi-Zone) | GoToolOnline</title>
+  <meta name="description" content="Free time zone converter. Search countries or cities and see their current local time. Supports multi-zone countries (US, AU, CA, BR, MX, RU, ID). Works offline with browser time zones & DST." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" href="https://gotoolonline.com/time/timezone-converter/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Time Zone Converter — Country & City Local Time" />
+  <meta property="og:description" content="Convert time across countries and cities. Multi-zone countries supported. Works offline with your browser's IANA time zones." />
+  <meta property="og:url" content="https://gotoolonline.com/time/timezone-converter/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text x='3' y='14' font-size='14'>🌍</text></svg>">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Time Zone Converter",
+    "url":"https://gotoolonline.com/time/timezone-converter/",
+    "applicationCategory":"Utility",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://gotoolonline.com/"},
+      {"@type":"ListItem","position":2,"name":"Time Tools","item":"https://gotoolonline.com/time/"},
+      {"@type":"ListItem","position":3,"name":"Time Zone Converter","item":"https://gotoolonline.com/time/timezone-converter/"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"How do I convert time between two cities?","acceptedAnswer":{"@type":"Answer","text":"Add both cities (for example, Sydney and London). The cards show each current local time and the hour difference vs your location."}},
+      {"@type":"Question","name":"Do multi-zone countries work?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add a country like US or AU, then click “Add Regions” on the card to insert its major time zones."}},
+      {"@type":"Question","name":"Does this work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. The tool uses your browser's IANA time zones and daylight saving rules. No network calls are required."}},
+      {"@type":"Question","name":"Can I share a pre-filled view?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use query parameters: ?c=AU,US&tz=Australia/Perth,Europe/London and share that URL."}}
+    ]
+  }
+  </script>
+
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);}
+    header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px;}
+    header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+    header a.navbtn{margin-left:auto;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:12px;color:#eaf3ff;text-decoration:none;font-size:16px}
+    header a.navbtn:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    main{max-width:1200px;margin:10px auto 72px;padding:0 18px}
+    h1{font-size:34px;margin:10px 0 12px}
+    p,label{font-size:18px;line-height:1.6}
+    .muted{color:var(--muted)}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
+    input,select,button{padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:18px}
+    button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
+    button:hover{filter:brightness(1.06)}
+    .toolbar{display:flex;gap:12px;flex-wrap:wrap}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:16px}
+    .tzcard{background:#0f1830;border:1px solid #1a2843;border-radius:16px;padding:16px}
+    .tzcard h3{margin:0 0 6px 0;font-size:20px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .chiprow{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;cursor:pointer;font-size:16px}
+    .chip:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    .small{font-size:14px;color:#9fb0c3}
+    .inline{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#0c1426;border:1px solid #2a3c64;font-size:12px}
+    .hint{margin-top:8px}
+    @media print{ header,.chiprow,.toolbar{display:none!important} body{background:#fff;color:#000} .card,.tzcard{border:none} }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="/"><span>🛠️</span><strong>GoToolOnline</strong></a>
+    <a class="navbtn" href="/">← Back to Home</a>
+  </header>
+
+  <main>
+    <nav aria-label="Breadcrumb" class="small" style="margin-bottom:6px">
+      <a href="/">Home</a> › <a href="/time/">Time Tools</a> › <strong>Time Zone Converter</strong>
+    </nav>
+
+    <section class="card">
+      <h1>Time Zone Converter — Country & City Local Time</h1>
+      <p class="muted">Pick <strong>countries</strong> or <strong>cities</strong> to view the current local time. For multi-zone countries, add major regions in one click. <strong>Works offline</strong> using your browser’s IANA time zones (DST aware).</p>
+
+      <!-- Countries -->
+      <div class="toolbar" role="group" aria-label="Add countries">
+        <input id="countrySearch" type="search" placeholder="Search country… (e.g. Australia, China, USA, India)" style="flex:1" aria-label="Search country">
+        <button id="addCountryBtn">Add Country</button>
+        <button id="clearBtn" title="Clear all">Clear All</button>
+      </div>
+
+      <div class="hint small">Quick countries:</div>
+      <div class="chiprow" id="quickCountries">
+        <span class="chip" data-cc="AU">Australia</span>
+        <span class="chip" data-cc="US">United States</span>
+        <span class="chip" data-cc="CN">China</span>
+        <span class="chip" data-cc="IN">India</span>
+        <span class="chip" data-cc="GB">United Kingdom</span>
+        <span class="chip" data-cc="JP">Japan</span>
+        <span class="chip" data-cc="KR">South Korea</span>
+        <span class="chip" data-cc="DE">Germany</span>
+        <span class="chip" data-cc="FR">France</span>
+        <span class="chip" data-cc="BR">Brazil</span>
+        <span class="chip" data-cc="CA">Canada</span>
+        <span class="chip" data-cc="RU">Russia</span>
+        <span class="chip" data-cc="MX">Mexico</span>
+        <span class="chip" data-cc="ID">Indonesia</span>
+        <span class="chip" data-cc="NZ">New Zealand</span>
+        <span class="chip" data-cc="SG">Singapore</span>
+      </div>
+
+      <!-- Cities -->
+      <div class="toolbar" style="margin-top:16px" role="group" aria-label="Add cities">
+        <input id="citySearch" type="search" placeholder="Search city… (e.g. Perth, London, New York)" style="flex:1" aria-label="Search city">
+        <button id="addCityBtn">Add City</button>
+      </div>
+
+      <div class="hint small">Quick cities — Australia:</div>
+      <div class="chiprow" id="quickCitiesAU">
+        <span class="chip" data-tz="Australia/Sydney">Sydney</span>
+        <span class="chip" data-tz="Australia/Melbourne">Melbourne</span>
+        <span class="chip" data-tz="Australia/Brisbane">Brisbane</span>
+        <span class="chip" data-tz="Australia/Adelaide">Adelaide</span>
+        <span class="chip" data-tz="Australia/Perth">Perth</span>
+        <span class="chip" data-tz="Australia/Hobart">Hobart</span>
+        <span class="chip" data-tz="Australia/Darwin">Darwin</span>
+        <span class="chip" data-tz="Australia/Canberra">Canberra</span>
+      </div>
+
+      <div class="hint small">Quick cities — Global:</div>
+      <div class="chiprow" id="quickCitiesGlobal">
+        <span class="chip" data-tz="Europe/London">London</span>
+        <span class="chip" data-tz="Europe/Paris">Paris</span>
+        <span class="chip" data-tz="Europe/Berlin">Berlin</span>
+        <span class="chip" data-tz="Europe/Moscow">Moscow</span>
+        <span class="chip" data-tz="Asia/Tokyo">Tokyo</span>
+        <span class="chip" data-tz="Asia/Seoul">Seoul</span>
+        <span class="chip" data-tz="Asia/Shanghai">Shanghai</span>
+        <span class="chip" data-tz="Asia/Singapore">Singapore</span>
+        <span class="chip" data-tz="America/New_York">New York</span>
+        <span class="chip" data-tz="America/Chicago">Chicago</span>
+        <span class="chip" data-tz="America/Denver">Denver</span>
+        <span class="chip" data-tz="America/Los_Angeles">Los Angeles</span>
+        <span class="chip" data-tz="America/Mexico_City">Mexico City</span>
+        <span class="chip" data-tz="America/Sao_Paulo">São Paulo</span>
+      </div>
+    </section>
+
+    <section class="grid" id="cards" aria-live="polite"></section>
+
+    <section class="card">
+      <h2 style="margin:0 0 8px 0;font-size:22px">Tips & Sharing</h2>
+      <div class="small">
+        Times are calculated locally using browser IANA zones (DST aware). For multi-zone countries, click <em>Add Regions</em>. Share a pre-filled view via URL, e.g.
+        <code>?c=AU,US&amp;tz=Australia/Perth,Europe/London</code>.
+        Related tools: <a href="/time/countdown-timer/">Countdown Timer</a> · <a href="/time/stopwatch/">Stopwatch</a>.
+      </div>
+    </section>
+  </main>
+
+  <script defer>
+    const YOUR_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+
+    const COUNTRIES = {
+      "CN": { name:"China", tz:"Asia/Shanghai" },
+      "HK": { name:"Hong Kong", tz:"Asia/Hong_Kong" },
+      "MO": { name:"Macau", tz:"Asia/Macau" },
+      "TW": { name:"Taiwan", tz:"Asia/Taipei" },
+      "IN": { name:"India", tz:"Asia/Kolkata" },
+      "PK": { name:"Pakistan", tz:"Asia/Karachi" },
+      "BD": { name:"Bangladesh", tz:"Asia/Dhaka" },
+      "LK": { name:"Sri Lanka", tz:"Asia/Colombo" },
+      "NP": { name:"Nepal", tz:"Asia/Kathmandu" },
+      "MM": { name:"Myanmar", tz:"Asia/Yangon" },
+      "TH": { name:"Thailand", tz:"Asia/Bangkok" },
+      "VN": { name:"Vietnam", tz:"Asia/Ho_Chi_Minh" },
+      "LA": { name:"Laos", tz:"Asia/Vientiane" },
+      "KH": { name:"Cambodia", tz:"Asia/Phnom_Penh" },
+      "MY": { name:"Malaysia", tz:"Asia/Kuala_Lumpur" },
+      "SG": { name:"Singapore", tz:"Asia/Singapore" },
+      "JP": { name:"Japan", tz:"Asia/Tokyo" },
+      "KR": { name:"South Korea", tz:"Asia/Seoul" },
+      "MN": { name:"Mongolia", tz:"Asia/Ulaanbaatar" },
+      "AE": { name:"United Arab Emirates", tz:"Asia/Dubai" },
+      "SA": { name:"Saudi Arabia", tz:"Asia/Riyadh" },
+      "TR": { name:"Türkiye", tz:"Europe/Istanbul" },
+      "IL": { name:"Israel", tz:"Asia/Jerusalem" },
+      "IR": { name:"Iran", tz:"Asia/Tehran" },
+      "EG": { name:"Egypt", tz:"Africa/Cairo" },
+      "ZA": { name:"South Africa", tz:"Africa/Johannesburg" },
+      "NG": { name:"Nigeria", tz:"Africa/Lagos" },
+      "KE": { name:"Kenya", tz:"Africa/Nairobi" },
+      "GB": { name:"United Kingdom", tz:"Europe/London" },
+      "IE": { name:"Ireland", tz:"Europe/Dublin" },
+      "IS": { name:"Iceland", tz:"Atlantic/Reykjavik" },
+      "NO": { name:"Norway", tz:"Europe/Oslo" },
+      "SE": { name:"Sweden", tz:"Europe/Stockholm" },
+      "FI": { name:"Finland", tz:"Europe/Helsinki" },
+      "DK": { name:"Denmark", tz:"Europe/Copenhagen" },
+      "DE": { name:"Germany", tz:"Europe/Berlin" },
+      "FR": { name:"France", tz:"Europe/Paris" },
+      "ES": { name:"Spain", tz:"Europe/Madrid" },
+      "PT": { name:"Portugal", tz:"Europe/Lisbon" },
+      "IT": { name:"Italy", tz:"Europe/Rome" },
+      "NL": { name:"Netherlands", tz:"Europe/Amsterdam" },
+      "BE": { name:"Belgium", tz:"Europe/Brussels" },
+      "CH": { name:"Switzerland", tz:"Europe/Zurich" },
+      "AT": { name:"Austria", tz:"Europe/Vienna" },
+      "PL": { name:"Poland", tz:"Europe/Warsaw" },
+      "CZ": { name:"Czechia", tz:"Europe/Prague" },
+      "HU": { name:"Hungary", tz:"Europe/Budapest" },
+      "RO": { name:"Romania", tz:"Europe/Bucharest" },
+      "GR": { name:"Greece", tz:"Europe/Athens" },
+      "UA": { name:"Ukraine (Kyiv)", tz:"Europe/Kyiv" },
+      "AR": { name:"Argentina", tz:"America/Argentina/Buenos_Aires" },
+      "CL": { name:"Chile", tz:"America/Santiago" },
+      "CO": { name:"Colombia", tz:"America/Bogota" },
+      "PE": { name:"Peru", tz:"America/Lima" },
+      "VE": { name:"Venezuela", tz:"America/Caracas" },
+      "NZ": { name:"New Zealand", tz:"Pacific/Auckland" },
+      "US-NY": { name:"United States (New York)", tz:"America/New_York" },
+      "CA-ON": { name:"Canada (Toronto)", tz:"America/Toronto" },
+      "AU-VIC": { name:"Australia (Melbourne)", tz:"Australia/Melbourne" },
+      "RU-MOW": { name:"Russia (Moscow)", tz:"Europe/Moscow" },
+      "BR-SP": { name:"Brazil (São Paulo)", tz:"America/Sao_Paulo" },
+      "MX-CMX": { name:"Mexico (Mexico City)", tz:"America/Mexico_City" },
+      "ID": { name:"Indonesia (Jakarta)", tz:"Asia/Jakarta" }
+    };
+
+    const MULTI = {
+      "US": [
+        {label:"New York (ET)", tz:"America/New_York"},
+        {label:"Chicago (CT)", tz:"America/Chicago"},
+        {label:"Denver (MT)", tz:"America/Denver"},
+        {label:"Los Angeles (PT)", tz:"America/Los_Angeles"},
+        {label:"Anchorage (AKT)", tz:"America/Anchorage"},
+        {label:"Honolulu (HST)", tz:"Pacific/Honolulu"}
+      ],
+      "CA": [
+        {label:"St. John’s (NST)", tz:"America/St_Johns"},
+        {label:"Halifax (AST)", tz:"America/Halifax"},
+        {label:"Toronto (EST)", tz:"America/Toronto"},
+        {label:"Winnipeg (CST)", tz:"America/Winnipeg"},
+        {label:"Calgary (MST)", tz:"America/Edmonton"},
+        {label:"Vancouver (PST)", tz:"America/Vancouver"}
+      ],
+      "AU": [
+        {label:"Sydney/Melbourne (AEDT/AEST)", tz:"Australia/Sydney"},
+        {label:"Brisbane (AEST no DST)", tz:"Australia/Brisbane"},
+        {label:"Adelaide (ACDT/ACST)", tz:"Australia/Adelaide"},
+        {label:"Darwin (ACST no DST)", tz:"Australia/Darwin"},
+        {label:"Perth (AWST)", tz:"Australia/Perth"},
+        {label:"Hobart (AEDT/AEST)", tz:"Australia/Hobart"},
+        {label:"Canberra (AEDT/AEST)", tz:"Australia/Canberra"}
+      ],
+      "RU": [
+        {label:"Moscow (MSK)", tz:"Europe/Moscow"},
+        {label:"Yekaterinburg (YEKT)", tz:"Asia/Yekaterinburg"},
+        {label:"Novosibirsk (NOVT)", tz:"Asia/Novosibirsk"},
+        {label:"Irkutsk (IRKT)", tz:"Asia/Irkutsk"},
+        {label:"Vladivostok (VLAT)", tz:"Asia/Vladivostok"},
+        {label:"Petropavlovsk-Kamchatsky (PETT)", tz:"Asia/Kamchatka"}
+      ],
+      "BR": [
+        {label:"São Paulo (BRT)", tz:"America/Sao_Paulo"},
+        {label:"Manaus (AMT)", tz:"America/Manaus"},
+        {label:"Acre (ACT)", tz:"America/Rio_Branco"}
+      ],
+      "MX": [
+        {label:"Mexico City (CST/CDT)", tz:"America/Mexico_City"},
+        {label:"Cancún (EST)", tz:"America/Cancun"},
+        {label:"Tijuana (PST/PDT)", tz:"America/Tijuana"}
+      ],
+      "ID": [
+        {label:"Jakarta (WIB, UTC+7)", tz:"Asia/Jakarta"},
+        {label:"Makassar (WITA, UTC+8)", tz:"Asia/Makassar"},
+        {label:"Jayapura (WIT, UTC+9)", tz:"Asia/Jayapura"}
+      ]
+    };
+
+    // Cities index (trimmed for brevity in this example — keep as in your original)
+    const CITIES = {
+      "sydney":{label:"Sydney",tz:"Australia/Sydney"},
+      "melbourne":{label:"Melbourne",tz:"Australia/Melbourne"},
+      "brisbane":{label:"Brisbane",tz:"Australia/Brisbane"},
+      "adelaide":{label:"Adelaide",tz:"Australia/Adelaide"},
+      "perth":{label:"Perth",tz:"Australia/Perth"},
+      "hobart":{label:"Hobart",tz:"Australia/Hobart"},
+      "darwin":{label:"Darwin",tz:"Australia/Darwin"},
+      "canberra":{label:"Canberra",tz:"Australia/Canberra"},
+      "london":{label:"London",tz:"Europe/London"},
+      "paris":{label:"Paris",tz:"Europe/Paris"},
+      "berlin":{label:"Berlin",tz:"Europe/Berlin"},
+      "moscow":{label:"Moscow",tz:"Europe/Moscow"},
+      "tokyo":{label:"Tokyo",tz:"Asia/Tokyo"},
+      "seoul":{label:"Seoul",tz:"Asia/Seoul"},
+      "shanghai":{label:"Shanghai",tz:"Asia/Shanghai"},
+      "singapore":{label:"Singapore",tz:"Asia/Singapore"},
+      "new york":{label:"New York",tz:"America/New_York"},
+      "chicago":{label:"Chicago",tz:"America/Chicago"},
+      "denver":{label:"Denver",tz:"America/Denver"},
+      "los angeles":{label:"Los Angeles",tz:"America/Los_Angeles"},
+      "mexico city":{label:"Mexico City",tz:"America/Mexico_City"},
+      "sao paulo":{label:"São Paulo",tz:"America/Sao_Paulo"}
+      // (Keep the rest of your rich city list if you want maximum coverage)
+    };
+
+    const NAME_INDEX = {};
+    Object.entries(COUNTRIES).forEach(([k,v])=> NAME_INDEX[v.name.toLowerCase()] = k);
+    ["United States","USA","US","America"].forEach(n=> NAME_INDEX[n.toLowerCase()] = "US");
+    ["United Kingdom","UK","Britain","Great Britain"].forEach(n=> NAME_INDEX[n.toLowerCase()] = "GB");
+    ["Australia","AU"].forEach(n=> NAME_INDEX[n.toLowerCase()] = "AU");
+    ["Canada","CA"].forEach(n=> NAME_INDEX[n.toLowerCase()] = "CA");
+    ["Russia","RU","Russian Federation"].forEach(n=> NAME_INDEX[n.toLowerCase()] = "RU");
+    ["Brazil","BR"].forEach(n=> NAME_INDEX[n.toLowerCase()] = "BR");
+    ["Mexico","MX"].forEach(n=> NAME_INDEX[n.toLowerCase()] = "MX");
+    ["Indonesia","ID","Republic of Indonesia"].forEach(n=> NAME_INDEX[n.toLowerCase()] = "ID");
+    ["South Korea","Republic of Korea","Korea","KR"].forEach(n=> NAME_INDEX[n.toLowerCase()] = "KR");
+    ["China","CN","PRC"].forEach(n=> NAME_INDEX[n.toLowerCase()] = "CN");
+
+    const cards = document.getElementById('cards');
+    const countrySearch = document.getElementById('countrySearch');
+    const citySearch = document.getElementById('citySearch');
+    let panels = [];
+
+    function fmtWithTZ(date, tz){
+      const d = new Date(date);
+      const time = new Intl.DateTimeFormat(undefined, { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false, timeZone: tz }).format(d);
+      const dateStr = new Intl.DateTimeFormat(undefined, { year:'numeric', month:'short', day:'2-digit', weekday:'short', timeZone: tz }).format(d);
+      const parts = new Intl.DateTimeFormat('en-US',{ timeZone: tz, timeZoneName:'shortOffset', hour:'2-digit'}).formatToParts(d);
+      const off = parts.find(p=>p.type==='timeZoneName')?.value || '';
+      return { time, dateStr, off };
+    }
+
+    function tzDiffHours(targetTZ){
+      const local = new Date().toLocaleString('en-US', { timeZone: YOUR_TZ });
+      const target = new Date().toLocaleString('en-US', { timeZone: targetTZ });
+      return (new Date(target) - new Date(local)) / 3600000;
+    }
+
+    function render(){
+      cards.innerHTML = "";
+      panels.forEach((p, idx)=>{
+        const now = new Date();
+        const { time, dateStr, off } = fmtWithTZ(now, p.tz);
+        const diff = tzDiffHours(p.tz);
+        const diffStr = (diff===0) ? "same as you" : (diff>0 ? `+${diff.toFixed(1)}h vs you` : `${diff.toFixed(1)}h vs you`);
+        const el = document.createElement('div');
+        el.className = "tzcard";
+        el.innerHTML = `
+          <h3>${p.label}</h3>
+          <div class="inline" style="margin:6px 0 8px 0">
+            <span class="badge">${p.tz}</span>
+            <span class="badge">${off}</span>
+            <span class="badge">${diffStr}</span>
+          </div>
+          <div style="font-size:42px;font-weight:800;letter-spacing:1px" aria-live="polite">${time}</div>
+          <div class="muted" style="margin-top:6px">${dateStr}</div>
+          <div class="row" style="margin-top:12px">
+            <button data-act="remove" data-idx="${idx}">Remove</button>
+            ${MULTI[p.tag] ? `<button data-act="expand" data-tag="${p.tag}" aria-label="Add regions for ${p.tag}">Add Regions</button>` : `<button disabled title="Single-zone item">Single Zone</button>`}
+          </div>
+        `;
+        cards.appendChild(el);
+      });
+    }
+
+    function tick(){
+      document.querySelectorAll('.tzcard').forEach((el, idx)=>{
+        const p = panels[idx];
+        if (!p) return;
+        const { time, dateStr } = fmtWithTZ(Date.now(), p.tz);
+        el.querySelector('div[style*="font-size:42px"]').textContent = time;
+        el.querySelector('.muted').textContent = dateStr;
+      });
+    }
+    setInterval(tick, 1000);
+
+    function addCountryByKey(key){
+      if (!key) return;
+      if (MULTI[key]){
+        const first = MULTI[key][0];
+        panels.push({ label: `${key} — ${first.label}`, tz: first.tz, tag: key });
+        persist(); render(); return;
+      }
+      const entry = COUNTRIES[key];
+      if (!entry) return;
+      let tag = null;
+      const dash = key.indexOf('-');
+      if (dash>0) {
+        const pref = key.slice(0,dash);
+        if (MULTI[pref]) tag = pref;
+      }
+      panels.push({ label: entry.name, tz: entry.tz, tag });
+      persist(); render();
+    }
+
+    function addCity(label, tz){
+      if (!label || !tz) return;
+      if (panels.some(p=>p.tz===tz && p.label===label)) return;
+      panels.push({ label, tz, tag: null });
+      persist(); render();
+    }
+
+    function expandTag(tag){
+      const list = MULTI[tag];
+      if (!list) return;
+      list.forEach(item=>{
+        if (!panels.some(p=>p.tz===item.tz)) {
+          panels.push({ label: `${tag} — ${item.label}`, tz: item.tz, tag });
+        }
+      });
+      persist(); render();
+    }
+
+    function removeIdx(i){
+      panels.splice(i,1);
+      persist(); render();
+    }
+
+    // Share via URL: ?c=AU,US&tz=Australia/Perth,Europe/London
+    function persist(){
+      const codes = panels.map(p=>{
+        if (p.tag) return p.tag;
+        const found = Object.entries(COUNTRIES).find(([,v])=>v.tz===p.tz && v.name===p.label);
+        return found ? found[0] : p.tz;
+      });
+      const tzs = panels.filter(p=>!p.tag && !Object.values(COUNTRIES).some(v=>v.tz===p.tz && v.name===p.label)).map(p=>p.tz);
+      const qs = new URLSearchParams(location.search);
+      if (codes.length) qs.set('c', codes.join(','));
+      else qs.delete('c');
+      if (tzs.length) qs.set('tz', tzs.join(','));
+      else qs.delete('tz');
+      history.replaceState({}, '', location.pathname + (qs.toString()?('?'+qs.toString()):''));
+    }
+
+    function loadFromURL(){
+      const q = new URLSearchParams(location.search);
+      const qC = q.get('c');
+      const qT = q.get('tz');
+      if (qC) qC.split(',').map(s=>s.trim()).filter(Boolean).forEach(addCountryByKey);
+      if (qT) qT.split(',').map(s=>s.trim()).filter(Boolean).forEach(tz=>{
+        const label = tz.split('/').pop().replace(/_/g,' ');
+        addCity(label, tz);
+      });
+    }
+
+    // UI
+    document.getElementById('addCountryBtn').addEventListener('click', ()=>{
+      const val = (countrySearch.value||'').trim().toLowerCase();
+      if (!val) return;
+      const iso = val.toUpperCase();
+      if (COUNTRIES[iso] || MULTI[iso]) { addCountryByKey(iso); countrySearch.value=''; return; }
+      const key = NAME_INDEX[val];
+      if (key) { addCountryByKey(key); countrySearch.value=''; return; }
+      const hit = Object.entries(COUNTRIES).find(([,v])=>v.name.toLowerCase().includes(val));
+      if (hit) { addCountryByKey(hit[0]); countrySearch.value=''; return; }
+      alert("Country not found. Try ISO code (e.g., AU, US) or full name.");
+    });
+
+    document.getElementById('addCityBtn').addEventListener('click', ()=>{
+      const val = (citySearch.value||'').trim().toLowerCase();
+      if (!val) return;
+      if (CITIES[val]) { addCity(CITIES[val].label, CITIES[val].tz); citySearch.value=''; return; }
+      const hit = Object.entries(CITIES).find(([k])=>k.includes(val));
+      if (hit) { const c = hit[1]; addCity(c.label, c.tz); citySearch.value=''; return; }
+      if (val.includes('/')) { addCity(val.split('/').pop().replace(/_/g,' '), val); citySearch.value=''; return; }
+      alert("City not found. Try a common city name (e.g., Perth) or paste an IANA time zone (e.g., Australia/Perth).");
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', ()=>{
+      panels = []; persist(); render();
+    });
+
+    document.getElementById('quickCountries').addEventListener('click', (e)=>{
+      const chip = e.target.closest('.chip'); if (!chip) return;
+      addCountryByKey(chip.dataset.cc);
+    });
+
+    document.getElementById('quickCitiesAU').addEventListener('click', (e)=>{
+      const chip = e.target.closest('.chip'); if (!chip) return;
+      addCity(chip.textContent.trim(), chip.dataset.tz);
+    });
+
+    document.getElementById('quickCitiesGlobal').addEventListener('click', (e)=>{
+      const chip = e.target.closest('.chip'); if (!chip) return;
+      addCity(chip.textContent.trim(), chip.dataset.tz);
+    });
+
+    cards.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button'); if (!btn) return;
+      const act = btn.dataset.act;
+      if (act === 'remove') removeIdx(parseInt(btn.dataset.idx,10));
+      if (act === 'expand') expandTag(btn.dataset.tag);
+    });
+
+    // Boot
+    loadFromURL();
+    if (panels.length===0){
+      ["Australia/Sydney","Australia/Brisbane","Australia/Perth"].forEach(tz=>{
+        addCity(tz.split('/').pop(), tz);
+      });
+      addCountryByKey("US");
+      addCountryByKey("CN");
+    }
+  </script>
+
+  <noscript>
+    <div class="card" style="max-width:800px;margin:24px auto">
+      <h2>JavaScript Required</h2>
+      <p class="muted">This time zone converter runs fully in your browser to support offline use. Please enable JavaScript to use it.</p>
+    </div>
+  </noscript>
+</body>
+</html>

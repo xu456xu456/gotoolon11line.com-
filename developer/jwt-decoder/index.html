@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>JWT Decoder — Local Only | GoToolOnline</title>
+  <meta name="description" content="Decode JWT header and payload locally. Base64URL parsing, pretty JSON, copy buttons. No server, no uploads."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text x='2' y='14' font-size='14'>🔑</text></svg>">
+  <style>
+    :root{--bg:#0a0f1e;--card:#0f1830;--fg:#eaf3ff;--muted:#9fb0c3}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    header{max-width:900px;margin:18px auto 8px;display:flex;gap:10px;align-items:center;padding:0 16px}
+    header a{color:var(--fg);text-decoration:none}
+    .pill{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px}
+    main{max-width:900px;margin:8px auto 72px;padding:0 16px}
+    .card{background:#0f1830;border:1px solid #1a2843;border-radius:18px;padding:16px;margin:12px 0}
+    textarea,input,button{padding:12px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:16px}
+    button{cursor:pointer;font-weight:800}
+    button.primary{background:linear-gradient(180deg,#2a78ff,#0050d4);border:none}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .mono{font-family:ui-monospace, Menlo, Consolas, monospace}
+    pre{white-space:pre-wrap;word-break:break-word;background:#0d142a;border:1px solid #213259;border-radius:12px;padding:12px}
+    .muted{color:#9fb0c3}
+  </style>
+</head>
+<body>
+<header>
+  <a class="pill" href="/">🛠 GoToolOnline</a>
+  <a class="pill" href="/">← Back to Home</a>
+</header>
+
+<main>
+  <section class="card">
+    <h1>JWT Decoder</h1>
+    <p class="muted">Decodes locally. <b>Do not paste secrets or tokens you wouldn’t share.</b> Signature is <u>not</u> verified.</p>
+    <textarea id="jwt" class="mono" rows="4" placeholder="Paste JWT here: header.payload.signature"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button id="decode" class="primary">Decode</button>
+      <button id="clear">Clear</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3 style="margin:0 0 8px">Header</h3>
+    <pre id="h" class="mono">—</pre>
+    <div class="row"><button id="copyH">Copy Header JSON</button></div>
+  </section>
+
+  <section class="card">
+    <h3 style="margin:0 0 8px">Payload</h3>
+    <pre id="p" class="mono">—</pre>
+    <div class="row"><button id="copyP">Copy Payload JSON</button></div>
+  </section>
+
+  <section class="card">
+    <h3 style="margin:0 0 8px">Signature (raw)</h3>
+    <pre id="s" class="mono">—</pre>
+    <div class="muted">Note: This tool doesn’t validate signatures (no secret/public key).</div>
+  </section>
+</main>
+
+<script>
+  function b64urlToBytes(b64url){
+    let pad = b64url.replace(/-/g,'+').replace(/_/g,'/');
+    const m = pad.length % 4; if (m) pad += '='.repeat(4-m);
+    const bin = atob(pad);
+    const bytes = new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+  }
+  function bytesToUtf8(bytes){
+    try { return new TextDecoder().decode(bytes); }
+    catch { return String.fromCharCode(...bytes); }
+  }
+  function pretty(obj){ try{ return JSON.stringify(JSON.parse(obj), null, 2); }catch{ return obj; } }
+
+  function decode(){
+    const raw = document.getElementById('jwt').value.trim();
+    const outH = document.getElementById('h'), outP = document.getElementById('p'), outS = document.getElementById('s');
+    if(!raw || raw.split('.').length<2){ outH.textContent='—'; outP.textContent='—'; outS.textContent='—'; return; }
+    const [h,p,s=''] = raw.split('.');
+    try{
+      const hStr = bytesToUtf8(b64urlToBytes(h));
+      const pStr = bytesToUtf8(b64urlToBytes(p));
+      outH.textContent = pretty(hStr);
+      outP.textContent = pretty(pStr);
+      outS.textContent = s || '(no signature part)';
+    }catch{
+      outH.textContent='(invalid base64url)'; outP.textContent='(invalid base64url)'; outS.textContent=s||'';
+    }
+  }
+  document.getElementById('decode').onclick = decode;
+  document.getElementById('clear').onclick  = ()=>{ document.getElementById('jwt').value=''; ['h','p','s'].forEach(id=>document.getElementById(id).textContent='—'); };
+  document.getElementById('copyH').onclick  = ()=> navigator.clipboard?.writeText(document.getElementById('h').textContent||'');
+  document.getElementById('copyP').onclick  = ()=> navigator.clipboard?.writeText(document.getElementById('p').textContent||'');
+</script>
+</body>
+</html>

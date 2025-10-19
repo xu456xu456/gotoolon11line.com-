@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Date Difference Calculator — Years, Months, Days | GoToolOnline</title>
+  <meta name="description" content="Free date difference calculator: get the exact gap between two dates in years, months, days, plus total days and weeks. Handles leap years and auto-swap." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://gotoolonline.com/calculators/date-difference/" />
+
+  <!-- Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Date Difference Calculator — Years, Months, Days">
+  <meta property="og:description" content="Calculate the exact difference between two dates, including years, months, days and total days/weeks.">
+  <meta property="og:url" content="https://gotoolonline.com/calculators/date-difference/">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🛠️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);}
+    header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px;}
+    header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+    header a.navbtn{margin-left:auto;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:12px;color:#eaf3ff;text-decoration:none;font-size:16px}
+    header a.navbtn:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    main{max-width:1200px;margin:10px auto 64px;padding:0 18px}
+    h1{font-size:34px;margin:10px 0 8px}
+    .lede{font-size:18px;color:#9fb0c3;margin:.25rem 0 1rem}
+    p,label,.muted{font-size:18px; line-height:1.6}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
+    label{display:block;margin:10px 0 6px;color:var(--muted)}
+    input,button{width:100%;padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:18px}
+    button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
+    button:hover{filter:brightness(1.06)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:600px}
+    .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .ghost{background:#0f1a2f;border:1px solid #24365b}
+    .result{padding:14px;background:#0c1426;border:1px dashed #2a3c64;border-radius:12px;margin-top:12px;font-size:20px}
+    .muted{color:#9fb0c3}
+    footer{max-width:1200px;margin:40px auto;padding:0 18px;color:var(--muted);font-size:15px}
+    .backTop{margin-top:12px;display:inline-block;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:10px;color:#eaf3ff;text-decoration:none}
+    .backTop:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    @media (max-width:760px){ .row{grid-template-columns:1fr} }
+    @media print{ header,footer,.no-print{display:none!important} body{background:#fff;color:#000} .card{border:none} }
+  </style>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Date Difference Calculator",
+    "url":"https://gotoolonline.com/calculators/date-difference/",
+    "applicationCategory":"Calculator",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Is the calculation inclusive of the end date?",
+       "acceptedAnswer":{"@type":"Answer","text":"By default the total days shown are the number of 24-hour periods between the two dates (exclusive of the start date)."}},
+      {"@type":"Question","name":"Does it handle leap years and month lengths?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. Years/months/days are computed using real calendar month lengths, including leap years."}},
+      {"@type":"Question","name":"What if the end date is before the start date?",
+       "acceptedAnswer":{"@type":"Answer","text":"The tool automatically swaps the dates so you always get a positive interval."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+<header>
+  <a class="logo" href="/"><span>🛠️</span><strong>GoToolOnline</strong></a>
+  <a class="navbtn" href="/">← Back to Home</a>
+</header>
+
+<main>
+  <section class="card">
+    <h1>Date Difference Calculator</h1>
+    <p class="lede">Find the exact gap between two dates — <strong>years, months, days</strong> — plus total days and weeks. Works entirely in your browser.</p>
+
+    <div class="row" role="group" aria-label="Date inputs">
+      <div><label for="start">Start date</label><input id="start" type="date" aria-describedby="hint"></div>
+      <div><label for="end">End date</label><input id="end" type="date" aria-describedby="hint"></div>
+    </div>
+
+    <div class="btns">
+      <button id="calcBtn">Calculate Difference</button>
+      <button class="ghost" id="todayBtn" title="Set End = Today">Set End = Today</button>
+      <button class="ghost" id="swapBtn" title="Swap dates">Swap Dates</button>
+      <button class="ghost" id="clearBtn" style="background:linear-gradient(180deg,#314159,#1b2a41);border:none">Clear</button>
+    </div>
+
+    <div id="hint" class="muted" style="font-size:14px;margin-top:6px">Tip: if the end date is earlier, we auto-swap.</div>
+
+    <div class="result" id="result" aria-live="polite">—</div>
+  </section>
+
+  <!-- Related internal links -->
+  <section class="card" aria-labelledby="rel">
+    <h2 id="rel" style="margin:0 0 6px 0">Related tools</h2>
+    <ul>
+      <li><a href="/calendar/printable-2026-calendar/">Printable Calendar</a></li>
+      <li><a href="/time/timezone-converter/">World Time (by Country)</a></li>
+      <li><a href="/calculators/age-calculator/">Age Calculator</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <a class="backTop" href="javascript:void(0)" onclick="window.scrollTo({top:0, behavior:'smooth'})">Back to Top ↑</a>
+  <div style="margin-top:10px">© <span id="y"></span> GoToolOnline.com · Free online tools for everyone.</div>
+</footer>
+
+<script>
+  // footer year
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // helpers
+  function daysInMonth(y, m){ return new Date(y, m + 1, 0).getDate(); }
+  function diffYMD(start, end){
+    let years = end.getFullYear() - start.getFullYear();
+    let months = end.getMonth() - start.getMonth();
+    let days = end.getDate() - start.getDate();
+    if (days < 0) { months--; const y=end.getFullYear(); const m=(end.getMonth()-1+12)%12; days += daysInMonth(y,m); }
+    if (months < 0){ years--; months += 12; }
+    return {years, months, days};
+  }
+
+  function calc(){
+    const sVal = document.getElementById('start').value;
+    const eVal = document.getElementById('end').value;
+    const out = document.getElementById('result');
+    if (!sVal || !eVal){ out.textContent='Please pick both dates.'; return; }
+    let start = new Date(sVal), end = new Date(eVal);
+    if (end < start){ const t=start; start=end; end=t; }
+
+    const ymd = diffYMD(start, end);
+    const totalDays = Math.floor((end - start) / 86400000); // exclusive of start
+    const totalWeeks = Math.floor(totalDays / 7);
+
+    out.innerHTML =
+      ymd.years + " years, " + ymd.months + " months, " + ymd.days + " days" +
+      "<br><small class='muted'>(≈ " + totalDays.toLocaleString() + " total days, " + totalWeeks.toLocaleString() + " weeks)</small>";
+  }
+
+  function setTodayEnd(){
+    const t=new Date(), yyyy=t.getFullYear(), mm=('0'+(t.getMonth()+1)).slice(-2), dd=('0'+t.getDate()).slice(-2);
+    document.getElementById('end').value = yyyy+'-'+mm+'-'+dd;
+    calc();
+  }
+
+  function swapDates(){
+    const s = document.getElementById('start');
+    const e = document.getElementById('end');
+    const tmp = s.value; s.value = e.value; e.value = tmp;
+    if (s.value && e.value) calc();
+  }
+
+  function clearAll(){
+    document.getElementById('start').value='';
+    document.getElementById('end').value='';
+    document.getElementById('result').textContent='—';
+  }
+
+  // wire
+  document.getElementById('calcBtn').addEventListener('click', calc);
+  document.getElementById('todayBtn').addEventListener('click', setTodayEnd);
+  document.getElementById('swapBtn').addEventListener('click', swapDates);
+  document.getElementById('clearBtn').addEventListener('click', clearAll);
+</script>
+</body>
+</html>

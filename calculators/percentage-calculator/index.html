@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Percentage Calculator — Percent of, Percent Change & What Percent | GoToolOnline</title>
+  <meta name="description" content="Free online percentage calculator: percent of a number, what percent one number is of another, and percent change. Precise rounding, copy results, mobile-friendly." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://gotoolonline.com/calculators/percentage-calculator/" />
+
+  <!-- Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Percentage Calculator — Percent of, Percent Change">
+  <meta property="og:description" content="Compute percent of a number, what percent, and percent change. Simple, accurate, and mobile-friendly.">
+  <meta property="og:url" content="https://gotoolonline.com/calculators/percentage-calculator/">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>%</text></svg>">
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);}
+    a{color:#8cd1ff}
+    header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px;}
+    header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+    header a.navbtn{margin-left:auto;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:12px;color:#eaf3ff;text-decoration:none;font-size:16px}
+    header a.navbtn:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    main{max-width:1200px;margin:10px auto 72px;padding:0 18px}
+    h1{font-size:34px;margin:10px 0 10px}
+    h2{font-size:22px;margin:8px 0 6px}
+    p,label,.muted{font-size:18px; line-height:1.6}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
+    label{display:block;margin:10px 0 6px;color:var(--muted)}
+    input,select,button{width:100%;padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:18px}
+    button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
+    button.ghost{background:#0f1a2f;border:1px solid #24365b}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .result{padding:14px;background:#0c1426;border:1px dashed #2a3c64;border-radius:12px;margin-top:12px;font-size:20px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .muted{color:#9fb0c3}
+    .opt{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    footer{max-width:1200px;margin:40px auto;padding:0 18px;color:var(--muted);font-size:15px}
+    .backTop{margin-top:12px;display:inline-block;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:10px;color:#eaf3ff;text-decoration:none}
+    .backTop:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    @media (max-width:760px){ .row{grid-template-columns:1fr} }
+    @media print{ header,footer,.no-print{display:none!important} body{background:#fff;color:#000} .card{border:none} }
+  </style>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Percentage Calculator",
+    "url":"https://gotoolonline.com/calculators/percentage-calculator/",
+    "applicationCategory":"Calculator",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"What operations are supported?",
+       "acceptedAnswer":{"@type":"Answer","text":"Percent of a number (P% of N), what percent one number is of another (A of B), and percent change from A to B."}},
+      {"@type":"Question","name":"Can I control decimal places?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. Use the decimal places selector to format results from 0 to 6 decimals."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+<header>
+  <a class="logo" href="/"><span>🛠️</span><strong>GoToolOnline</strong></a>
+  <a class="navbtn" href="/">← Back to Home</a>
+</header>
+
+<main>
+  <section class="card">
+    <h1>Percentage Calculator</h1>
+    <p class="muted">Three quick calculators: <strong>P% of N</strong>, <strong>what percent A is of B</strong>, and <strong>percent change</strong>. Private, runs in your browser.</p>
+    <div class="opt">
+      <label style="display:flex;align-items:center;gap:8px">Decimal places
+        <select id="dp">
+          <option>0</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+        </select>
+      </label>
+      <button class="ghost" id="clearAll">Clear all</button>
+    </div>
+  </section>
+
+  <!-- 1) P% of N -->
+  <section class="card" aria-labelledby="pof-title">
+    <h2 id="pof-title">1) Percent of a Number (P% of N)</h2>
+    <div class="row">
+      <div><label for="p">Percent (P %)</label><input id="p" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 15"></div>
+      <div><label for="n">Number (N)</label><input id="n" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 200"></div>
+    </div>
+    <div class="opt" style="margin-top:12px">
+      <button id="btnPof">Compute</button>
+      <button class="ghost" id="btnPofEx">Example (15% of 200)</button>
+    </div>
+    <div class="result" aria-live="polite">Result: <span id="r1">—</span> <button id="copy1" class="ghost" title="Copy result">Copy</button></div>
+  </section>
+
+  <!-- 2) A is what percent of B -->
+  <section class="card" aria-labelledby="what-title">
+    <h2 id="what-title">2) What Percent? (A is what % of B)</h2>
+    <div class="row">
+      <div><label for="aof">A</label><input id="aof" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 30"></div>
+      <div><label for="bof">B</label><input id="bof" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 240"></div>
+    </div>
+    <div class="opt" style="margin-top:12px">
+      <button id="btnWhat">Calculate</button>
+      <button class="ghost" id="btnWhatEx">Example (30 of 240)</button>
+    </div>
+    <div class="result" aria-live="polite">Result: <span id="r3">—</span> <button id="copy3" class="ghost" title="Copy result">Copy</button></div>
+  </section>
+
+  <!-- 3) Percent change -->
+  <section class="card" aria-labelledby="chg-title">
+    <h2 id="chg-title">3) Percent Change (from A to B)</h2>
+    <div class="row">
+      <div><label for="from">From (A)</label><input id="from" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 120"></div>
+      <div><label for="to">To (B)</label><input id="to" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 150"></div>
+    </div>
+    <div class="opt" style="margin-top:12px">
+      <button id="btnChange">Calculate Change</button>
+      <button class="ghost" id="btnChangeEx">Example (120 → 150)</button>
+    </div>
+    <div class="result" aria-live="polite">Change: <span id="r2">—</span> <button id="copy2" class="ghost" title="Copy result">Copy</button></div>
+    <p class="muted" style="margin-top:8px">Positive = increase, negative = decrease. If the “From (A)” value is 0, percent change is undefined.</p>
+  </section>
+
+  <section class="card">
+    <h2>Notes</h2>
+    <ul class="muted" style="margin:6px 0 0 18px">
+      <li>All calculations run locally in your browser. No data is sent to a server.</li>
+      <li>Use decimal places to control rounding (display only; internal math uses full precision).</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <a class="backTop" href="javascript:void(0)" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to Top ↑</a>
+  <div style="margin-top:10px">© <span id="y"></span> GoToolOnline.com · Free online tools for everyone.</div>
+</footer>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  const $ = id => document.getElementById(id);
+  const dpSel = $('dp');
+
+  function fmt(x){
+    const d = parseInt(dpSel.value,10);
+    if (!isFinite(x)) return '—';
+    return x.toFixed(d);
+  }
+
+  // 1) P% of N
+  $('btnPof').addEventListener('click', ()=>{
+    const p = parseFloat($('p').value);
+    const n = parseFloat($('n').value);
+    if (isNaN(p) || isNaN(n)) { $('r1').textContent = 'Please enter both numbers.'; return; }
+    $('r1').textContent = fmt((p/100) * n);
+  });
+  $('btnPofEx').addEventListener('click', ()=>{
+    $('p').value = '15'; $('n').value = '200';
+    $('btnPof').click();
+  });
+
+  // 2) A is what percent of B
+  $('btnWhat').addEventListener('click', ()=>{
+    const a = parseFloat($('aof').value);
+    const b = parseFloat($('bof').value);
+    if (isNaN(a) || isNaN(b)) { $('r3').textContent = 'Please enter both numbers.'; return; }
+    if (b === 0) { $('r3').textContent = 'Undefined (B is 0)'; return; }
+    $('r3').textContent = fmt((a / b) * 100) + '%';
+  });
+  $('btnWhatEx').addEventListener('click', ()=>{
+    $('aof').value = '30'; $('bof').value = '240';
+    $('btnWhat').click();
+  });
+
+  // 3) Percent change
+  $('btnChange').addEventListener('click', ()=>{
+    const a = parseFloat($('from').value);
+    const b = parseFloat($('to').value);
+    if (isNaN(a) || isNaN(b)) { $('r2').textContent = 'Please enter both numbers.'; return; }
+    if (a === 0) { $('r2').textContent = 'Undefined (From is 0)'; return; }
+    $('r2').textContent = fmt(((b - a) / a) * 100) + '%';
+  });
+  $('btnChangeEx').addEventListener('click', ()=>{
+    $('from').value = '120'; $('to').value = '150';
+    $('btnChange').click();
+  });
+
+  // Copy buttons
+  function copyText(text){
+    try {
+      navigator.clipboard.writeText(text);
+      return true;
+    } catch(e){ return false; }
+  }
+  $('copy1').addEventListener('click', ()=>{ const t=$('r1').textContent; if (t && t !== '—') copyText(t); });
+  $('copy2').addEventListener('click', ()=>{ const t=$('r2').textContent; if (t && t !== '—') copyText(t); });
+  $('copy3').addEventListener('click', ()=>{ const t=$('r3').textContent; if (t && t !== '—') copyText(t); });
+
+  // Clear all
+  $('clearAll').addEventListener('click', ()=>{
+    ['p','n','aof','bof','from','to'].forEach(id=>{$(id).value='';});
+    ['r1','r2','r3'].forEach(id=>{$(id).textContent='—';});
+  });
+</script>
+</body>
+</html>

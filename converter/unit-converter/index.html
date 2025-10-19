@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ultimate Unit Converter (US/UK/Metric, Data Decimal/Binary/IEC) | GoToolOnline</title>
+  <meta name="description" content="Free all-in-one unit converter for US/UK/Metric units. Length, area, volume (US/UK/metric cups), weight, temperature, speed, pressure (psi/mmHg/inHg/cmH2O), energy (Wh/kWh/BTU/eV/therm/toe), power (hp/PS), data (decimal/binary/IEC), RPM, angle (turn/mil NATO), fuel economy and more.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Canonical & Social -->
+  <link rel="canonical" href="https://gotoolonline.com/converter/unit-converter/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ultimate Unit Converter — US/UK/Metric, Data Decimal/Binary/IEC">
+  <meta property="og:description" content="Convert length, volume, weight, temperature, speed, pressure, energy, power, data (decimal/binary/IEC), angle, fuel economy, etc. Free and fast.">
+  <meta property="og:url" content="https://gotoolonline.com/converter/unit-converter/">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Structured data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Ultimate Unit Converter",
+    "url": "https://gotoolonline.com/converter/unit-converter/",
+    "applicationCategory": "Converter",
+    "operatingSystem": "Web",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "publisher": {"@type": "Organization", "name": "GoToolOnline", "url": "https://gotoolonline.com"}
+  }
+  </script>
+
+  <!-- Structured data: FAQPage (helps rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Does this converter support US and UK volume units?",
+        "acceptedAnswer":{"@type":"Answer","text":"Yes. It includes US liquid and UK imperial units plus metric cups (200/250 mL) and the US legal cup (240 mL)."}
+      },
+      {
+        "@type":"Question",
+        "name":"What data size systems are supported?",
+        "acceptedAnswer":{"@type":"Answer","text":"All three: Decimal (kB/MB/GB at powers of 1000), Binary (KB/MB/GB at powers of 1024), and IEC (KiB/MiB/GiB)."}
+      },
+      {
+        "@type":"Question",
+        "name":"Can I convert horsepower to PS (metric hp)?",
+        "acceptedAnswer":{"@type":"Answer","text":"Yes. Power includes W, kW, hp (mechanical), and PS (metric horsepower)."}
+      }
+    ]
+  }
+  </script>
+
+  <!-- Structured data: Breadcrumbs -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://gotoolonline.com/"},
+      {"@type":"ListItem","position":2,"name":"Converters","item":"https://gotoolonline.com/#converter"},
+      {"@type":"ListItem","position":3,"name":"Unit Converter","item":"https://gotoolonline.com/converter/unit-converter/"}
+    ]
+  }
+  </script>
+
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);}
+    header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px;}
+    header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+    header a.navbtn{margin-left:auto;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:12px;color:var(--fg);text-decoration:none;font-size:16px}
+    header a.navbtn:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    main{max-width:1000px;margin:10px auto 72px;padding:0 18px}
+    h1{font-size:34px;margin:10px 0 12px}
+    p,label{font-size:18px;line-height:1.6}
+    .muted{color:#9fb0c3}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
+    input,select,button{width:100%;padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:var(--fg);font-size:18px}
+    button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
+    button:hover{filter:brightness(1.06)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .result{padding:14px;background:#0c1426;border:1px dashed #2a3c64;border-radius:12px;margin-top:16px;font-size:20px}
+    .toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .swap{width:auto;padding:14px 18px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+    .chip{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;cursor:pointer;font-size:16px}
+    .chip:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    @media (max-width:760px){ .row{grid-template-columns:1fr} .swap{width:100%} }
+    .note{font-size:14px;color:#9fb0c3;margin-top:8px}
+    .sep{height:1px;background:#1a2843;margin:16px 0}
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="/" aria-label="GoToolOnline home"><span>🛠️</span><strong>GoToolOnline</strong></a>
+    <a class="navbtn" href="/" aria-label="Back to Home">← Back to Home</a>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>Unit Converter — Extended (US/UK/Metric, Data: Decimal/Binary/IEC)</h1>
+      <p class="muted">Convert <strong>length, area, volume, weight, temperature, speed, pressure</strong> (psi/mmHg/inHg/cmH2O), <strong>energy</strong> (Wh/kWh/BTU/eV/therm/toe), <strong>power</strong> (hp/PS), <strong>data</strong> (decimal, binary, IEC), <strong>frequency/RPM</strong>, <strong>angle</strong> (turn/mil NATO), <strong>fuel economy</strong> and more — fast and private.</p>
+
+      <div class="row">
+        <div>
+          <label for="category">Category</label>
+          <select id="category" aria-label="Unit category"></select>
+        </div>
+        <div>
+          <label for="value">Value</label>
+          <input id="value" type="number" placeholder="Enter value" step="any" aria-label="Input value">
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <div>
+          <label for="fromUnit">From</label>
+          <select id="fromUnit" aria-label="From unit"></select>
+        </div>
+        <div>
+          <label for="toUnit">To</label>
+          <select id="toUnit" aria-label="To unit"></select>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button class="swap" id="swapBtn" title="Swap units">⇄ Swap</button>
+        <button class="swap" id="copyBtn" title="Copy result">Copy Result</button>
+        <span class="muted" id="note" style="align-self:center"></span>
+      </div>
+
+      <div class="result" id="output" role="status" aria-live="polite">—</div>
+
+      <div class="chips" id="quickPairs" aria-label="Quick pairs">
+        <span class="chip" data-cat="length" data-a="cm" data-b="in">cm → in</span>
+        <span class="chip" data-cat="length" data-a="km" data-b="mi">km → mi</span>
+        <span class="chip" data-cat="weight" data-a="kg" data-b="lb">kg → lb</span>
+        <span class="chip" data-cat="volume" data-a="L" data-b="gal_US">L → gal (US)</span>
+        <span class="chip" data-cat="volume" data-a="L" data-b="gal_UK">L → gal (UK)</span>
+        <span class="chip" data-cat="speed" data-a="km_h" data-b="mph">km/h → mph</span>
+        <span class="chip" data-cat="pressure" data-a="bar" data-b="psi">bar → psi</span>
+        <span class="chip" data-cat="data_dec" data-a="MB10" data-b="GB10">MB (decimal) → GB</span>
+        <span class="chip" data-cat="fuel" data-a="L_per_100km" data-b="mpg_US">L/100 km → mpg (US)</span>
+      </div>
+
+      <div class="sep"></div>
+      <p class="note">
+        Notes: Avoid non-constant units like month/year. Volumes include US liquid & UK imperial + metric cups (200/250 mL) and US legal cup (240 mL). Data covers Decimal (1000), Binary (1024), and IEC (KiB/MiB/GiB).
+      </p>
+
+      <p class="note" style="margin-top:12px">
+        Related tools: <a href="/currency/currency-converter/">Currency Converter</a> ·
+        <a href="/time/timezone-converter/">World Time (by Country)</a> ·
+        <a href="/developer/json-formatter/">JSON Formatter</a>
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const nf = new Intl.NumberFormat(undefined, { maximumFractionDigits: 10 });
+
+    // alias helper
+    const alias = (base, pairs) => {
+      const o = {...base};
+      pairs.forEach(([a,b]) => { if (o[b] != null) o[a] = o[b]; });
+      return o;
+    };
+
+    const CATEGORIES = {
+      length: {
+        name: "Length",
+        base: "m",
+        units: alias({
+          "pm": 1e-12,
+          "Å": 1e-10, "A": 1e-10,
+          "nm": 1e-9,
+          "µm": 1e-6, "um": 1e-6,
+          "mm": 1e-3,
+          "cm": 1e-2,
+          "dm": 0.1,
+          "m": 1,
+          "km": 1e3,
+          "thou": 0.0000254,
+          "inch": 0.0254,
+          "foot": 0.3048,
+          "yard": 0.9144,
+          "link": 0.201168,
+          "chain": 20.1168,
+          "furlong": 201.168,
+          "mile": 1609.344,
+          "nmi": 1852
+        }, [
+          ["mil_in","thou"], ["in","inch"], ["ft","foot"], ["yd","yard"], ["mi","mile"]
+        ])
+      },
+
+      area: {
+        name: "Area",
+        base: "m2",
+        units: alias({
+          "mm2": 1e-6, "cm2": 1e-4, "dm2": 0.01, "m2": 1, "km2": 1e6,
+          "in2": 0.00064516, "ft2": 0.09290304, "yd2": 0.83612736, "mi2": 2589988.110336,
+          "are": 100, "decare": 1000, "hectare": 10000,
+          "acre": 4046.8564224
+        }, [
+          ["sqin","in2"],["sqft","ft2"],["sqyd","yd2"],["sqmi","mi2"],["ha","hectare"],["daa","decare"]
+        ])
+      },
+
+      volume: {
+        name: "Volume (US/UK/Metric)",
+        base: "L",
+        units: alias({
+          "mL": 1e-3, "L": 1, "m3": 1000,
+          "cup_metric_200mL": 0.2,
+          "cup_metric_250mL": 0.25,
+          "cup_US_legal_240mL": 0.24,
+          "tsp_US": 0.00492892159375,
+          "tbsp_US": 0.01478676478125,
+          "fl_oz_US": 0.0295735295625,
+          "cup_US": 0.2365882365,
+          "pt_US": 0.473176473,
+          "qt_US": 0.946352946,
+          "gal_US": 3.785411784,
+          "tsp_UK": 0.00591939,
+          "tbsp_UK": 0.0177582,
+          "fl_oz_UK": 0.0284130625,
+          "pt_UK": 0.56826125,
+          "qt_UK": 1.1365225,
+          "gal_UK": 4.54609
+        }, [
+          ["ml","mL"], ["liter","L"], ["litre","L"],
+          ["cup","cup_US"], ["pt","pt_US"], ["qt","qt_US"], ["gal","gal_US"]
+        ])
+      },
+
+      weight: {
+        name: "Weight / Mass",
+        base: "g",
+        units: alias({
+          "µg": 1e-6, "ug": 1e-6,
+          "mg": 1e-3, "g": 1, "kg": 1e3, "tonne": 1e6,
+          "grain": 0.06479891,
+          "drachm_ap": 3.8879346,
+          "ounce": 28.349523125,
+          "pound": 453.59237,
+          "stone": 6350.29318,
+          "ton_US": 907184.74,
+          "ton_UK": 1016046.9088,
+          "carat": 0.2
+        }, [
+          ["µg","ug"],["oz","ounce"],["lb","pound"],["t","tonne"],["ct","carat"]
+        ])
+      },
+
+      temperature: {
+        name: "Temperature",
+        custom: true,
+        units: ["C","F","K","R"],
+        toBase: (v,u)=> u==="K"?v : (u==="C"? v+273.15 : (u==="F"? (v-32)*5/9+273.15 : v*5/9)),
+        fromBase: (k,u)=> u==="K"?k : (u==="C"? k-273.15 : (u==="F"? (k-273.15)*9/5+32 : k*9/5))
+      },
+
+      speed: {
+        name: "Speed",
+        base: "m_s",
+        units: alias({
+          "m_s": 1,
+          "km_h": 1000/3600,
+          "mph": 1609.344/3600,
+          "ft_s": 0.3048,
+          "knot": 1852/3600,
+          "c": 299792458
+        }, [
+          ["kmh","km_h"],["km/hr","km_h"],["mi_h","mph"],["kn","knot"]
+        ])
+      },
+
+      pressure: {
+        name: "Pressure",
+        base: "Pa",
+        units: alias({
+          "Pa": 1,
+          "hPa": 100, "mbar": 100,
+          "kPa": 1e3,
+          "bar": 1e5,
+          "atm": 101325,
+          "psi": 6894.757293168,
+          "mmHg": 133.322387415,
+          "Torr": 133.3223684211,
+          "inHg": 3386.38815789,
+          "mmH2O": 9.80665,
+          "cmH2O": 98.0665,
+          "inH2O": 249.08891
+        }, [
+          ["mb","mbar"]
+        ])
+      },
+
+      energy: {
+        name: "Energy",
+        base: "J",
+        units: alias({
+          "J": 1, "kJ": 1e3,
+          "cal": 4.184, "kcal": 4184,
+          "Wh": 3600, "kWh": 3.6e6,
+          "BTU_IT": 1055.05585262,
+          "eV": 1.602176634e-19,
+          "therm_US": 105480400,
+          "toe": 41.868e9
+        }, [
+          ["btu","BTU_IT"]
+        ])
+      },
+
+      power: {
+        name: "Power",
+        base: "W",
+        units: alias({
+          "W": 1, "kW": 1e3, "MW": 1e6,
+          "hp": 745.6998715822702,
+          "PS": 735.49875,
+          "BTU_h": 0.29307107
+        }, [
+          ["bhp","hp"],["btu/h","BTU_h"]
+        ])
+      },
+
+      time: {
+        name: "Time",
+        base: "s",
+        units: alias({
+          "µs": 1e-6, "us": 1e-6,
+          "ms": 1e-3, "s": 1,
+          "min": 60, "hr": 3600, "day": 86400, "week": 604800
+        }, [
+          ["sec","s"],["h","hr"],["hour","hr"]
+        ])
+      },
+
+      data_dec: {
+        name: "Data (Decimal, 1000)",
+        base: "B",
+        units: { "B": 1, "kB": 1e3, "MB10": 1e6, "GB10": 1e9, "TB10": 1e12 }
+      },
+
+      data_bin: {
+        name: "Data (Binary, 1024)",
+        base: "B",
+        units: alias({
+          "bit": 1/8, "B": 1,
+          "KB": 1024, "MB": 1024**2, "GB": 1024**3, "TB": 1024**4
+        }, [
+          ["kB_bin","KB"]
+        ])
+      },
+
+      data_iec: {
+        name: "Data (IEC, KiB)",
+        base: "B",
+        units: { "KiB": 1024, "MiB": 1024**2, "GiB": 1024**3, "TiB": 1024**4 }
+      },
+
+      datarate: {
+        name: "Data Rate",
+        base: "bit_s",
+        units: alias({
+          "bit/s": 1, "kbit/s": 1e3, "Mbit/s": 1e6, "Gbit/s": 1e9,
+          "B/s": 8, "KB/s": 8*1e3, "MB/s": 8*1e6, "GB/s": 8*1e9
+        }, [
+          ["bps","bit/s"],["kbps","kbit/s"],["mbps","Mbit/s"],["gbps","Gbit/s"]
+        ])
+      },
+
+      frequency: {
+        name: "Frequency",
+        base: "Hz",
+        units: { "Hz": 1, "kHz": 1e3, "MHz": 1e6, "GHz": 1e9, "RPM": 1/60 }
+      },
+
+      angle: {
+        name: "Angle",
+        custom: true,
+        units: ["deg","rad","grad","arcmin","arcsec","turn","mil_NATO"],
+        toBase: (v,u)=>{ if(u==="rad") return v; if(u==="deg") return v*Math.PI/180; if(u==="grad") return v*Math.PI/200; if(u==="arcmin") return (v/60)*Math.PI/180; if(u==="arcsec") return (v/3600)*Math.PI/180; if(u==="turn") return v*2*Math.PI; if(u==="mil_NATO") return v*(2*Math.PI/6400); },
+        fromBase: (r,u)=>{ if(u==="rad") return r; if(u==="deg") return r*180/Math.PI; if(u==="grad") return r*200/Math.PI; if(u==="arcmin") return r*180/Math.PI*60; if(u==="arcsec") return r*180/Math.PI*3600; if(u==="turn") return r/(2*Math.PI); if(u==="mil_NATO") return r/(2*Math.PI)*6400; }
+      },
+
+      fuel: {
+        name: "Fuel Economy",
+        custom: true,
+        units: ["L_per_100km","km_per_L","mpg_US","mpg_UK"],
+        toBase: (v,u)=>{ if(u==="km_per_L") return v; if(u==="L_per_100km") return 100 / v; if(u==="mpg_US") return v * 1.609344 / 3.785411784; if(u==="mpg_UK") return v * 1.609344 / 4.54609; },
+        fromBase: (kmL,u)=>{ if(u==="km_per_L") return kmL; if(u==="L_per_100km") return 100 / kmL; if(u==="mpg_US") return kmL * 3.785411784 / 1.609344; if(u==="mpg_UK") return kmL * 4.54609 / 1.609344; }
+      },
+
+      force: {
+        name: "Force",
+        base: "N",
+        units: { "N": 1, "kN": 1000, "dyn": 1e-5, "lbf": 4.4482216152605, "gf": 0.00980665 }
+      },
+
+      torque: {
+        name: "Torque",
+        base: "N_m",
+        units: alias({
+          "N·m": 1, "kN·m": 1000,
+          "lb·ft": 1.3558179483314004,
+          "lb·in": 0.1129848290276167
+        }, [
+          ["Nm","N·m"],["kNm","kN·m"],["lbf·ft","lb·ft"],["lbf·in","lb·in"]
+        ])
+      },
+
+      density: {
+        name: "Density",
+        base: "kg_m3",
+        units: alias({
+          "kg/m³": 1,
+          "g/cm³": 1000,
+          "g/mL": 1000,
+          "g/L": 1,
+          "lb/ft³": 16.01846337396,
+          "lb/in³": 27679.904710191,
+          "lb/gal_US": 119.826427316
+        }, [
+          ["kg/m3","kg/m³"],["g/cc","g/cm³"]
+        ])
+      }
+    };
+
+    // Elements
+    const catSel = document.getElementById('category');
+    const fromSel = document.getElementById('fromUnit');
+    const toSel   = document.getElementById('toUnit');
+    const inputEl = document.getElementById('value');
+    const outputEl= document.getElementById('output');
+    const noteEl  = document.getElementById('note');
+    const swapBtn = document.getElementById('swapBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    function fmt(n){
+      if (!isFinite(n)) return "—";
+      const abs = Math.abs(n);
+      if (abs < 1e-12) n = 0;
+      return nf.format(n);
+    }
+
+    function fillCategories(){
+      catSel.innerHTML = "";
+      Object.entries(CATEGORIES).forEach(([key, cfg])=>{
+        const opt = document.createElement('option');
+        opt.value = key; opt.textContent = cfg.name;
+        catSel.appendChild(opt);
+      });
+    }
+
+    function fillUnits(){
+      const cfg = CATEGORIES[catSel.value];
+      fromSel.innerHTML = ""; toSel.innerHTML = "";
+
+      let unitsList = [];
+      if (cfg.custom && Array.isArray(cfg.units)) unitsList = cfg.units;
+      else unitsList = Object.keys(cfg.units);
+
+      unitsList.sort((a,b)=>a.localeCompare(b));
+      unitsList.forEach(u=>{
+        const o1 = document.createElement('option'); o1.value = u; o1.textContent = u;
+        const o2 = document.createElement('option'); o2.value = u; o2.textContent = u;
+        fromSel.appendChild(o1); toSel.appendChild(o2);
+      });
+
+      const defaults = {
+        length: ["cm","in"],
+        weight: ["kg","lb"],
+        temperature: ["C","F"],
+        area: ["m2","ft2"],
+        volume: ["L","gal_US"],
+        speed: ["km_h","mph"],
+        pressure: ["bar","psi"],
+        energy: ["kcal","kJ"],
+        power: ["kW","hp"],
+        time: ["hr","min"],
+        data_dec: ["MB10","GB10"],
+        data_bin: ["MB","GB"],
+        data_iec: ["MiB","GiB"],
+        datarate: ["Mbit/s","MB/s"],
+        frequency: ["MHz","GHz"],
+        angle: ["deg","rad"],
+        fuel: ["L_per_100km","mpg_US"],
+        force: ["N","lbf"],
+        torque: ["N·m","lb·ft"],
+        density: ["kg/m³","g/cm³"]
+      };
+      const d = defaults[catSel.value];
+      if (d){ fromSel.value = d[0]; toSel.value = d[1]; }
+      else { fromSel.selectedIndex = 0; toSel.selectedIndex = Math.min(1, toSel.options.length-1); }
+
+      showNotes();
+    }
+
+    function showNotes(){
+      const k = catSel.value;
+      let txt = "";
+      if (k === "temperature") txt = "C/F/K/Rankine (exact formulas).";
+      if (k === "volume")      txt = "US liquid, UK imperial, metric & US legal cups.";
+      if (k === "data_dec")    txt = "Decimal (1000): kB/MB/GB/TB.";
+      if (k === "data_bin")    txt = "Binary (1024): KB/MB/GB/TB.";
+      if (k === "data_iec")    txt = "IEC: KiB/MiB/GiB/TiB.";
+      if (k === "fuel")        txt = "Fuel economy is reciprocal between L/100km and mpg.";
+      if (k === "angle")       txt = "Includes turn (rev) and mil_NATO (6400 per turn).";
+      noteEl.textContent = txt;
+    }
+
+    function convert(){
+      const key = catSel.value;
+      const cfg = CATEGORIES[key];
+      const v = parseFloat(inputEl.value);
+      if (isNaN(v)) { outputEl.textContent = "—"; return; }
+
+      const from = fromSel.value, to = toSel.value;
+      let result;
+
+      if (cfg.custom){
+        if (cfg.toBase && cfg.fromBase){
+          const base = cfg.toBase(v, from);
+          result = cfg.fromBase(base, to);
+        } else {
+          outputEl.textContent = "—";
+          return;
+        }
+      } else {
+        const fromFactor = cfg.units[from];
+        const toFactor   = cfg.units[to];
+        if (!fromFactor || !toFactor){ outputEl.textContent = "—"; return; }
+        const baseVal = v * fromFactor;
+        result = baseVal / toFactor;
+      }
+
+      outputEl.innerHTML = `<strong>${fmt(v)} ${from}</strong> = <strong>${fmt(result)} ${to}</strong>`;
+    }
+
+    function swapUnits(){
+      const a = fromSel.value;
+      fromSel.value = toSel.value;
+      toSel.value = a;
+      convert();
+    }
+
+    function copyResult(){
+      const text = outputEl.textContent.trim();
+      if (!text || text === "—") return;
+      navigator.clipboard.writeText(text).then(()=>{
+        copyBtn.textContent = "Copied!";
+        setTimeout(()=>copyBtn.textContent="Copy Result", 900);
+      });
+    }
+
+    document.getElementById('quickPairs')?.addEventListener('click', (e)=>{
+      const t = e.target.closest('.chip');
+      if (!t) return;
+      const cat = t.dataset.cat, a = t.dataset.a, b = t.dataset.b;
+      if (!CATEGORIES[cat]) return;
+      catSel.value = cat;
+      fillUnits();
+      if (a) fromSel.value = a;
+      if (b) toSel.value = b;
+      if (!inputEl.value) inputEl.value = 1;
+      convert();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Init
+    fillCategories();
+    catSel.value = "length";
+    fillUnits();
+    inputEl.value = 1;
+    convert();
+
+    // Events
+    catSel.addEventListener('change', ()=>{ fillUnits(); convert(); });
+    fromSel.addEventListener('change', convert);
+    toSel.addEventListener('change', convert);
+    inputEl.addEventListener('input', convert);
+    document.getElementById('swapBtn').addEventListener('click', swapUnits);
+    document.getElementById('copyBtn').addEventListener('click', copyResult);
+  </script>
+</body>
+</html>

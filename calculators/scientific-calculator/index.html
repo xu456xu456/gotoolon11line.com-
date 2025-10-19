@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Scientific Calculator — Functions, Degrees/Radians | GoToolOnline</title>
+  <meta name="description" content="Scientific calculator with big buttons. + − × ÷ % **, parentheses, sin/cos/tan, sqrt, log/ln, exp, factorial, pi/e, memory, history, Degree/Radian toggle." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🧪</text></svg>">
+
+  <!-- Canonical & Social -->
+  <link rel="canonical" href="https://gotoolonline.com/calculators/scientific-calculator/" />
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Scientific Calculator — Functions, Degrees/Radians | GoToolOnline">
+  <meta property="og:description" content="Scientific calculator with big buttons. + − × ÷ % **, parentheses, sin/cos/tan, sqrt, log/ln, exp, factorial, pi/e, memory, history, Degree/Radian toggle.">
+  <meta property="og:url" content="https://gotoolonline.com/calculators/scientific-calculator/">
+  <meta name="twitter:card" content="summary">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Scientific Calculator",
+    "url":"https://gotoolonline.com/calculators/scientific-calculator/",
+    "applicationCategory":"Calculator",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    header{max-width:1100px;margin:20px auto 8px;display:flex;gap:12px;align-items:center;padding:0 16px}
+    header a{color:var(--fg);text-decoration:none}
+    .pill{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px}
+    main{max-width:1100px;margin:8px auto 56px;padding:0 16px}
+    .layout{display:grid;grid-template-columns:1fr 340px;gap:16px}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:18px;padding:16px}
+    .display{background:#0d142a;border:1px solid #1c2d55;border-radius:14px;padding:12px 14px}
+    .expr{font-size:18px;color:#9fb0c3;min-height:22px;word-break:break-all}
+    .out{font-size:36px;font-weight:800;letter-spacing:.5px;min-height:44px;word-break:break-all}
+    .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+    button{padding:14px;border-radius:12px;border:1px solid #2a3d67;background:#0f1a2f;color:#eaf3ff;font-size:18px;font-weight:700;cursor:pointer}
+    button.fx{background:#13264a}
+    button.op{background:#0f223f}
+    button.equal{grid-column: span 2; background:linear-gradient(180deg,#2a78ff,#0050d4);border:none}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .small{font-size:13px;color:#9fb0c3}
+    @media (max-width: 900px){ .layout{grid-template-columns:1fr} .grid{grid-template-columns:repeat(5,1fr)} }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="pill">🛠 GoToolOnline</a>
+    <a href="/" class="pill">← Back to Home</a>
+  </header>
+
+  <main class="layout">
+    <section class="card">
+      <h1 style="margin:4px 0 10px">Scientific Calculator</h1>
+      <div class="display" aria-live="polite">
+        <div id="expr" class="expr"></div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div id="out" class="out" role="status">0</div>
+          <button id="copy" class="pill" title="Copy result">Copy</button>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <button class="pill" id="mode">Mode: DEG</button>
+        <button class="pill" id="mc">MC</button>
+        <button class="pill" id="mr">MR</button>
+        <button class="pill" id="mplus">M+</button>
+        <button class="pill" id="mminus">M-</button>
+        <span class="small" id="mstat">Memory: 0</span>
+      </div>
+
+      <div class="grid" style="margin-top:12px">
+        <button data-i="C" class="op">C</button>
+        <button data-i="⌫" class="op">⌫</button>
+        <button data-i="(" class="op">(</button>
+        <button data-i=")" class="op">)</button>
+        <button data-i="%" class="op">%</button>
+        <button data-i="**" class="op">xʸ</button>
+
+        <button data-i="sin(" class="fx">sin</button>
+        <button data-i="cos(" class="fx">cos</button>
+        <button data-i="tan(" class="fx">tan</button>
+        <button data-i="asin(" class="fx">asin</button>
+        <button data-i="acos(" class="fx">acos</button>
+        <button data-i="atan(" class="fx">atan</button>
+
+        <button data-i="sqrt(" class="fx">√</button>
+        <button data-i="log(" class="fx">log</button>
+        <button data-i="ln(" class="fx">ln</button>
+        <button data-i="exp(" class="fx">exp</button>
+        <button data-i="pi" class="fx">π</button>
+        <button data-i="e" class="fx">e</button>
+
+        <button data-i="7">7</button><button data-i="8">8</button><button data-i="9">9</button>
+        <button data-i="÷" class="op">÷</button><button data-i="!" class="op">!</button><button data-i="±" class="op">±</button>
+
+        <button data-i="4">4</button><button data-i="5">5</button><button data-i="6">6</button>
+        <button data-i="×" class="op">×</button><button data-i="," class="op">,</button><button data-i="ans" class="op">Ans</button>
+
+        <button data-i="1">1</button><button data-i="2">2</button><button data-i="3">3</button>
+        <button data-i="−" class="op">−</button><button data-i="." class="op">.</button><button data-i="=" class="equal">=</button>
+
+        <button data-i="0" style="grid-column: span 2">0</button>
+        <button data-i="+" class="op">+</button>
+      </div>
+
+      <p class="small" style="margin-top:10px">
+        Functions accept either numbers or nested expressions: e.g., <span class="small">sin(30)</span> (DEG) or <span class="small">sin(pi/6)</span> (RAD). Use <b>Ans</b> to reuse the last result.
+      </p>
+    </section>
+
+    <aside class="card">
+      <h2 style="margin:0 0 8px 0">History</h2>
+      <div id="hist" class="small"></div>
+      <div class="row" style="margin-top:10px">
+        <button class="pill" id="clearHist">Clear History</button>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // --- State ---
+    const exprEl = document.getElementById('expr');
+    const outEl  = document.getElementById('out');
+    const histEl = document.getElementById('hist');
+    const mstat  = document.getElementById('mstat');
+    let text = '';
+    let memory = 0;
+    let lastAns = 0;
+    let DEG = true;
+
+    // Pretty formatting (avoid NaN/Infinity, use scientific notation for extremes)
+    function fmtNice(x){
+      if (!Number.isFinite(x)) return 'Error';
+      const ax = Math.abs(x);
+      if (ax !== 0 && (ax >= 1e10 || ax < 1e-8)) return x.toExponential(10).replace(/0+e/,'e');
+      return String(+x.toFixed(12));
+    }
+
+    function render(){
+      exprEl.textContent = text;
+      outEl.textContent = fmtNice(safePreview(text));
+      mstat.textContent = 'Memory: ' + round(memory);
+    }
+
+    // --- Tokenizer & Parser (Shunting-yard) ---
+    const OPS = {
+      '+':{p:2,a:'L'}, '−':{p:2,a:'L'}, '×':{p:3,a:'L'}, '÷':{p:3,a:'L'},
+      '%':{p:4,a:'R',post:true}, '!':{p:5,a:'R',post:true}, '**':{p:6,a:'R'}
+    };
+    const FUNCS = new Set(['sin','cos','tan','asin','acos','atan','sqrt','log','ln','exp','pow']);
+    const CONST = { 'pi': Math.PI, 'e': Math.E, 'ans': ()=> lastAns };
+
+    function toTokens(s){
+      const tokens = [];
+      for (let i=0;i<s.length;){
+        const c = s[i];
+        if (/\s/.test(c)){ i++; continue; }
+        if (/\d/.test(c) || (c==='.' && /\d/.test(s[i+1]))){
+          let j=i+1; while(j<s.length && /[\d.]/.test(s[j])) j++;
+          tokens.push({t:'num',v:parseFloat(s.slice(i,j))}); i=j; continue;
+        }
+        if (/[a-z]/i.test(c)){
+          let j=i+1; while(j<s.length && /[a-z]/i.test(s[j])) j++;
+          const name = s.slice(i,j);
+          tokens.push({t: FUNCS.has(name)?'fn':'id', v:name}); i=j; continue;
+        }
+        if (c===',' ){ tokens.push({t:'comma', v:','}); i++; continue; }
+        if (c==='(' || c===')'){ tokens.push({t:'par',v:c}); i++; continue; }
+        if (s.slice(i,i+2)==='**'){ tokens.push({t:'op',v:'**'}); i+=2; continue; }
+        if ('+−×÷%!-'.includes(c)){
+          if (c==='-'){ tokens.push({t:'op',v:'−'}); i++; continue; }
+          tokens.push({t:'op',v:c}); i++; continue;
+        }
+        i++; // ignore unknown char
+      }
+      return tokens;
+    }
+
+    function toRPN(tokens){
+      const out=[], st=[];
+      let expectUnary = true;
+      for (let k=0;k<tokens.length;k++){
+        const tk = tokens[k];
+        if (tk.t==='num'){ out.push(tk); expectUnary=false; continue; }
+        if (tk.t==='id'){
+          if (tk.v in CONST){ out.push({t:'num',v: (typeof CONST[tk.v]==='function' ? CONST[tk.v]() : CONST[tk.v])}); }
+          else throw new Error('Unknown identifier: '+tk.v);
+          expectUnary=false; continue;
+        }
+        if (tk.t==='fn'){ st.push(tk); expectUnary=true; continue; }
+        if (tk.t==='comma'){ while (st.length && st.at(-1).t!=='par') out.push(st.pop()); continue; }
+        if (tk.t==='par' && tk.v==='('){ st.push(tk); expectUnary=true; continue; }
+        if (tk.t==='par' && tk.v===')'){
+          while (st.length && st.at(-1).t!=='par') out.push(st.pop());
+          st.pop();
+          if (st.length && st.at(-1).t==='fn') out.push(st.pop());
+          expectUnary=false; continue;
+        }
+        if (tk.t==='op'){
+          let op = tk.v;
+          if (op==='−' && expectUnary){ out.push({t:'num',v:0}); }
+          const p = OPS[op].p, a = OPS[op].a;
+          while (st.length && st.at(-1).t==='op'){
+            const top = OPS[st.at(-1).v];
+            if ((a==='L' && p<=top.p) || (a==='R' && p<top.p)) out.push(st.pop()); else break;
+          }
+          st.push(tk); expectUnary=true; continue;
+        }
+      }
+      while(st.length){ out.push(st.pop()); }
+      return out;
+    }
+
+    function factorial(n){ if (n<0 || !Number.isFinite(n)) return NaN; let r=1; for(let i=2;i<=Math.floor(n);i++) r*=i; return r; }
+    function rad(x){ return DEG ? x * Math.PI/180 : x; }
+    function round(x){ if (!Number.isFinite(x)) return x; return +x.toFixed(12); }
+
+    function evalRPN(rpn){
+      const st=[];
+      for (const tk of rpn){
+        if (tk.t==='num'){ st.push(tk.v); continue; }
+        if (tk.t==='op'){
+          const op=tk.v;
+          if (OPS[op].post){
+            const a = st.pop();
+            if (op==='!') st.push(factorial(a));
+            else if (op==='%') st.push(a/100);
+            continue;
+          }
+          const b=st.pop(); const a=st.pop();
+          if (op==='+') st.push(a+b);
+          else if (op==='−') st.push(a-b);
+          else if (op==='×') st.push(a*b);
+          else if (op==='÷') st.push(b===0?NaN:a/b);
+          else if (op==='**') st.push(a**b);
+          continue;
+        }
+        if (tk.t==='fn'){
+          const f=tk.v;
+          if (f==='sqrt') st.push(Math.sqrt(st.pop()));
+          else if (f==='log') st.push(Math.log10(st.pop()));
+          else if (f==='ln')  st.push(Math.log(st.pop()));
+          else if (f==='exp') st.push(Math.exp(st.pop()));
+          else if (f==='sin') st.push(Math.sin(rad(st.pop())));
+          else if (f==='cos') st.push(Math.cos(rad(st.pop())));
+          else if (f==='tan') st.push(Math.tan(rad(st.pop())));
+          else if (f==='asin'){ const x=st.pop(); st.push(DEG? (Math.asin(x)*180/Math.PI): Math.asin(x)); }
+          else if (f==='acos'){ const x=st.pop(); st.push(DEG? (Math.acos(x)*180/Math.PI): Math.acos(x)); }
+          else if (f==='atan'){ const x=st.pop(); st.push(DEG? (Math.atan(x)*180/Math.PI): Math.atan(x)); }
+          else if (f==='pow'){ const b=st.pop(), a=st.pop(); st.push(a**b); }
+        }
+      }
+      return st.pop();
+    }
+
+    function calculate(s){
+      const rpn = toRPN(toTokens(s));
+      const val = evalRPN(rpn);
+      return round(val);
+    }
+
+    function safePreview(s){
+      try{
+        if (!s.trim()) return 0;
+        return calculate(s.replace(/÷/g,'/').replace(/×/g,'*'));
+      }catch(e){ return NaN; }
+    }
+
+    function preview(s){
+      const v = safePreview(s);
+      return Number.isFinite(v) ? String(v) : '…';
+    }
+
+    // --- UI ---
+    function insert(txt){ text += txt; render(); }
+    function back(){ text = text.slice(0,-1); render(); }
+    function clear(){ text=''; render(); }
+    function equal(){
+      try{
+        const expr = text || '0';
+        const val = calculate(expr.replace(/÷/g,'/').replace(/×/g,'*'));
+        lastAns = val;
+        pushHist(`${expr} = ${fmtNice(val)}`);
+        text = String(val);
+        render();
+      }catch(e){
+        pushHist('Error');
+        outEl.textContent = 'Error';
+      }
+    }
+
+    function pushHist(line){ const p=document.createElement('div'); p.textContent=line; histEl.prepend(p); }
+
+    document.querySelectorAll('button[data-i]').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const v = b.getAttribute('data-i');
+        if (v==='=') return equal();
+        if (v==='C') return clear();
+        if (v==='⌫') return back();
+        if (v==='±'){ text = `(${text||'0'})×(-1)`; return render(); }
+        insert(v);
+      });
+    });
+
+    // Mode & Memory
+    document.getElementById('mode').onclick = ()=>{
+      DEG = !DEG;
+      document.getElementById('mode').textContent = 'Mode: ' + (DEG?'DEG':'RAD');
+      render();
+    };
+    document.getElementById('mc').onclick   = ()=>{ memory = 0; mstat.textContent='Memory: 0'; };
+    document.getElementById('mr').onclick   = ()=>{ insert(String(memory)); };
+    document.getElementById('mplus').onclick= ()=>{ try{ memory += +safePreview(text); mstat.textContent='Memory: '+round(memory);}catch{} };
+    document.getElementById('mminus').onclick=()=>{ try{ memory -= +safePreview(text); mstat.textContent='Memory: '+round(memory);}catch{} };
+    document.getElementById('clearHist').onclick=()=>{ histEl.innerHTML=''; };
+
+    // Copy result
+    document.getElementById('copy').onclick = () => {
+      const t = outEl.textContent.trim();
+      if (t && t !== '…') navigator.clipboard?.writeText(t);
+    };
+
+    // Keyboard
+    window.addEventListener('keydown',(e)=>{
+      const k=e.key;
+      if (k==='Enter') return equal();
+      if (k==='Backspace') return back();
+      const map={ '*':'×','/':'÷','-':'−' };
+      if (map[k]) insert(map[k]); else if (k.length===1) insert(k);
+    });
+
+    render();
+  </script>
+</body>
+</html>

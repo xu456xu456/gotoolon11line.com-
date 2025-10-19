@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Tip Calculator & Split Bill — Quick, Accurate, Mobile-Friendly | GoToolOnline</title>
+  <meta name="description" content="Free online tip calculator to split bills fast. Enter bill, set tip %, optional tax %, number of people, and rounding. Works great on mobile." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text x='2' y='14' font-size='14'>🍽️</text></svg>">
+
+  <!-- Canonical & Social -->
+  <link rel="canonical" href="https://gotoolonline.com/calculators/tip-split/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tip Calculator & Split Bill — Quick, Accurate | GoToolOnline">
+  <meta property="og:description" content="Enter bill, choose tip %, add tax if needed, split among people, and optionally round. Clean UI and instant results.">
+  <meta property="og:url" content="https://gotoolonline.com/calculators/tip-split/">
+  <meta name="twitter:card" content="summary">
+
+  <!-- JSON-LD: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Tip Calculator & Split Bill",
+    "url":"https://gotoolonline.com/calculators/tip-split/",
+    "applicationCategory":"Calculator",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does tip apply before or after tax?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "By default tips are often calculated before tax. This tool lets you optionally enter a tax percentage so you can see both approaches."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I split a bill among friends?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Enter the bill amount, choose a tip percent, add tax if needed, set the number of people, and the calculator shows per-person totals instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I round totals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Use the rounding options to round the per-person total or the grand total to whole dollars."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    header{max-width:1100px;margin:20px auto 8px;display:flex;gap:12px;align-items:center;padding:0 16px}
+    header a{color:var(--fg);text-decoration:none}
+    .pill{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px}
+    main{max-width:1100px;margin:10px auto 80px;padding:0 16px}
+    .wrap{display:grid;grid-template-columns:1fr 360px;gap:16px}
+    .card{background:#0f1830;border:1px solid #1a2843;border-radius:18px;padding:16px}
+    h1{margin:4px 0 8px}
+    label{display:block;color:#9fb0c3;margin:8px 0 6px}
+    input,select,button{padding:12px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:16px;width:100%}
+    input[type="range"]{width:100%}
+    button{cursor:pointer;font-weight:800}
+    .primary{background:linear-gradient(180deg,#2a78ff,#0050d4);border:none}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .muted{color:#9fb0c3}
+    .bad{color:#ffb4b4}
+    .quick{display:flex;gap:8px;flex-wrap:wrap}
+    .quick button{border:1px solid #2a3d67;background:#10223f}
+    .side .k{color:#9fb0c3}
+    .side .v{font-weight:800}
+    .stack{display:grid;gap:8px}
+    .copyBtn{border:1px solid #2a3d67;background:#0f1a2f}
+    .divider{border-top:1px solid #223055;margin:10px 0}
+    @media (max-width:960px){ .wrap{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="pill">🛠 GoToolOnline</a>
+    <a href="/" class="pill">← Back to Home</a>
+  </header>
+
+  <main>
+    <section class="wrap">
+      <!-- Left: Inputs -->
+      <section class="card">
+        <h1>Tip Calculator & Split Bill</h1>
+        <p class="muted" style="margin:0 0 10px">
+          Enter the bill, choose a tip %, optionally add tax, set people, and see per-person totals instantly.
+        </p>
+
+        <div class="row">
+          <div>
+            <label>Bill amount</label>
+            <input id="bill" type="number" min="0" step="0.01" placeholder="e.g., 120.00" />
+          </div>
+          <div>
+            <label>People</label>
+            <input id="people" type="number" min="1" value="2" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Tip % <span id="tipLbl" class="muted">(15%)</span></label>
+            <input id="tip" type="range" min="0" max="35" value="15" />
+          </div>
+          <div>
+            <label>Tax % (optional)</label>
+            <input id="tax" type="number" min="0" step="0.01" placeholder="e.g., 8.875" />
+          </div>
+        </div>
+
+        <div class="quick" style="margin-top:8px">
+          <span class="muted" style="align-self:center">Quick tip:</span>
+          <button data-tip="10">10%</button>
+          <button data-tip="12">12%</button>
+          <button data-tip="15">15%</button>
+          <button data-tip="18">18%</button>
+          <button data-tip="20">20%</button>
+          <button data-tip="25">25%</button>
+        </div>
+
+        <div class="row" style="margin-top:8px">
+          <div>
+            <label>Round</label>
+            <select id="round">
+              <option value="none">No rounding</option>
+              <option value="per">Round per-person to whole $</option>
+              <option value="total">Round grand total to whole $</option>
+            </select>
+          </div>
+          <div>
+            <label>Tip on</label>
+            <select id="tipBase">
+              <option value="pretax">Pre-tax amount</option>
+              <option value="posttax">Post-tax amount</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="quick">
+          <button id="calc" class="primary">Calculate</button>
+          <button id="clear" class="copyBtn">Clear</button>
+          <a class="copyBtn" id="copy" style="display:inline-block; padding:12px 16px; text-decoration:none">Copy results</a>
+        </div>
+
+        <p id="warn" class="bad" style="display:none;margin-top:10px">Please enter a valid bill and people ≥ 1.</p>
+      </section>
+
+      <!-- Right: Results -->
+      <aside class="card side">
+        <h2 style="margin:0 0 8px">Results</h2>
+        <div class="stack">
+          <div class="row" style="grid-template-columns:1fr auto">
+            <div class="k">Tip base</div><div class="v" id="rBase">—</div>
+          </div>
+          <div class="row" style="grid-template-columns:1fr auto">
+            <div class="k">Tax</div><div class="v" id="rTax">—</div>
+          </div>
+          <div class="row" style="grid-template-columns:1fr auto">
+            <div class="k">Tip</div><div class="v" id="rTip">—</div>
+          </div>
+          <div class="row" style="grid-template-columns:1fr auto">
+            <div class="k">Total</div><div class="v" id="rTotal">—</div>
+          </div>
+          <div class="divider"></div>
+          <div class="row" style="grid-template-columns:1fr auto">
+            <div class="k">Per-person</div><div class="v" id="rEach">—</div>
+          </div>
+        </div>
+
+        <p class="muted" style="margin-top:12px;font-size:14px">
+          Tip is for guidance only. Always follow local etiquette and your own judgment.
+        </p>
+
+        <div class="divider"></div>
+        <p class="muted" style="margin:0;font-size:14px">
+          Related tools:
+          <a href="/calculators/percentage-calculator/">Percentage</a> ·
+          <a href="/calculators/basic-calculator/">Basic Calculator</a> ·
+          <a href="/time/stopwatch/">Stopwatch</a>
+        </p>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const $ = (s)=>document.querySelector(s);
+    const bill   = $('#bill');
+    const people = $('#people');
+    const tip    = $('#tip');
+    const tipLbl = $('#tipLbl');
+    const tax    = $('#tax');
+    const roundSel = $('#round');
+    const tipBase  = $('#tipBase');
+    const warn  = $('#warn');
+
+    const rBase  = $('#rBase');
+    const rTax   = $('#rTax');
+    const rTip   = $('#rTip');
+    const rTotal = $('#rTotal');
+    const rEach  = $('#rEach');
+
+    function money(x){ return (isFinite(x)? x:0).toLocaleString(undefined,{style:'currency',currency:'USD'}); }
+    function parseNum(el){ const v = parseFloat(el.value); return isFinite(v)? v:0; }
+
+    function compute(){
+      const B = parseNum(bill);
+      const P = Math.max(1, Math.floor(parseNum(people)));
+      const Tpercent = Math.max(0, parseNum(tax));
+      const tipPct = parseFloat(tip.value);
+      const tipOnPost = (tipBase.value === 'posttax');
+
+      if (B<=0 || P<1){ warn.style.display='block'; return null; }
+      warn.style.display='none';
+
+      const taxAmt = B * (Tpercent/100);
+      const baseForTip = tipOnPost ? (B + taxAmt) : B;
+      const tipAmt = baseForTip * (tipPct/100);
+      let total = B + taxAmt + tipAmt;
+
+      let each = total / P;
+
+      // Rounding
+      const mode = roundSel.value;
+      if (mode === 'per'){
+        const roundedEach = Math.round(each);
+        total = roundedEach * P;
+        each = roundedEach;
+      } else if (mode === 'total'){
+        total = Math.round(total);
+        each = total / P;
+      }
+
+      return {
+        baseForTip, taxAmt, tipAmt, total, each, tipPct, Tpercent, P,
+        tipOnPost
+      };
+    }
+
+    function render(){
+      tipLbl.textContent = `(${tip.value}%)`;
+      const r = compute(); if (!r){ rBase.textContent=rTax.textContent=rTip.textContent=rTotal.textContent=rEach.textContent='—'; return; }
+
+      rBase.textContent  = money(r.baseForTip) + (r.tipOnPost ? ' (post-tax)' : ' (pre-tax)');
+      rTax.textContent   = money(r.taxAmt)  + `  (${r.Tpercent}% of bill)`;
+      rTip.textContent   = money(r.tipAmt)  + `  (${r.tipPct}%)`;
+      rTotal.textContent = money(r.total);
+      rEach.textContent  = money(r.each);
+    }
+
+    // Events
+    ['input','change'].forEach(ev=>{
+      bill.addEventListener(ev, render);
+      people.addEventListener(ev, render);
+      tip.addEventListener(ev, render);
+      tax.addEventListener(ev, render);
+      roundSel.addEventListener(ev, render);
+      tipBase.addEventListener(ev, render);
+    });
+
+    // Quick tip buttons
+    document.querySelectorAll('[data-tip]').forEach(b=>{
+      b.addEventListener('click', ()=>{ tip.value = b.getAttribute('data-tip'); render(); });
+    });
+
+    // Buttons
+    document.getElementById('calc').addEventListener('click', render);
+    document.getElementById('clear').addEventListener('click', ()=>{
+      bill.value=''; people.value='2'; tip.value='15'; tax.value='';
+      roundSel.value='none'; tipBase.value='pretax'; render();
+    });
+    document.getElementById('copy').addEventListener('click', ()=>{
+      const text = [
+        `Bill: ${bill.value || 0}`,
+        `People: ${people.value || 1}`,
+        `Tip %: ${tip.value}% (${tipBase.value})`,
+        `Tax %: ${tax.value || 0}%`,
+        `Per person: ${rEach.textContent}`,
+        `Total: ${rTotal.textContent}`
+      ].join('\n');
+      navigator.clipboard?.writeText(text);
+    });
+
+    render();
+  </script>
+</body>
+</html>

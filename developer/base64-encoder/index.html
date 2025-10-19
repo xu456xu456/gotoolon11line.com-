@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Base64 Encoder / Decoder | GoToolOnline</title>
+  <meta name="description" content="Encode or decode Base64 strings in your browser.">
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🛠️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);}
+  header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px;}
+  header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+  header a.navbtn{margin-left:auto;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:12px;color:#eaf3ff;text-decoration:none;font-size:16px}
+  header a.navbtn:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+  main{max-width:1200px;margin:10px auto 64px;padding:0 18px}
+  h1{font-size:34px;margin:10px 0 10px}
+  h2{font-size:26px;margin:10px 0 6px}
+  h3{font-size:20px;margin:6px 0 4px}
+  p,label,.muted{font-size:18px; line-height:1.6}
+  .card{background:var(--card);border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:12px}
+  .tool{display:block;background:var(--card);border:1px solid #1a2843;border-radius:16px;padding:16px;text-decoration:none;color:var(--fg)}
+  .tool strong{font-size:20px;display:block;margin-bottom:6px}
+  .tool:hover{border-color:var(--acc);box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+  label{display:block;margin:10px 0 6px;color:var(--muted)}
+  input,select,button,textarea{width:100%;padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:18px}
+  button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
+  button:hover{filter:brightness(1.06)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .result{padding:14px;background:#0c1426;border:1px dashed #2a3c64;border-radius:12px;margin-top:12px;font-size:20px}
+  .muted{color:#9fb0c3}
+  footer{max-width:1200px;margin:40px auto;padding:0 18px;color:var(--muted);font-size:15px}
+  .backTop{margin-top:12px;display:inline-block;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:10px;color:#eaf3ff;text-decoration:none}
+  .backTop:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+  @media (max-width:760px){ .row{grid-template-columns:1fr} }
+  @media print{ header,footer,.no-print{display:none!important} body{background:#fff;color:#000} .card,.tool{border:none} }
+</style>
+<script>
+  function backToTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
+</script>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="/"><span>🛠️</span><strong>GoToolOnline</strong></a>
+  <a class="navbtn" href="/">← Back to Home</a>
+</header>
+
+<main>
+
+<section class="card">
+  <h1>Base64 Encoder / Decoder</h1>
+  <textarea id="src" rows="10"></textarea>
+  <div class="row">
+    <div><button onclick="enc()">Encode</button></div>
+    <div><button onclick="dec()">Decode</button></div>
+  </div>
+  <textarea id="out" rows="10" readonly></textarea>
+</section>
+<script>
+function enc(){ document.getElementById('out').value = btoa(unescape(encodeURIComponent(document.getElementById('src').value))); }
+function dec(){ try{ document.getElementById('out').value = decodeURIComponent(escape(atob(document.getElementById('src').value))); }catch(e){ document.getElementById('out').value='Invalid Base64'; } }
+</script>
+
+</main>
+<footer>
+  <a class="backTop" href="javascript:void(0)" onclick="backToTop()">Back to Top ↑</a>
+  <div style="margin-top:10px">© 2025 GoToolOnline.com · Free online tools for everyone.</div>
+</footer>
+
+</body>
+</html>

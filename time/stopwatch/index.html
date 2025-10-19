@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Stopwatch — Multiple Parallel Timers, Laps & CSV Export | GoToolOnline</title>
+  <meta name="description" content="Free online stopwatch with up to 5 parallel timers. Start/Pause, Lap tracking, Reset and CSV export. Big digits, keyboard shortcuts, and shareable URL (?n=5).">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text x='2' y='14' font-size='14'>⏱️</text></svg>">
+
+  <!-- Canonical & Social -->
+  <link rel="canonical" href="https://gotoolonline.com/time/stopwatch/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Stopwatch — Up to 5 Parallel Timers | GoToolOnline">
+  <meta property="og:description" content="Run multiple stopwatches at once. Lap, Reset, Export CSV. Big digits and keyboard shortcuts.">
+  <meta property="og:url" content="https://gotoolonline.com/time/stopwatch/">
+  <meta name="twitter:card" content="summary">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Stopwatch",
+    "url":"https://gotoolonline.com/time/stopwatch/",
+    "applicationCategory":"Timer",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://gotoolonline.com/"},
+      {"@type":"ListItem","position":2,"name":"Time Tools","item":"https://gotoolonline.com/time/"},
+      {"@type":"ListItem","position":3,"name":"Stopwatch","item":"https://gotoolonline.com/time/stopwatch/"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"How many stopwatches can I run?","acceptedAnswer":{"@type":"Answer","text":"You can run up to five independent stopwatches in parallel."}},
+      {"@type":"Question","name":"Can I export lap times?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each stopwatch can export its laps as a CSV file (Lap, Split, Total)."}},
+      {"@type":"Question","name":"How do I share a setup with multiple timers?","acceptedAnswer":{"@type":"Answer","text":"Append a query like ?n=5 to the URL to open the page with five stopwatches."}}
+    ]
+  }
+  </script>
+
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px}
+    header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+    header a.navbtn{margin-left:auto;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:12px;color:#eaf3ff;text-decoration:none;font-size:16px}
+    header a.navbtn:hover{border-color:var(--acc);box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    main{max-width:1200px;margin:10px auto 72px;padding:0 18px}
+    h1{font-size:34px;margin:10px 0 12px}
+    p,label{font-size:18px;line-height:1.6}
+    .muted{color:var(--muted)}
+    .card{background:#0f1830;border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
+    input,button{padding:12px 14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:16px}
+    button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
+    button:hover{filter:brightness(1.06)}
+    .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .small{font-size:14px;color:#9fb0c3}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:16px}
+    .sw{background:#0f1830;border:1px solid #1a2843;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+    .sw .title{display:flex;justify-content:space-between;align-items:center}
+    .sw .title strong{font-size:18px}
+    .time{font-size:48px;font-weight:900;letter-spacing:1px;text-align:center}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .laplist{border-top:1px dashed #2a3c64;margin-top:8px;padding-top:8px;max-height:220px;overflow:auto}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    th,td{padding:6px 8px;text-align:left;border-bottom:1px solid #1a2843;white-space:nowrap}
+    kbd{background:#0f1a2f;border:1px solid #24365b;border-radius:6px;padding:2px 6px;font-size:12px}
+    .chip{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;cursor:pointer;font-size:16px}
+    .chip:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    footer{max-width:1200px;margin:40px auto;padding:0 18px;color:#9fb0c3;font-size:14px}
+    .footer-links a{color:#8cd1ff;text-decoration:none;margin-right:10px}
+    .footer-links a:hover{text-decoration:underline}
+    @media (max-width:480px){ .time{font-size:38px} }
+    @media print{ header,footer,.toolbar{display:none!important} body{background:#fff;color:#000} .card,.sw{border:none} }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="/"><span>🛠️</span><strong>GoToolOnline</strong></a>
+    <a class="navbtn" href="/">← Back to Home</a>
+  </header>
+
+  <main>
+    <nav aria-label="Breadcrumb" class="small" style="margin-bottom:6px">
+      <a href="/">Home</a> › <a href="/time/">Time Tools</a> › <strong>Stopwatch</strong>
+    </nav>
+
+    <section class="card">
+      <h1>Stopwatch (Up to 5)</h1>
+      <p class="muted">Run multiple independent stopwatches with lap timing and CSV export. Share a multi-stopwatch layout via <code>?n=5</code>.</p>
+
+      <div class="toolbar">
+        <button id="addOne">Add Stopwatch</button>
+        <button id="addToFive" title="Create up to five stopwatches">Add 4 More</button>
+        <span class="small">Keyboard (focused card): <kbd>Space</kbd> Start/Pause · <kbd>L</kbd> Lap · <kbd>R</kbd> Reset</span>
+      </div>
+    </section>
+
+    <section class="grid" id="wrap"></section>
+
+    <section class="card" aria-labelledby="faq-h2">
+      <h2 id="faq-h2" style="margin:0 0 8px 0;font-size:22px">FAQ</h2>
+      <details><summary>How do I open with 5 stopwatches?</summary><div class="small">Visit <code>/time/stopwatch/?n=5</code> and share that link.</div></details>
+      <details><summary>Can I export lap times?</summary><div class="small">Yes — click <b>Export</b> to download a CSV (Lap, Split, Total).</div></details>
+      <details><summary>Does it work offline?</summary><div class="small">The timer logic runs in your browser. No sign-in required.</div></details>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:0 0 6px 0;font-size:22px">Related tools</h2>
+      <p class="small" style="margin:0">
+        Need alarms instead? Try the <a href="/time/countdown-timer/">Countdown Timer</a>.
+        For dates math, see <a href="/calculators/date-difference/">Date Difference</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="/about/">About</a> ·
+      <a href="/privacy/">Privacy</a> ·
+      <a href="/terms/">Terms</a> ·
+      <a href="/contact/">Contact</a>
+    </div>
+    <div style="margin-top:8px">© <span id="y"></span> GoToolOnline.com · Free online tools for everyone.</div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Max instances
+    const MAX_SW = 5;
+
+    // State for each stopwatch
+    const state = []; // [{id, running, elapsed, last, laps:[{n,time,split}], raf, el}]
+    let idSeq = 1;
+    const wrap = document.getElementById('wrap');
+
+    // Format milliseconds -> HH:MM:SS.CS
+    function fmt(ms){
+      ms = Math.max(0, ms|0);
+      const cs = Math.floor((ms % 1000) / 10);
+      const s  = Math.floor(ms / 1000) % 60;
+      const m  = Math.floor(ms / 60000) % 60;
+      const h  = Math.floor(ms / 3600000);
+      const HH = String(h).padStart(2,'0');
+      const MM = String(m).padStart(2,'0');
+      const SS = String(s).padStart(2,'0');
+      const CS = String(cs).padStart(2,'0');
+      return `${HH}:${MM}:${SS}.${CS}`;
+    }
+
+    // Create DOM for one stopwatch
+    function createCard(){
+      if (state.length >= MAX_SW) { alert('Up to 5 stopwatches only.'); return; }
+      const id = idSeq++;
+      const el = document.createElement('div');
+      el.className = 'sw';
+      el.tabIndex = 0; // focusable for keyboard
+      el.innerHTML = `
+        <div class="title">
+          <strong>Stopwatch #${id}</strong>
+          <button data-act="remove" title="Remove this stopwatch">Remove</button>
+        </div>
+        <div class="time" data-role="time" aria-live="polite">00:00:00.00</div>
+        <div class="controls" role="group" aria-label="Controls">
+          <button data-act="start">Start</button>
+          <button data-act="lap" disabled>Lap</button>
+          <button data-act="reset" disabled>Reset</button>
+          <button data-act="export" disabled title="Export laps to CSV">Export</button>
+        </div>
+        <div class="laplist">
+          <table aria-label="Laps">
+            <thead><tr><th>#</th><th>Split</th><th>Total</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      `;
+      wrap.appendChild(el);
+
+      const st = {
+        id,
+        running:false,
+        elapsed:0,    // accumulated
+        last:0,       // last tick for raf
+        laps:[],
+        raf:null,
+        el
+      };
+      state.push(st);
+      wireCard(st);
+      return st;
+    }
+
+    function wireCard(st){
+      const timeEl = st.el.querySelector('[data-role="time"]');
+      const btnStart = st.el.querySelector('button[data-act="start"]');
+      const btnLap = st.el.querySelector('button[data-act="lap"]');
+      const btnReset = st.el.querySelector('button[data-act="reset"]');
+      const btnExport = st.el.querySelector('button[data-act="export"]');
+      const btnRemove = st.el.querySelector('button[data-act="remove"]');
+      const tbody = st.el.querySelector('tbody');
+
+      function updateView(ms){ timeEl.textContent = fmt(ms); }
+
+      function tick(now){
+        if (!st.running){ st.raf = null; return; }
+        if (!st.last) st.last = now;
+        const dt = now - st.last;
+        st.last = now;
+        st.elapsed += dt;
+        updateView(st.elapsed);
+        st.raf = requestAnimationFrame(tick);
+      }
+
+      function start(){
+        if (st.running) return;
+        st.running = true;
+        btnStart.textContent = 'Pause';
+        btnLap.disabled = false;
+        btnReset.disabled = false;
+        btnExport.disabled = st.laps.length === 0;
+        st.last = performance.now();
+        st.raf = requestAnimationFrame(tick);
+      }
+
+      function pause(){
+        if (!st.running) return;
+        st.running = false;
+        btnStart.textContent = 'Start';
+        if (st.raf){ cancelAnimationFrame(st.raf); st.raf = null; }
+      }
+
+      function toggle(){ st.running ? pause() : start(); }
+
+      function reset(){
+        pause();
+        st.elapsed = 0;
+        st.laps = [];
+        tbody.innerHTML = '';
+        updateView(0);
+        btnLap.disabled = true;
+        btnReset.disabled = true;
+        btnExport.disabled = true;
+      }
+
+      function lap(){
+        const n = st.laps.length + 1;
+        const split = st.laps.length ? st.elapsed - st.laps[st.laps.length-1].time : st.elapsed;
+        st.laps.push({ n, time: st.elapsed, split });
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${n}</td><td>${fmt(split)}</td><td>${fmt(st.elapsed)}</td>`;
+        tbody.prepend(tr); // latest on top
+        btnExport.disabled = false;
+      }
+
+      function exportCSV(){
+        if (!st.laps.length){ alert('No laps to export.'); return; }
+        let csv = 'Lap,Split,Total\n';
+        // chronological (Lap 1 first)
+        const arr = [...st.laps].sort((a,b)=>a.n-b.n);
+        arr.forEach(x=> csv += `${x.n},${fmt(x.split)},${fmt(x.time)}\n`);
+        const blob = new Blob([csv], {type:'text/csv'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `stopwatch_${st.id}_laps.csv`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      // Button events
+      btnStart.addEventListener('click', toggle);
+      btnLap.addEventListener('click', lap);
+      btnReset.addEventListener('click', reset);
+      btnExport.addEventListener('click', exportCSV);
+      btnRemove.addEventListener('click', ()=>{
+        pause();
+        const idx = state.findIndex(x=>x.id===st.id);
+        if (idx>=0) state.splice(idx,1);
+        st.el.remove();
+      });
+
+      // Keyboard shortcuts (card must be focused)
+      st.el.addEventListener('keydown', (e)=>{
+        const k = e.key.toLowerCase();
+        if (k === ' ' || k === 'spacebar'){ e.preventDefault(); toggle(); }
+        if (k === 'l'){ e.preventDefault(); if (!btnLap.disabled) lap(); }
+        if (k === 'r'){ e.preventDefault(); reset(); }
+      });
+
+      updateView(0);
+    }
+
+    // Toolbar actions
+    document.getElementById('addOne').addEventListener('click', ()=> createCard());
+    document.getElementById('addToFive').addEventListener('click', ()=>{
+      while (state.length < MAX_SW) createCard();
+    });
+
+    // Boot: from URL ?n=5
+    (function boot(){
+      const n = Math.max(1, Math.min(MAX_SW, parseInt(new URLSearchParams(location.search).get('n')||'1',10)));
+      for (let i=0;i<n;i++) createCard();
+    })();
+  </script>
+</body>
+</html>

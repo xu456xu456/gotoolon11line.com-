@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Basic Calculator — Free Online with Big Buttons | GoToolOnline</title>
+  <meta name="description" content="Free basic calculator with + − × ÷, percent, memory keys, and history. Mobile-friendly big buttons and keyboard support." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://gotoolonline.com/calculators/basic-calculator/" />
+
+  <!-- Social (OG/Twitter) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Basic Calculator — Free Online with Big Buttons">
+  <meta property="og:description" content="Free basic calculator with + − × ÷, percent, memory keys, and history. Mobile-friendly big buttons and keyboard support.">
+  <meta property="og:url" content="https://gotoolonline.com/calculators/basic-calculator/">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🧮</text></svg>">
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    header{max-width:900px;margin:20px auto 8px;display:flex;gap:12px;align-items:center;padding:0 16px}
+    header a{color:var(--fg);text-decoration:none}
+    .pill{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px}
+    main{max-width:900px;margin:8px auto 56px;padding:0 16px}
+    .wrap{display:grid;grid-template-columns:1fr;gap:16px}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:18px;padding:16px}
+    h1{margin:4px 0 6px}
+    .lede{font-size:16px;color:#9fb0c3;margin:.25rem 0 0.75rem}
+    .display{background:#0d142a;border:1px solid #1c2d55;border-radius:14px;padding:12px 14px}
+    .expr{font-size:18px;color:#9fb0c3;min-height:22px;word-break:break-all}
+    .out{font-size:36px;font-weight:800;letter-spacing:.5px;min-height:44px;word-break:break-all}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    button{padding:16px;border-radius:14px;border:1px solid #2a3d67;background:#0f1a2f;color:#eaf3ff;font-size:20px;font-weight:700;cursor:pointer}
+    button.op{background:#13264a}
+    button.equal{background:linear-gradient(180deg,#2a78ff,#0050d4);border:none}
+    button:active{transform:translateY(1px)}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .small{font-size:13px;color:#9fb0c3}
+    @media (min-width: 700px){ .wrap{grid-template-columns:1fr 300px} }
+    footer{max-width:900px;margin:32px auto 24px;padding:0 16px;color:#9fb0c3;font-size:14px}
+    .backTop{margin-top:12px;display:inline-block;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:10px;color:#eaf3ff;text-decoration:none}
+    .backTop:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+  </style>
+
+  <!-- Structured data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Basic Calculator",
+    "url":"https://gotoolonline.com/calculators/basic-calculator/",
+    "applicationCategory":"Calculator",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+
+  <!-- Optional FAQ for long-tail -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Does the calculator support keyboard input?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. Use digits, + - * /, Enter for equals, and Backspace to delete."}},
+      {"@type":"Question","name":"How does the percent key work?",
+       "acceptedAnswer":{"@type":"Answer","text":"Percent applies to the current number. Example: 50 × 10 % = 5."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <a href="/" class="pill">🛠 GoToolOnline</a>
+    <a href="/" class="pill">← Back to Home</a>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>Basic Calculator</h1>
+      <p class="lede">Simple four-function calculator with percent, memory and history — big buttons, mobile-friendly.</p>
+
+      <div class="display" aria-live="polite" aria-label="Calculator display">
+        <div id="expr" class="expr"></div>
+        <div id="out" class="out">0</div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <button class="pill" id="mc" aria-label="Memory clear">MC</button>
+        <button class="pill" id="mr" aria-label="Memory recall">MR</button>
+        <button class="pill" id="mplus" aria-label="Memory add">M+</button>
+        <button class="pill" id="mminus" aria-label="Memory subtract">M-</button>
+        <span class="small" id="mstat" aria-live="polite">Memory: 0</span>
+      </div>
+
+      <div class="grid" style="margin-top:12px" role="group" aria-label="Calculator keys">
+        <button data-k="C" class="op" aria-label="Clear">C</button>
+        <button data-k="⌫" class="op" aria-label="Backspace">⌫</button>
+        <button data-k="%" class="op" aria-label="Percent">%</button>
+        <button data-k="÷" class="op" aria-label="Divide">÷</button>
+
+        <button data-k="7">7</button>
+        <button data-k="8">8</button>
+        <button data-k="9">9</button>
+        <button data-k="×" class="op" aria-label="Multiply">×</button>
+
+        <button data-k="4">4</button>
+        <button data-k="5">5</button>
+        <button data-k="6">6</button>
+        <button data-k="−" class="op" aria-label="Minus">−</button>
+
+        <button data-k="1">1</button>
+        <button data-k="2">2</button>
+        <button data-k="3">3</button>
+        <button data-k="+" class="op" aria-label="Plus">+</button>
+
+        <button data-k="±" class="op" aria-label="Toggle sign">±</button>
+        <button data-k="0">0</button>
+        <button data-k="." aria-label="Decimal">.</button>
+        <button data-k="=" class="equal" aria-label="Equals">=</button>
+      </div>
+
+      <p class="small" style="margin-top:10px">
+        % applies to the current number (e.g., 50 × 10 % = 5). Keyboard: digits, + − × ÷, Enter (=), Backspace (⌫).
+      </p>
+    </section>
+
+    <aside class="card">
+      <h2 style="margin:0 0 8px 0">History</h2>
+      <div id="hist" class="small" aria-live="polite"></div>
+      <div class="row" style="margin-top:10px">
+        <button class="pill" id="clearHist">Clear History</button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Related internal links (SEO) -->
+  <section class="card" style="max-width:900px;margin:0 auto 28px; padding:16px">
+    <h2 style="margin:0 0 8px 0">Related tools</h2>
+    <ul>
+      <li><a href="/calculators/scientific-calculator/">Scientific Calculator</a></li>
+      <li><a href="/calculators/percentage-calculator/">Percentage Calculator</a></li>
+      <li><a href="/calculators/date-difference/">Date Difference</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <a class="backTop" href="javascript:void(0)" onclick="window.scrollTo({top:0, behavior:'smooth'})">Back to Top ↑</a>
+    <div style="margin-top:10px">© <span id="y"></span> GoToolOnline.com · Free online tools for everyone.</div>
+  </footer>
+
+  <script>
+    // footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    const outEl = document.getElementById('out');
+    const exprEl = document.getElementById('expr');
+    const histEl = document.getElementById('hist');
+    const mstat = document.getElementById('mstat');
+
+    let current = '0';
+    let expr = '';
+    let lastOp = null;
+    let acc = null;
+    let memory = 0;
+
+    function render(){ outEl.textContent = current; exprEl.textContent = expr; mstat.textContent = 'Memory: ' + memory; }
+
+    function pushHist(line){
+      const p = document.createElement('div');
+      p.textContent = line;
+      histEl.prepend(p);
+    }
+
+    function compute(a, op, b){
+      a = parseFloat(a); b = parseFloat(b);
+      if (op === '+') return a + b;
+      if (op === '−') return a - b;
+      if (op === '×') return a * b;
+      if (op === '÷') return b === 0 ? NaN : a / b;
+      return b;
+    }
+
+    function inputDigit(d){
+      if (current === '0' && d !== '.') current = d;
+      else current += d;
+      render();
+    }
+
+    function handlePercent(){
+      const n = parseFloat(current || '0') / 100;
+      current = String(n);
+      render();
+    }
+
+    function handleUnarySign(){
+      if (current.startsWith('-')) current = current.slice(1);
+      else if (current !== '0') current = '-' + current;
+      render();
+    }
+
+    function handleOp(op){
+      if (acc === null){ acc = parseFloat(current); }
+      else if (lastOp){ acc = compute(acc, lastOp, current); }
+      lastOp = op;
+      expr = acc + ' ' + op;
+      current = '0';
+      render();
+    }
+
+    function equals(){
+      if (lastOp === null){
+        pushHist((expr?expr+' ':'') + current + ' = ' + current);
+        return;
+      }
+      const prevAcc = acc;
+      acc = compute(acc, lastOp, current);
+      pushHist(prevAcc + ' ' + lastOp + ' ' + current + ' = ' + acc);
+      current = String(acc);
+      expr = '';
+      lastOp = null;
+      acc = null;
+      render();
+    }
+
+    function backspace(){
+      if (current.length <= 1 || (current.length===2 && current.startsWith('-'))) current = '0';
+      else current = current.slice(0,-1);
+      render();
+    }
+
+    function clearAll(){
+      current='0'; expr=''; lastOp=null; acc=null;
+      render();
+    }
+
+    // Memory keys
+    document.getElementById('mc').onclick = ()=>{ memory = 0; render(); };
+    document.getElementById('mr').onclick = ()=>{ current = String(memory); render(); };
+    document.getElementById('mplus').onclick = ()=>{ memory += parseFloat(current||'0'); render(); };
+    document.getElementById('mminus').onclick = ()=>{ memory -= parseFloat(current||'0'); render(); };
+
+    // Buttons
+    document.querySelectorAll('button[data-k]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const k = btn.getAttribute('data-k');
+        if (/^\d$/.test(k)) return inputDigit(k);
+        if (k === '.') { if (!current.includes('.')) current += '.'; render(); return; }
+        if (k === '%') return handlePercent();
+        if (k === '±') return handleUnarySign();
+        if (k === '⌫') return backspace();
+        if (k === 'C') return clearAll();
+        if (k === '=') return equals();
+        if (['+','−','×','÷'].includes(k)) return handleOp(k);
+      });
+    });
+
+    // Keyboard
+    window.addEventListener('keydown', (e)=>{
+      const key = e.key;
+      if (/^\d$/.test(key)) return inputDigit(key);
+      if (key === '.') { if (!current.includes('.')) current += '.'; render(); return; }
+      if (key === 'Enter' || key === '=') return equals();
+      if (key === 'Backspace') return backspace();
+      if (key === '%') return handlePercent();
+      if (['+','-','*','/'].includes(key)){
+        const map = {'+':'+','-':'−','*':'×','/':'÷'};
+        return handleOp(map[key]);
+      }
+    });
+
+    render();
+    document.getElementById('clearHist').onclick = ()=>{ histEl.innerHTML=''; };
+  </script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Unix Timestamp Converter — Epoch ↔ Local & UTC Time | GoToolOnline</title>
+  <meta name="description" content="Free Unix timestamp converter. Convert epoch seconds or milliseconds to Local/UTC time and back. Auto-detect 10/13-digit input, copy-ready outputs, URL sharing. Works offline."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+  <link rel="canonical" href="https://gotoolonline.com/time/unix-timestamp/"/>
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Unix Timestamp Converter — Epoch ↔ Local & UTC Time"/>
+  <meta property="og:description" content="Convert Unix epoch (seconds or milliseconds) to Local/UTC and vice versa. Copy-ready. Works offline."/>
+  <meta property="og:url" content="https://gotoolonline.com/time/unix-timestamp/"/>
+  <meta name="twitter:card" content="summary"/>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text x='2' y='14' font-size='14'>🕰️</text></svg>">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Unix Timestamp Converter",
+    "applicationCategory":"DeveloperApplication",
+    "operatingSystem":"Web",
+    "url":"https://gotoolonline.com/time/unix-timestamp/",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://gotoolonline.com/"},
+      {"@type":"ListItem","position":2,"name":"Time Tools","item":"https://gotoolonline.com/time/"},
+      {"@type":"ListItem","position":3,"name":"Unix Timestamp Converter","item":"https://gotoolonline.com/time/unix-timestamp/"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Is input in seconds or milliseconds?","acceptedAnswer":{"@type":"Answer","text":"Choose Seconds or Milliseconds, or leave on Auto. Auto detects 10-digit (seconds) and 13-digit (milliseconds) timestamps."}},
+      {"@type":"Question","name":"Does it work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. Everything runs in your browser; no network calls are used."}},
+      {"@type":"Question","name":"How do I convert a date to Unix time?","acceptedAnswer":{"@type":"Answer","text":"Pick a date and time, choose Local or UTC, then click Convert. Both seconds and milliseconds outputs are provided."}},
+      {"@type":"Question","name":"Can I share a pre-filled link?","acceptedAnswer":{"@type":"Answer","text":"Yes. The tool updates the URL as you type, e.g. ?ts=1734500000&unit=s or ?date=2025-01-01&time=00:00:00&zone=utc."}}
+    ]
+  }
+  </script>
+
+  <style>
+    :root{--bg:#0a0f1e;--card:#0f1830;--fg:#eaf3ff;--muted:#9fb0c3;--acc:#4fb3ff}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    header{max-width:900px;margin:18px auto 8px;display:flex;gap:10px;align-items:center;padding:0 16px}
+    header a{color:var(--fg);text-decoration:none}
+    .pill{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px}
+    main{max-width:900px;margin:8px auto 72px;padding:0 16px}
+    nav.breadcrumb{font-size:14px;color:var(--muted);margin-bottom:6px}
+    nav.breadcrumb a{color:var(--muted)}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:18px;padding:16px;margin:12px 0}
+    h1{margin:4px 0 8px 0}
+    input,select,button,textarea{padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:var(--fg);font-size:16px}
+    button{cursor:pointer;font-weight:800}
+    button.primary{background:linear-gradient(180deg,#2a78ff,#0050d4);border:none}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .muted{color:var(--muted)}
+    .out{font-size:20px;font-weight:800}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
+    .help{font-size:14px;color:#9fb0c3;margin-top:6px}
+    .linkrow a{display:inline-block;margin-right:10px;color:#cfe6ff;text-decoration:none;border-bottom:1px dashed #2a78ff}
+    .linkrow a:hover{color:#fff;border-bottom-color:#4fb3ff}
+    @media (max-width:800px){ .grid{grid-template-columns:1fr} }
+    @media print{ header,nav.breadcrumb,.linkrow{display:none !important} body{background:#fff;color:#000} .card{border:none} }
+  </style>
+</head>
+<body>
+<header>
+  <a class="pill" href="/">🛠 GoToolOnline</a>
+  <a class="pill" href="/">← Back to Home</a>
+</header>
+
+<main>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> › <a href="/time/">Time Tools</a> › <strong>Unix Timestamp Converter</strong>
+  </nav>
+
+  <section class="card">
+    <h1>Unix Timestamp Converter</h1>
+    <p class="muted">Convert <b>Unix epoch</b> (seconds or milliseconds) ↔ <b>Local / UTC</b>. Auto-detect 10/13-digit input. Works fully offline.</p>
+
+    <div class="grid" role="region" aria-label="Converters">
+      <!-- Epoch -> Date -->
+      <div class="card" aria-labelledby="h-ep2dt">
+        <h2 id="h-ep2dt" style="margin:0 0 8px">Epoch → Date</h2>
+        <div class="row" role="group" aria-label="Epoch input">
+          <label class="mono" for="ts" style="display:none">Unix timestamp</label>
+          <input id="ts" class="mono" inputmode="numeric" placeholder="e.g. 1734500000 or 1734500000000" style="flex:1" aria-describedby="tsHelp">
+          <label for="unit" style="display:none">Unit</label>
+          <select id="unit" aria-label="Unit">
+            <option value="auto" selected>Auto</option>
+            <option value="s">Seconds (10 digits)</option>
+            <option value="ms">Milliseconds (13 digits)</option>
+          </select>
+          <button id="now" class="primary" aria-label="Insert current epoch">Now</button>
+        </div>
+        <div id="tsHelp" class="help">Tip: Auto detects 10-digit seconds and 13-digit milliseconds. Use Unit to override.</div>
+
+        <div style="margin-top:10px">
+          <div class="muted">Local</div>
+          <div id="local" class="out mono" aria-live="polite">—</div>
+        </div>
+        <div style="margin-top:10px">
+          <div class="muted">UTC</div>
+          <div id="utc" class="out mono" aria-live="polite">—</div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button id="copyLocal" title="Copy local date/time">Copy Local</button>
+          <button id="copyUTC"   title="Copy UTC date/time">Copy UTC</button>
+        </div>
+      </div>
+
+      <!-- Date -> Epoch -->
+      <div class="card" aria-labelledby="h-dt2ep">
+        <h2 id="h-dt2ep" style="margin:0 0 8px">Date → Epoch</h2>
+        <div class="row" role="group" aria-label="Date-time input">
+          <label for="date" style="display:none">Date</label>
+          <input id="date" type="date">
+          <label for="time" style="display:none">Time</label>
+          <input id="time" type="time" step="1">
+          <label for="zone" style="display:none">Zone</label>
+          <select id="zone" aria-label="Zone">
+            <option value="local">Local</option>
+            <option value="utc">UTC</option>
+          </select>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button id="toEpoch" class="primary">Convert</button>
+          <button id="fillNow" title="Fill current local date/time">Fill Now</button>
+        </div>
+        <div style="margin-top:10px">
+          <div class="muted">Seconds</div>
+          <div id="sec" class="out mono" aria-live="polite">—</div>
+        </div>
+        <div style="margin-top:10px">
+          <div class="muted">Milliseconds</div>
+          <div id="msec" class="out mono" aria-live="polite">—</div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button id="copySec">Copy Seconds</button>
+          <button id="copyMs">Copy Milliseconds</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="linkrow help" style="margin-top:12px">
+      Related tools:
+      <a href="/time/timezone-converter/">Time Zone Converter</a>
+      <a href="/time/countdown-timer/">Countdown Timer</a>
+      <a href="/time/stopwatch/">Stopwatch</a>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Helpers
+  const $ = s=>document.querySelector(s);
+  const qs = new URLSearchParams(location.search);
+
+  function fmt(d, tz){
+    return new Intl.DateTimeFormat([], {
+      year:'numeric',month:'short',day:'2-digit',
+      hour:'2-digit',minute:'2-digit',second:'2-digit',
+      hour12:false,timeZone: tz
+    }).format(d);
+  }
+
+  function detectUnitFromValue(v){
+    // Return "s" / "ms" based on magnitude/length; fallback to null
+    const s = v.trim();
+    if (!/^-?\d{1,20}$/.test(s)) return null;
+    if (s.length >= 13) return "ms";
+    if (s.length === 10) return "s";
+    // magnitude check (1970±200y, rough)
+    const n = Number(s);
+    if (!Number.isFinite(n)) return null;
+    if (n > 1e12) return "ms";
+    if (n > 1e9 && n < 5e10) return "s";
+    return null;
+  }
+
+  function parseTS(){
+    const raw = $('#ts').value.trim();
+    if (!raw) return null;
+    if (!/^-?\d{1,20}$/.test(raw)) return null;
+    const sel = $('#unit').value;
+    const inferred = sel === 'auto' ? detectUnitFromValue(raw) : sel;
+    let n = Number(raw);
+    if (!Number.isFinite(n)) return null;
+    if (inferred === 's') n *= 1000;
+    return new Date(n);
+  }
+
+  function renderTS(){
+    const d = parseTS();
+    if(!d || Number.isNaN(d.getTime())){
+      $('#local').textContent='—'; $('#utc').textContent='—';
+    }else{
+      $('#local').textContent = fmt(d);
+      $('#utc').textContent   = fmt(d,'UTC');
+    }
+    persistURL();
+  }
+
+  function toEpoch(){
+    const date = $('#date').value; const time = $('#time').value || '00:00:00';
+    if(!date){ alert('Pick a date'); return; }
+    const z = $('#zone').value;
+    const iso = (z==='utc') ? `${date}T${time}Z` : `${date}T${time}`;
+    const d = new Date(iso);
+    if(Number.isNaN(d.getTime())){ alert('Invalid date/time'); return; }
+    const ms = d.getTime();
+    $('#sec').textContent  = String(Math.floor(ms/1000));
+    $('#msec').textContent = String(ms);
+    persistURL();
+  }
+
+  function copy(text){
+    const t = (text||'').trim();
+    if (!t || t==='—') return;
+    navigator.clipboard?.writeText(t).catch(()=>{});
+  }
+
+  // URL state (lightweight)
+  function persistURL(){
+    const ts = $('#ts').value.trim();
+    const unit = $('#unit').value;
+    const date = $('#date').value;
+    const time = $('#time').value;
+    const zone = $('#zone').value;
+
+    if (ts) qs.set('ts', ts); else qs.delete('ts');
+    if (unit && unit!=='auto') qs.set('unit', unit); else qs.delete('unit');
+    if (date) qs.set('date', date); else qs.delete('date');
+    if (time) qs.set('time', time); else qs.delete('time');
+    if (zone && zone!=='local') qs.set('zone', zone); else qs.delete('zone');
+
+    const q = qs.toString();
+    history.replaceState({}, '', location.pathname + (q?('?'+q):''));
+  }
+
+  function loadFromURL(){
+    const ts = qs.get('ts') || '';
+    const unit = qs.get('unit') || 'auto';
+    const date = qs.get('date');
+    const time = qs.get('time');
+    const zone = qs.get('zone');
+
+    if (ts) $('#ts').value = ts;
+    $('#unit').value = (['auto','s','ms'].includes(unit) ? unit : 'auto');
+    if (date) $('#date').value = date;
+    if (time) $('#time').value = time;
+    if (zone) $('#zone').value = zone;
+
+    renderTS();
+    if (date || time) toEpoch();
+  }
+
+  // Wire up events
+  $('#ts').addEventListener('input', renderTS);
+  $('#unit').addEventListener('change', renderTS);
+  $('#now').addEventListener('click', ()=>{
+    const mode = $('#unit').value;
+    const useMs = (mode==='ms') || (mode==='auto'); // default to ms for higher precision in Auto when injecting "now"
+    $('#ts').value = useMs ? String(Date.now()) : String(Math.floor(Date.now()/1000));
+    renderTS();
+  });
+
+  $('#toEpoch').addEventListener('click', toEpoch);
+  $('#fillNow').addEventListener('click', ()=>{
+    const now = new Date();
+    $('#date').value = now.toISOString().slice(0,10);
+    $('#time').value = now.toTimeString().slice(0,8);
+    $('#zone').value = 'local';
+    toEpoch();
+  });
+
+  $('#copyLocal').onclick = ()=>copy($('#local').textContent);
+  $('#copyUTC').onclick   = ()=>copy($('#utc').textContent);
+  $('#copySec').onclick   = ()=>copy($('#sec').textContent);
+  $('#copyMs').onclick    = ()=>copy($('#msec').textContent);
+
+  // Keyboard shortcuts (when focused anywhere on page)
+  window.addEventListener('keydown', (e)=>{
+    if (e.ctrlKey || e.metaKey) return;
+    const k = e.key.toLowerCase();
+    if (k==='enter' && document.activeElement && document.activeElement.closest('.card')){
+      // If focus is in Date→Epoch card, run convert; else renderTS
+      if (document.activeElement.closest('[aria-labelledby="h-dt2ep"]')) toEpoch();
+      else renderTS();
+    }
+  });
+
+  // Boot
+  loadFromURL();
+  if (!qs.get('ts') && !qs.get('date')){
+    // Fill defaults for first-time visitors
+    $('#now').click();
+    $('#fillNow').click();
+  }
+</script>
+
+<noscript>
+  <div class="card" style="max-width:800px;margin:24px auto">
+    <h2>JavaScript Required</h2>
+    <p class="muted">This converter runs entirely in your browser (for privacy and offline use). Please enable JavaScript.</p>
+  </div>
+</noscript>
+</body>
+</html>

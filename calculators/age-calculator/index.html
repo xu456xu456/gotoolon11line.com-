@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- SEO core -->
+  <title>Age Calculator — Exact Years, Months, Days | GoToolOnline</title>
+  <meta name="description" content="Free online age calculator that shows your exact age in years, months, and days. Set an optional end date for precise results." />
+  <link rel="canonical" href="https://gotoolonline.com/calculators/age-calculator/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🛠️</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Social (OG/Twitter) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Age Calculator — Exact Years, Months, Days">
+  <meta property="og:description" content="Free online age calculator that shows your exact age in years, months, and days. Optional end date for precise results.">
+  <meta property="og:url" content="https://gotoolonline.com/calculators/age-calculator/">
+  <meta name="twitter:card" content="summary">
+
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);}
+    header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px;}
+    header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+    header a.navbtn{margin-left:auto;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:12px;color:#eaf3ff;text-decoration:none;font-size:16px}
+    header a.navbtn:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    main{max-width:1200px;margin:10px auto 64px;padding:0 18px}
+    h1{font-size:34px;margin:10px 0 6px}
+    .lede{font-size:18px;color:#9fb0c3;margin:.3rem 0 1rem}
+    h2{font-size:26px;margin:14px 0 8px}
+    p,label,.muted{font-size:18px; line-height:1.6}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
+    label{display:block;margin:10px 0 6px;color:var(--muted)}
+    input,select,button,textarea{width:100%;padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:18px}
+    button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
+    button:hover{filter:brightness(1.06)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .result{padding:14px;background:#0c1426;border:1px dashed #2a3c64;border-radius:12px;margin-top:12px;font-size:20px}
+    .muted{color:#9fb0c3}
+    footer{max-width:1200px;margin:40px auto;padding:0 18px;color:var(--muted);font-size:15px}
+    .backTop{margin-top:12px;display:inline-block;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:10px;color:#eaf3ff;text-decoration:none}
+    .backTop:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    @media (max-width:760px){ .row{grid-template-columns:1fr} }
+    @media print{ header,footer,.no-print{display:none!important} body{background:#fff;color:#000} .card{border:none} }
+  </style>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Age Calculator",
+    "url":"https://gotoolonline.com/calculators/age-calculator/",
+    "applicationCategory":"Calculator",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+
+  <!-- Optional FAQ for long-tail -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"How do I calculate my exact age?",
+       "acceptedAnswer":{"@type":"Answer","text":"Enter your date of birth and (optionally) an end date. The tool shows your age in years, months, and days."}},
+      {"@type":"Question","name":"Can I set a custom end date?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. Leave it blank to use today, or choose any date to calculate age at that point in time."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+<header>
+  <a class="logo" href="/"><span>🛠️</span><strong>GoToolOnline</strong></a>
+  <a class="navbtn" href="/">← Back to Home</a>
+</header>
+
+<main>
+  <section class="card">
+    <h1>Age Calculator</h1>
+    <p class="lede">Find your exact age in years, months and days — set an optional end date for precise results.</p>
+
+    <div class="row" role="group" aria-label="Age inputs">
+      <div>
+        <label for="dob">Date of birth</label>
+        <input type="date" id="dob" max="2025-10-18" required>
+      </div>
+      <div>
+        <label for="end">End date (optional)</label>
+        <input type="date" id="end">
+      </div>
+    </div>
+
+    <button id="calcBtn" aria-label="Calculate age">Calculate Age</button>
+    <div class="result" id="ageResult" aria-live="polite">Result will appear here.</div>
+  </section>
+
+  <!-- Related internal links (SEO: internal linking) -->
+  <section class="card" aria-labelledby="rel">
+    <h2 id="rel">Related tools</h2>
+    <ul>
+      <li><a href="/calculators/date-difference/">Date Difference</a></li>
+      <li><a href="/time/timezone-converter/">World Time (by Country)</a></li>
+      <li><a href="/converter/unit-converter/">Unit Converter</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <a class="backTop" href="javascript:void(0)" onclick="backToTop()">Back to Top ↑</a>
+  <div style="margin-top:10px">© <span id="y"></span> GoToolOnline.com · Free online tools for everyone.</div>
+</footer>
+
+<script>
+  // current year in footer
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  function backToTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
+
+  document.getElementById('calcBtn').addEventListener('click', calcAge);
+
+  function calcAge() {
+    const dob = document.getElementById('dob').value;
+    const end = document.getElementById('end').value;
+    if (!dob) { document.getElementById('ageResult').textContent = 'Please select your date of birth.'; return; }
+
+    const birth = new Date(dob);
+    const today = end ? new Date(end) : new Date();
+
+    // Guard: if end < dob
+    if (today < birth) {
+      document.getElementById('ageResult').textContent = 'End date must be after date of birth.';
+      return;
+    }
+
+    let years = today.getFullYear() - birth.getFullYear();
+    let months = today.getMonth() - birth.getMonth();
+    let days = today.getDate() - birth.getDate();
+
+    if (days < 0) {
+      months -= 1;
+      const prevMonthDays = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      days += prevMonthDays;
+    }
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
+
+    document.getElementById('ageResult').textContent =
+      years + ' years, ' + months + ' months, ' + days + ' days';
+  }
+</script>
+</body>
+</html>

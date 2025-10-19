@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Printable Calendar — A4, Any Year (2025/2026/2027+) | GoToolOnline</title>
+  <meta name="description" content="Free printable A4 calendar for any year (quick picks: 2025, 2026, 2027). Choose 12 pages (one month per A4) or 1 page (12 months). Week starts Sunday/Monday and optional ISO week numbers." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Canonical & Social -->
+  <link rel="canonical" href="https://gotoolonline.com/calendar/printable-2026-calendar/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Printable Calendar — A4, Any Year (2025/2026/2027+) | GoToolOnline" />
+  <meta property="og:description" content="Generate a clean A4 printable calendar for any year. 12 pages (1 month/A4) or 1 page (12 months), Monday/Sunday start, ISO week numbers." />
+  <meta property="og:url" content="https://gotoolonline.com/calendar/printable-2026-calendar/" />
+  <meta name="twitter:card" content="summary" />
+
+  <!-- Structured data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Printable Calendar (A4)",
+    "url":"https://gotoolonline.com/calendar/printable-2026-calendar/",
+    "applicationCategory":"Utility",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+
+  <!-- Structured data: FAQPage (enhances SERP) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Can I print the whole year on one A4 page?",
+        "acceptedAnswer":{"@type":"Answer","text":"Yes. Choose the '1 page — 12 months (3×4)' layout to generate a compact 12-in-1 yearly calendar on a single A4 sheet."}
+      },
+      {
+        "@type":"Question",
+        "name":"How do I show ISO week numbers?",
+        "acceptedAnswer":{"@type":"Answer","text":"Toggle the ISO week numbers option before generating. Week numbers are added as a left column on monthly pages."}
+      },
+      {
+        "@type":"Question",
+        "name":"Can I start weeks on Monday?",
+        "acceptedAnswer":{"@type":"Answer","text":"Yes. Use the Week start setting to switch between Sunday and Monday."}
+      }
+    ]
+  }
+  </script>
+
+  <!-- Optional: breadcrumb for richer snippets -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://gotoolonline.com/"},
+      {"@type":"ListItem","position":2,"name":"Calendars","item":"https://gotoolonline.com/#calendar"},
+      {"@type":"ListItem","position":3,"name":"Printable Calendar (A4)","item":"https://gotoolonline.com/calendar/printable-2026-calendar/"}
+    ]
+  }
+  </script>
+
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; --ink:#111317; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px}
+    header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+    header a.navbtn{margin-left:auto;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:12px;color:#eaf3ff;text-decoration:none;font-size:16px}
+    header a.navbtn:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    main{max-width:1200px;margin:10px auto 72px;padding:0 18px}
+    h1{font-size:34px;margin:10px 0 12px}
+    p,label{font-size:18px;line-height:1.6}
+    .muted{color:var(--muted)}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
+    input,select,button{padding:12px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:16px}
+    button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
+    button:hover{filter:brightness(1.06)}
+    .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .chip{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;cursor:pointer;font-size:16px}
+    .chip:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    .grid-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    .preview{background:#0f1830;border:1px solid #1a2843;border-radius:16px;padding:12px}
+    .preview h3{margin:0 0 6px 0;font-size:18px}
+    .mini{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:12px}
+    .mini .dow{opacity:.7}
+    .mini div{padding:6px 4px;text-align:center;border:1px solid #1a2843;border-radius:6px}
+    .layoutRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .spacer{flex:1}
+    .small{font-size:14px;color:#9fb0c3}
+
+    /* PRINT LAYOUTS */
+    @page { size: A4; margin: 12mm; }
+    .print-wrap{background:white;color:var(--ink)}
+    .page{page-break-after:always}
+    .page:last-child{page-break-after:auto}
+    .sheet{display:flex;flex-direction:column;gap:8mm}
+    .sheet h2{margin:0;font-size:18pt;letter-spacing:.2pt}
+    .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2mm}
+    .cell{border:1px solid #444;padding:4mm;min-height:20mm}
+    .dow-head{font-weight:700;background:#f0f0f0;text-align:center}
+    .date{font-weight:700}
+    .notes{margin-top:2mm;border-top:1px solid #ccc;padding-top:2mm;font-size:9pt;color:#333}
+
+    /* 1-page (12 months) grid */
+    .year12{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm}
+    .block{border:1px solid #333;border-radius:2mm;padding:4mm}
+    .block h3{margin:0 0 3mm 0;font-size:12pt;text-align:center}
+    .miniCal{display:grid;grid-template-columns:repeat(7,1fr);gap:1mm}
+    .miniCal div{border:1px solid #ccc;text-align:center;font-size:8.5pt;padding:1.5mm;border-radius:1mm}
+    .miniCal .dow{font-weight:700;background:#f5f5f5}
+
+    @media print{
+      body{background:#fff}
+      header, .web-only{display:none !important}
+      .print-wrap{display:block}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="/"><span>🛠️</span><strong>GoToolOnline</strong></a>
+    <a class="navbtn" href="/">← Back to Home</a>
+  </header>
+
+  <main>
+    <section class="card web-only">
+      <h1>Printable Calendar (A4)</h1>
+      <p class="muted">
+        Create a clean A4 printable calendar for any year. Pick year, layout, week start, and ISO week numbers, then print or save as PDF.
+      </p>
+
+      <div class="toolbar">
+        <label>Year <input id="year" type="number" value="2026" min="1600" max="9999" style="width:120px" aria-label="Year"></label>
+        <span class="chip" data-year="2025" role="button" aria-label="Set year 2025">2025</span>
+        <span class="chip" data-year="2026" role="button" aria-label="Set year 2026">2026</span>
+        <span class="chip" data-year="2027" role="button" aria-label="Set year 2027">2027</span>
+
+        <div class="layoutRow">
+          <label>Layout
+            <select id="layout" aria-label="Layout">
+              <option value="12pages">12 pages — 1 month per A4</option>
+              <option value="1page">1 page — 12 months (3×4)</option>
+            </select>
+          </label>
+
+          <label>Week start
+            <select id="weekStart" aria-label="Week start">
+              <option value="0">Sunday</option>
+              <option value="1" selected>Monday</option>
+            </select>
+          </label>
+
+          <label class="inline">ISO week #
+            <input id="weekNum" type="checkbox" aria-label="Show ISO week numbers">
+          </label>
+        </div>
+
+        <span class="spacer"></span>
+        <button id="genBtn">Generate</button>
+        <button id="printBtn" title="Open browser print dialog">Print / Save PDF</button>
+      </div>
+
+      <!-- Internal links to strengthen topical cluster -->
+      <p class="small" style="margin-top:10px">
+        Related: <a href="/calendar/week-number-finder/">Week Number Finder</a> ·
+        <a href="/time/countdown-timer/">Countdown Timer</a> ·
+        <a href="/time/timezone-converter/">World Time (by Country)</a>
+      </p>
+    </section>
+
+    <!-- Screen preview -->
+    <section class="card web-only" id="previewCard">
+      <h2 style="margin:0 0 10px 0;font-size:26px">Screen Preview</h2>
+      <div id="preview" class="grid-preview"></div>
+      <div class="small" style="margin-top:8px">Note: Screen preview is compact. Printed pages are A4 with larger boxes.</div>
+    </section>
+
+    <!-- Print DOM (hidden on screen, visible when printing) -->
+    <div id="printRoot" class="print-wrap" style="display:none"></div>
+  </main>
+
+  <script>
+    // ------- helpers -------
+    const $ = sel => document.querySelector(sel);
+    const previewEl = $('#preview');
+    const printRoot = $('#printRoot');
+    const yearEl = $('#year');
+    const layoutEl = $('#layout');
+    const weekStartEl = $('#weekStart');
+    const weekNumEl = $('#weekNum');
+
+    const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const DOW_SUN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const DOW_MON = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+    function isoWeekNumber(date){
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = (d.getUTCDay() + 6) % 7; // Mon=0..Sun=6
+      d.setUTCDate(d.getUTCDate() - dayNum + 3);
+      const firstThu = new Date(Date.UTC(d.getUTCFullYear(),0,4));
+      const diff = d - firstThu;
+      return 1 + Math.round(diff / (7*24*3600*1000));
+    }
+
+    function monthMatrix(year, month, weekStart){
+      // returns array of weeks; each week is [{y,m,d,otherMonth}]
+      const first = new Date(year, month, 1);
+      const last = new Date(year, month+1, 0);
+      const startDow = first.getDay(); // 0 Sun - 6 Sat
+      const ws = parseInt(weekStart,10); // 0 Sun / 1 Mon
+      const shift = (startDow - ws + 7) % 7;
+      const daysInMonth = last.getDate();
+
+      const weeks = [];
+      let day = 1 - shift;
+      while (day <= daysInMonth){
+        const wk = [];
+        for (let i=0;i<7;i++){
+          const cur = new Date(year, month, day);
+          wk.push({ y:cur.getFullYear(), m:cur.getMonth(), d:cur.getDate(), otherMonth: cur.getMonth()!==month });
+          day++;
+        }
+        weeks.push(wk);
+      }
+      return weeks;
+    }
+
+    // ------- preview render (small cards) -------
+    function renderPreview(year, weekStart, showWeek){
+      previewEl.innerHTML = '';
+      const DOW = weekStart==1 ? DOW_MON : DOW_SUN;
+
+      for(let m=0;m<12;m++){
+        const wrap = document.createElement('div');
+        wrap.className = 'preview';
+        wrap.innerHTML = `<h3>${MONTH_NAMES[m]} ${year}</h3>`;
+        const grid = document.createElement('div');
+        grid.className = 'mini';
+
+        if (showWeek){
+          const w = document.createElement('div');
+          w.className = 'dow';
+          w.textContent = 'Wk';
+          grid.appendChild(w);
+        }
+        DOW.forEach(d=>{
+          const el = document.createElement('div');
+          el.className = 'dow';
+          el.textContent = d;
+          grid.appendChild(el);
+        });
+
+        const weeks = monthMatrix(year, m, weekStart);
+        weeks.forEach(week=>{
+          if (showWeek){
+            const anyInMonth = week.find(c=>!c.otherMonth);
+            const wknum = isoWeekNumber(new Date(anyInMonth.y, anyInMonth.m, anyInMonth.d));
+            const wk = document.createElement('div');
+            wk.textContent = wknum;
+            grid.appendChild(wk);
+          }
+          week.forEach(cell=>{
+            const el = document.createElement('div');
+            el.textContent = cell.d;
+            if (cell.otherMonth){ el.style.opacity = .35; }
+            grid.appendChild(el);
+          });
+        });
+
+        wrap.appendChild(grid);
+        previewEl.appendChild(wrap);
+      }
+    }
+
+    // ------- print render (A4) -------
+    function renderPrint(year, layout, weekStart, showWeek){
+      printRoot.innerHTML = '';
+      printRoot.style.display = 'none';
+
+      if (layout === '12pages'){
+        for(let m=0;m<12;m++){
+          printRoot.appendChild(renderMonthPage(year, m, weekStart, showWeek));
+        }
+      } else {
+        printRoot.appendChild(renderYearOnePage(year, weekStart, showWeek));
+      }
+    }
+
+    function renderMonthPage(year, month, weekStart, showWeek){
+      const page = document.createElement('div');
+      page.className = 'page';
+      page.innerHTML = `
+        <div class="sheet">
+          <h2>${MONTH_NAMES[month]} ${year} · GoToolOnline.com</h2>
+          <div class="cal"></div>
+          <div class="notes">Notes: Printed from GoToolOnline — Week start: ${weekStart==1?'Monday':'Sunday'}${showWeek?', ISO week numbers shown':''}.</div>
+        </div>
+      `;
+      const cal = page.querySelector('.cal');
+
+      const DOW = weekStart==1 ? DOW_MON : DOW_SUN;
+      if (showWeek){
+        const head = document.createElement('div');
+        head.className = 'cell dow-head';
+        head.textContent = 'Wk';
+        cal.appendChild(head);
+      }
+      DOW.forEach(d=>{
+        const h = document.createElement('div');
+        h.className = 'cell dow-head';
+        h.textContent = d;
+        cal.appendChild(h);
+      });
+
+      const weeks = monthMatrix(year, month, weekStart);
+      weeks.forEach(week=>{
+        if (showWeek){
+          const anyInMonth = week.find(c=>!c.otherMonth) || week[0];
+          const wknum = isoWeekNumber(new Date(anyInMonth.y, anyInMonth.m, anyInMonth.d));
+          const wcel = document.createElement('div');
+          wcel.className = 'cell';
+          wcel.innerHTML = `<div class="date">${wknum}</div>`;
+          cal.appendChild(wcel);
+        }
+        week.forEach(cell=>{
+          const el = document.createElement('div');
+          el.className = 'cell';
+          if (cell.otherMonth) el.style.opacity = .35;
+          el.innerHTML = `<div class="date">${cell.d}</div>`;
+          cal.appendChild(el);
+        });
+      });
+
+      return page;
+    }
+
+    function renderYearOnePage(year, weekStart, showWeek){
+      const page = document.createElement('div');
+      page.className = 'page';
+      page.innerHTML = `
+        <div class="sheet">
+          <h2>${year} · Year-at-a-Glance · GoToolOnline.com</h2>
+          <div class="year12"></div>
+          <div class="notes">Notes: Printed from GoToolOnline — Week start: ${weekStart==1?'Monday':'Sunday'}${showWeek?', ISO week numbers shown (row header omitted in 12-in-1 layout)':''}.</div>
+        </div>
+      `;
+      const wrap = page.querySelector('.year12');
+      const DOW = weekStart==1 ? DOW_MON : DOW_SUN;
+
+      for(let m=0;m<12;m++){
+        const block = document.createElement('div');
+        block.className = 'block';
+        block.innerHTML = `<h3>${MONTH_NAMES[m]}</h3>`;
+        const cal = document.createElement('div');
+        cal.className = 'miniCal';
+
+        DOW.forEach(d=>{
+          const h = document.createElement('div');
+          h.className = 'dow';
+          h.textContent = d;
+          cal.appendChild(h);
+        });
+
+        const weeks = monthMatrix(year, m, weekStart);
+        weeks.forEach(week=>{
+          week.forEach(cell=>{
+            const el = document.createElement('div');
+            el.textContent = cell.d;
+            if (cell.otherMonth) el.style.opacity = .35;
+            cal.appendChild(el);
+          });
+        });
+
+        block.appendChild(cal);
+        wrap.appendChild(block);
+      }
+      return page;
+    }
+
+    // ------- UI wiring -------
+    function generate(){
+      const y = parseInt(yearEl.value, 10) || new Date().getFullYear();
+      const layout = layoutEl.value;
+      const ws = parseInt(weekStartEl.value, 10);
+      const showWeek = weekNumEl.checked;
+
+      renderPreview(y, ws, showWeek);
+      renderPrint(y, layout, ws, showWeek);
+
+      const qs = new URLSearchParams(location.search);
+      qs.set('y', y); qs.set('l', layout); qs.set('ws', ws); qs.set('wk', showWeek?1:0);
+      history.replaceState({}, '', location.pathname + '?' + qs.toString());
+    }
+
+    document.querySelectorAll('.chip[data-year]').forEach(ch=>{
+      ch.addEventListener('click', ()=>{
+        yearEl.value = ch.dataset.year;
+        generate();
+      });
+    });
+
+    document.getElementById('genBtn').addEventListener('click', generate);
+    document.getElementById('printBtn').addEventListener('click', ()=>{
+      printRoot.style.display = 'block';
+      window.print();
+      setTimeout(()=>{ printRoot.style.display = 'none'; }, 300);
+    });
+
+    (function boot(){
+      const q = new URLSearchParams(location.search);
+      if (q.has('y')) yearEl.value = q.get('y');
+      if (q.has('l')) layoutEl.value = q.get('l');
+      if (q.has('ws')) weekStartEl.value = q.get('ws');
+      if (q.has('wk')) weekNumEl.checked = q.get('wk') === '1';
+      generate();
+    })();
+  </script>
+</body>
+</html>

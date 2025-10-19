@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Palette from Image — Extract Colors | GoToolOnline</title>
+  <meta name="description" content="Upload an image to extract a color palette. Copy HEX/RGB. All in the browser."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text x='2' y='14' font-size='14'>🎨</text></svg>">
+  <style>
+    :root{--bg:#0a0f1e;--card:#0f1830;--fg:#eaf3ff;--muted:#9fb0c3}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    header{max-width:1000px;margin:18px auto 8px;display:flex;gap:10px;align-items:center;padding:0 16px}
+    header a{color:var(--fg);text-decoration:none}
+    .pill{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px}
+    main{max-width:1000px;margin:8px auto 72px;padding:0 16px}
+    .card{background:#0f1830;border:1px solid #1a2843;border-radius:18px;padding:16px;margin:12px 0}
+    .drop{border:2px dashed #2a3d67;border-radius:14px;padding:20px;text-align:center}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
+    .sw{border-radius:12px;border:1px solid #223055;overflow:hidden}
+    .chip{padding:8px 10px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;cursor:pointer}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    img{max-width:100%;border-radius:12px;border:1px solid #223055}
+    .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+<header>
+  <a class="pill" href="/">🛠 GoToolOnline</a>
+  <a class="pill" href="/">← Back to Home</a>
+</header>
+
+<main>
+  <section class="card">
+    <h1>Palette from Image</h1>
+    <div id="drop" class="drop">Drop image here or click to upload <input id="file" type="file" accept="image/*" style="display:none"></div>
+    <div class="row" style="margin-top:10px">
+      <label>Colors <input id="k" type="number" min="2" max="12" value="6" style="width:80px"></label>
+      <label>Sample pixels <input id="samples" type="number" min="500" max="30000" value="6000" style="width:120px"></label>
+      <button id="run" class="chip">Extract</button>
+    </div>
+    <div id="preview" style="margin-top:10px"></div>
+    <div id="palette" class="grid"></div>
+    <div id="note" class="muted" style="margin-top:8px"></div>
+  </section>
+</main>
+
+<script>
+  const drop = document.getElementById('drop'); const file = document.getElementById('file');
+  const preview = document.getElementById('preview'); const palette = document.getElementById('palette'); const note = document.getElementById('note');
+  let imgBitmap=null;
+
+  drop.addEventListener('click',()=>file.click());
+  drop.addEventListener('dragover',e=>{ e.preventDefault(); drop.style.borderColor='#4fb3ff'; });
+  drop.addEventListener('dragleave',()=> drop.style.borderColor='#2a3d67');
+  drop.addEventListener('drop',e=>{
+    e.preventDefault(); drop.style.borderColor='#2a3d67';
+    if(e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+  });
+  file.addEventListener('change',()=>{ if(file.files[0]) loadFile(file.files[0]); });
+
+  async function loadFile(f){
+    const url=URL.createObjectURL(f);
+    const img=new Image(); img.onload=async ()=>{
+      preview.innerHTML=''; preview.appendChild(img);
+      const bmp = await createImageBitmap(img);
+      imgBitmap=bmp; note.textContent='';
+    }; img.src=url;
+  }
+
+  function pickSamples(ctx,w,h,count){
+    const data = []; const step=Math.max(1, Math.floor(Math.sqrt((w*h)/count)));
+    for(let y=0;y<h;y+=step){
+      for(let x=0;x<w;x+=step){
+        const p = ctx.getImageData(x,y,1,1).data;
+        if (p[3]<200) continue; // skip transparent
+        data.push([p[0],p[1],p[2]]);
+      }
+    }
+    return data;
+  }
+
+  function dist(a,b){ const dr=a[0]-b[0], dg=a[1]-b[1], db=a[2]-b[2]; return dr*dr+dg*dg+db*db; }
+  function kmeans(points,k,iter=12){
+    // init: random k points
+    const centers = points.slice(0).sort(()=>Math.random()-0.5).slice(0,k);
+    for(let t=0;t<iter;t++){
+      const buckets = Array.from({length:k},()=>({sum:[0,0,0],n:0}));
+      for(const p of points){
+        let best=0,bd=Infinity;
+        for(let i=0;i<k;i++){ const d=dist(p,centers[i]); if(d<bd){bd=d;best=i;} }
+        buckets[best].sum[0]+=p[0]; buckets[best].sum[1]+=p[1]; buckets[best].sum[2]+=p[2]; buckets[best].n++;
+      }
+      for(let i=0;i<k;i++){ if(buckets[i].n>0) centers[i]=buckets[i].sum.map(x=>Math.round(x/buckets[i].n)); }
+    }
+    return centers;
+  }
+
+  function toHex([r,g,b]){ return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase(); }
+  function toRgb([r,g,b]){ return `rgb(${r}, ${g}, ${b})`; }
+
+  document.getElementById('run').onclick = async ()=>{
+    if(!imgBitmap){ note.textContent='Upload an image first.'; return; }
+    const k = Math.max(2, Math.min(12, +document.getElementById('k').value||6));
+    const sampleN = Math.max(500, Math.min(30000, +document.getElementById('samples').value||6000));
+    const c = new OffscreenCanvas(imgBitmap.width, imgBitmap.height);
+    const ctx = c.getContext('2d'); ctx.drawImage(imgBitmap,0,0);
+    const pts = pickSamples(ctx, imgBitmap.width, imgBitmap.height, sampleN);
+    const centers = kmeans(pts, k, 14);
+    palette.innerHTML='';
+    centers.forEach(color=>{
+      const hex = toHex(color), rgb=toRgb(color);
+      const div = document.createElement('div'); div.className='sw';
+      div.innerHTML = `<div style="height:90px;background:${hex}"></div>
+        <div style="padding:8px" class="mono">${hex}<br>${rgb}<br>
+          <button class="chip" data-copy="${hex}">Copy HEX</button>
+          <button class="chip" data-copy="${rgb}">Copy RGB</button>
+        </div>`;
+      palette.appendChild(div);
+    });
+    palette.querySelectorAll('[data-copy]').forEach(b=> b.onclick=()=> navigator.clipboard?.writeText(b.dataset.copy||''));
+    note.textContent = `Colors: ${k} · Samples: ${pts.length}`;
+  };
+</script>
+</body>
+</html>

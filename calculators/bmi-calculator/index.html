@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>BMI Calculator — Body Mass Index (kg/cm) | GoToolOnline</title>
+  <meta name="description" content="Free BMI calculator (kg/cm): enter weight and height to get your Body Mass Index with category (Underweight, Normal, Overweight, Obese). Mobile friendly and private." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://gotoolonline.com/calculators/bmi-calculator/" />
+
+  <!-- Social (OG/Twitter) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BMI Calculator — Body Mass Index (kg/cm)">
+  <meta property="og:description" content="Free BMI calculator: enter weight and height to get your BMI and category. Works on mobile. No data stored.">
+  <meta property="og:url" content="https://gotoolonline.com/calculators/bmi-calculator/">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🛠️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);}
+    header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px;}
+    header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+    header a.navbtn{margin-left:auto;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:12px;color:#eaf3ff;text-decoration:none;font-size:16px}
+    header a.navbtn:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    main{max-width:1200px;margin:10px auto 64px;padding:0 18px}
+    h1{font-size:34px;margin:10px 0 6px}
+    .lede{font-size:18px;color:#9fb0c3;margin:.25rem 0 1rem}
+    p,label,.muted{font-size:18px; line-height:1.6}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
+    label{display:block;margin:10px 0 6px;color:var(--muted)}
+    input,select,button{width:100%;padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:18px}
+    button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
+    button:hover{filter:brightness(1.06)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .result{padding:14px;background:#0c1426;border:1px dashed #2a3c64;border-radius:12px;margin-top:12px;font-size:20px}
+    .muted{color:#9fb0c3}
+    footer{max-width:1200px;margin:40px auto;padding:0 18px;color:var(--muted);font-size:15px}
+    .backTop{margin-top:12px;display:inline-block;padding:10px 14px;background:#0f1a2f;border:1px solid #24365b;border-radius:10px;color:#eaf3ff;text-decoration:none}
+    .backTop:hover{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    @media (max-width:760px){ .row{grid-template-columns:1fr} }
+    @media print{ header,footer,.no-print{display:none!important} body{background:#fff;color:#000} .card{border:none} }
+  </style>
+
+  <!-- Structured data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"BMI Calculator",
+    "url":"https://gotoolonline.com/calculators/bmi-calculator/",
+    "applicationCategory":"Calculator",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher":{"@type":"Organization","name":"GoToolOnline","url":"https://gotoolonline.com"}
+  }
+  </script>
+
+  <!-- Optional FAQ for long-tail -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"How do I calculate BMI?",
+       "acceptedAnswer":{"@type":"Answer","text":"Enter your weight in kilograms and height in centimeters. The tool divides weight (kg) by height (m) squared and shows the BMI with category."}},
+      {"@type":"Question","name":"What are the BMI categories?",
+       "acceptedAnswer":{"@type":"Answer","text":"Underweight: < 18.5 · Normal: 18.5–24.9 · Overweight: 25–29.9 · Obese: 30 or greater. This tool is informational and not medical advice."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+<header>
+  <a class="logo" href="/"><span>🛠️</span><strong>GoToolOnline</strong></a>
+  <a class="navbtn" href="/">← Back to Home</a>
+</header>
+
+<main>
+  <section class="card">
+    <h1>BMI Calculator</h1>
+    <p class="lede">Calculate your Body Mass Index (BMI) and category using weight (kg) and height (cm). No data is sent to a server.</p>
+
+    <div class="row" role="group" aria-label="BMI inputs">
+      <div>
+        <label for="kg">Weight (kg)</label>
+        <input id="kg" type="number" min="0" step="0.1" inputmode="decimal" placeholder="e.g. 70.0">
+      </div>
+      <div>
+        <label for="cm">Height (cm)</label>
+        <input id="cm" type="number" min="0" step="0.1" inputmode="decimal" placeholder="e.g. 175">
+      </div>
+    </div>
+
+    <button id="calcBtn">Calculate</button>
+    <div class="result" id="bmiResult" aria-live="polite">Enter values to calculate BMI.</div>
+
+    <p class="muted" style="margin-top:10px">Note: BMI is a screening tool and not a diagnosis. For personal advice, talk to a healthcare professional.</p>
+  </section>
+
+  <!-- Related internal links (SEO: internal linking) -->
+  <section class="card" aria-labelledby="rel">
+    <h2 id="rel">Related tools</h2>
+    <ul>
+      <li><a href="/calculators/percentage-calculator/">Percentage Calculator</a></li>
+      <li><a href="/calculators/age-calculator/">Age Calculator</a></li>
+      <li><a href="/converter/unit-converter/">Unit Converter</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <a class="backTop" href="javascript:void(0)" onclick="window.scrollTo({top:0, behavior:'smooth'})">Back to Top ↑</a>
+  <div style="margin-top:10px">© <span id="y"></span> GoToolOnline.com · Free online tools for everyone.</div>
+</footer>
+
+<script>
+  // footer year
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  document.getElementById('calcBtn').addEventListener('click', calcBMI);
+
+  function calcBMI(){
+    const kg = parseFloat(document.getElementById('kg').value);
+    const cm = parseFloat(document.getElementById('cm').value);
+    if (!isFinite(kg) || kg <= 0 || !isFinite(cm) || cm <= 0){
+      document.getElementById('bmiResult').textContent = 'Please enter valid weight and height.';
+      return;
+    }
+    const m = cm / 100;
+    const bmi = kg / (m*m);
+    let cat = 'Underweight';
+    if (bmi >= 18.5 && bmi < 25) cat = 'Normal';
+    else if (bmi >= 25 && bmi < 30) cat = 'Overweight';
+    else if (bmi >= 30) cat = 'Obese';
+
+    document.getElementById('bmiResult').textContent = 'BMI: ' + bmi.toFixed(1) + ' (' + cat + ')';
+  }
+</script>
+</body>
+</html>

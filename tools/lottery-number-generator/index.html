@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Lottery Number Generator — AU & US | For Entertainment Only</title>
+  <meta name="description" content="Quick-pick lottery numbers for Australia and the US. For entertainment only — not betting advice. Generate multiple lines, avoid duplicates, save history." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🎟️</text></svg>">
+  <style>
+    :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; --accent2:#77e3a0; --danger:#ff5252;}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    header{max-width:1100px;margin:20px auto 8px;display:flex;gap:12px;align-items:center;padding:0 16px}
+    header a{color:var(--fg);text-decoration:none}
+    .pill{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px}
+    .banner{max-width:1100px;margin:0 auto 8px;padding:10px 16px;color:#fff;background:linear-gradient(180deg,#982525,#5c1414);border:1px solid #7a1b1b;border-left:6px solid var(--danger);border-radius:12px;font-weight:700}
+    .sub{font-weight:600;opacity:.9}
+    main{max-width:1100px;margin:8px auto 56px;padding:0 16px}
+    h1{font-size:32px;margin:8px 0 4px}
+    p{font-size:16px;color:var(--muted);margin:6px 0 14px}
+    .card{background:var(--card);border:1px solid #1a2843;border-radius:18px;padding:16px;margin:14px 0}
+    label{font-size:16px}
+    input,select,button{padding:12px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:16px}
+    button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700}
+    button.secondary{background:#0f1a2f;border:1px solid #2a3d67}
+    button:hover{filter:brightness(1.06)}
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+    .result{display:flex;flex-wrap:wrap;gap:8px}
+    .ball{min-width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:2px solid #2a3d67;background:#0d142a;font-weight:800;font-size:18px}
+    .ball.sp{border-color:#ffb347;background:#2b1a0d}
+    .line{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#0b1226;border:1px solid #1c2d55;border-radius:12px;padding:10px}
+    .small{font-size:13px;color:#9fb0c3}
+    .ok{color:var(--accent2)} .warn{color:#ffb3b3}
+    .note-box{background:#0f1a2f;border:1px dashed #7a1b1b;border-radius:12px;padding:10px}
+    @media print{
+      header,.web-only{display:none!important}
+      body{background:#fff;color:#000}
+      .card{border:none}
+      .line{border-color:#bbb;background:#fff}
+      .ball{border-color:#444;background:#fff;color:#000}
+      .print-watermark{display:block!important}
+    }
+    .print-watermark{display:none; font-size:12px; color:#b10000; border:1px solid #e3a2a2; padding:8px; border-radius:8px; margin-bottom:10px}
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="pill">🛠 GoToolOnline</a>
+    <a href="/" class="pill">← Back to Home</a>
+    <span class="pill" style="margin-left:auto">For entertainment only</span>
+  </header>
+
+  <!-- HARD DISCLAIMER -->
+  <div class="banner">
+    For entertainment only — not betting or investment advice.
+    <div class="sub">Random numbers do not improve your odds.</div>
+  </div>
+
+  <main>
+    <section class="card">
+      <h1>Lottery Number Generator — AU & US</h1>
+      <p>Quick-pick numbers for Australia & United States games. Rules follow official matrices. <strong class="ok">This tool does not improve odds.</strong></p>
+
+      <div class="row">
+        <label>Game
+          <select id="game">
+            <optgroup label="Australia">
+              <option value="AU_POWERBALL">AU Powerball (7 × 1–35 + Powerball 1–20)</option>
+              <option value="OZ_LOTTO">Oz Lotto (7 × 1–47)</option>
+              <option value="SAT_LOTTO">Saturday Lotto / TattsLotto (6 × 1–45)</option>
+              <option value="SET_FOR_LIFE">Set for Life (7 × 1–44)</option>
+            </optgroup>
+            <optgroup label="United States">
+              <option value="US_POWERBALL">US Powerball (5 × 1–69 + PB 1–26)</option>
+              <option value="MEGA_MILLIONS">Mega Millions (5 × 1–70 + MB 1–24)</option>
+            </optgroup>
+          </select>
+        </label>
+
+        <label>Lines
+          <input id="lines" type="number" min="1" max="20" value="5" style="width:90px">
+        </label>
+
+        <label>Lock numbers (comma, space or “-”)
+          <input id="locks" type="text" placeholder="e.g. 7, 11 23-35 (main pool only)" style="min-width:260px">
+        </label>
+
+        <label class="row" style="gap:6px">
+          <input id="avoidDup" type="checkbox" checked> Avoid duplicate lines (within this batch)
+        </label>
+
+        <div class="row">
+          <button id="gen">Generate</button>
+          <button id="copy" class="secondary">Copy</button>
+          <button id="print" class="secondary">Print</button>
+          <button id="clearHist" class="secondary">Clear History</button>
+        </div>
+      </div>
+
+      <div class="note-box" style="margin-top:10px">
+        <strong>Disclaimer:</strong> For entertainment only — numbers are random and do not increase your chance of winning. Check official rules in your jurisdiction before purchase.
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="print-watermark">For entertainment only — not betting advice.</div>
+      <h2 style="margin:0 0 8px 0">Results</h2>
+      <div id="out" class="grid" aria-live="polite"></div>
+      <div id="msg" class="small"></div>
+      <div class="small" style="margin-top:8px">
+        Reminder: Generated combinations are purely random and carry the same odds as any valid pick.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:0 0 8px 0">History (saved on this device)</h2>
+      <div id="hist" class="grid"></div>
+    </section>
+
+    <section class="card web-only">
+      <h3 style="margin:0 0 8px 0">Game matrices (summary)</h3>
+      <ul class="small">
+        <li>AU Powerball: 7 from 1–35 + Powerball 1–20.</li>
+        <li>Oz Lotto: 7 from 1–47 (supplementaries not generated).</li>
+        <li>Saturday Lotto / TattsLotto: 6 from 1–45.</li>
+        <li>Set for Life (AU): 7 from 1–44.</li>
+        <li>US Powerball: 5 from 1–69 + Powerball 1–26.</li>
+        <li>Mega Millions: 5 from 1–70 + Mega Ball 1–24.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    const GAMES = {
+      AU_POWERBALL: { name:"AU Powerball", main:{count:7,min:1,max:35}, special:{count:1,min:1,max:20, label:"PB"} },
+      OZ_LOTTO:    { name:"Oz Lotto", main:{count:7,min:1,max:47}, special:null },
+      SAT_LOTTO:   { name:"Saturday Lotto", main:{count:6,min:1,max:45}, special:null },
+      SET_FOR_LIFE:{ name:"Set for Life", main:{count:7,min:1,max:44}, special:null },
+      US_POWERBALL:{ name:"US Powerball", main:{count:5,min:1,max:69}, special:{count:1,min:1,max:26,label:"PB"} },
+      MEGA_MILLIONS:{ name:"Mega Millions", main:{count:5,min:1,max:70}, special:{count:1,min:1,max:24,label:"MB"} },
+    };
+
+    // DOM
+    const selGame = document.getElementById('game');
+    const linesEl = document.getElementById('lines');
+    const locksEl = document.getElementById('locks');
+    const avoidDupEl = document.getElementById('avoidDup');
+    const out = document.getElementById('out');
+    const msg = document.getElementById('msg');
+    const hist = document.getElementById('hist');
+
+    // Utils
+    const randInt = (min,max)=> Math.floor(Math.random()*(max-min+1))+min;
+
+    function parseLocks(text, game){
+      const s = new Set();
+      if (!text) return s;
+      const cleaned = text.replace(/[,，]/g,' ').trim();
+      for (const token of cleaned.split(/\s+/)){
+        if (!token) continue;
+        if (token.includes('-')){
+          const [a,b] = token.split('-').map(x=>parseInt(x,10));
+          if (Number.isInteger(a) && Number.isInteger(b)){
+            const lo = Math.min(a,b), hi = Math.max(a,b);
+            for (let n=lo; n<=hi; n++){
+              if (n>=game.main.min && n<=game.main.max) s.add(n);
+            }
+          }
+        } else {
+          const n = parseInt(token,10);
+          if (Number.isInteger(n) && n>=game.main.min && n<=game.main.max) s.add(n);
+        }
+      }
+      return s;
+    }
+
+    function pickUnique(count, min, max, lockedSet){
+      if (count > (max-min+1)) throw new Error('range too small');
+      const chosen = new Set(lockedSet||[]);
+      while (chosen.size < count){
+        chosen.add(randInt(min,max));
+      }
+      return Array.from(chosen).sort((a,b)=>a-b);
+    }
+
+    function pickSpecial(spec){
+      if (!spec) return [];
+      const arr = [];
+      for (let i=0;i<spec.count;i++){
+        arr.push(randInt(spec.min,spec.max));
+      }
+      return arr;
+    }
+
+    function fmtLine(main,special,gameKey){
+      const mainBalls = main.map(n=>`<span class="ball">${n}</span>`).join('');
+      const spBalls = (special||[]).map(n=>`<span class="ball sp">${n}</span>`).join('');
+      const label = (GAMES[gameKey].special && GAMES[gameKey].special.label) ? GAMES[gameKey].special.label : 'SP';
+      const spLabel = spBalls ? `<span class="small" style="margin-left:6px">${label}</span>` : '';
+      return `<div class="line"><div class="result">${mainBalls}${spBalls}${spLabel}</div></div>`;
+    }
+
+    function lineSignature(main, special){
+      return JSON.stringify({m:main.join(','), s:(special||[]).slice().sort((a,b)=>a-b).join(',')});
+    }
+
+    function generateBatch(){
+      const key = selGame.value;
+      const game = GAMES[key];
+      const lines = Math.max(1, Math.min(20, parseInt(linesEl.value,10) || 1));
+      const locks = parseLocks(locksEl.value, game);
+      if (locks.size > game.main.count){
+        msg.innerHTML = `<span class="warn">Too many locked numbers for ${game.name} (need ${game.main.count}).</span>`;
+        return;
+      }
+      const sigs = new Set();
+      const batch = [];
+      let attempts = 0, cap = lines * 50;
+      while (batch.length < lines && attempts < cap){
+        attempts++;
+        const main = pickUnique(game.main.count, game.main.min, game.main.max, locks);
+        const special = pickSpecial(game.special);
+        const sig = lineSignature(main, special);
+        if (avoidDupEl.checked && sigs.has(sig)) continue;
+        sigs.add(sig);
+        batch.push({main, special});
+      }
+      renderBatch(batch, key);
+      saveHistory(key, batch);
+      msg.innerHTML = `<span class="ok">${batch.length}</span> line(s) generated for <strong>${game.name}</strong> — <span class="warn">for entertainment only</span>.`;
+    }
+
+    function renderBatch(batch, key){
+      out.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      batch.forEach(one=>{
+        const wrap = document.createElement('div');
+        wrap.innerHTML = fmtLine(one.main, one.special, key);
+        frag.appendChild(wrap.firstElementChild);
+      });
+      out.appendChild(frag);
+      out.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // History: store last 20 batches
+    const KEY = 'lotto_history_v1';
+    function saveHistory(gameKey, batch){
+      const now = new Date().toISOString();
+      const data = { t: now, game: gameKey, items: batch };
+      const arr = loadHistory();
+      arr.unshift(data);
+      while (arr.length > 20) arr.pop();
+      localStorage.setItem(KEY, JSON.stringify(arr));
+      renderHistory();
+    }
+    function loadHistory(){
+      try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; }
+    }
+    function renderHistory(){
+      const arr = loadHistory();
+      hist.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      arr.forEach(rec=>{
+        const gameName = GAMES[rec.game]?.name || rec.game;
+        const box = document.createElement('div');
+        box.className = 'card';
+        const when = new Date(rec.t).toLocaleString();
+        const linesHtml = rec.items.map(it => fmtLine(it.main, it.special, rec.game)).join('');
+        box.innerHTML = `<div class="small" style="margin-bottom:6px;color:#c9d6e6">${when} · ${gameName} — For entertainment only</div>${linesHtml}`;
+        frag.appendChild(box);
+      });
+      hist.appendChild(frag);
+    }
+
+    // Buttons
+    document.getElementById('gen').addEventListener('click', generateBatch);
+    document.getElementById('copy').addEventListener('click', ()=>{
+      const txt = Array.from(out.querySelectorAll('.line')).map(line=>{
+        const nums = Array.from(line.querySelectorAll('.ball')).map(b=>b.textContent.trim());
+        return nums.join(' ');
+      }).join('\n');
+      if (!txt) { msg.innerHTML = '<span class="warn">Nothing to copy.</span>'; return; }
+      navigator.clipboard.writeText(txt).then(()=> msg.innerHTML = '<span class="ok">Copied.</span>');
+    });
+    document.getElementById('print').addEventListener('click', ()=> window.print());
+    document.getElementById('clearHist').addEventListener('click', ()=>{ localStorage.removeItem(KEY); renderHistory(); });
+
+    // Boot
+    renderHistory();
+  </script>
+</body>
+</html>

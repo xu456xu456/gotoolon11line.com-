@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>404 — Page Not Found | GoToolOnline</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body{margin:0;display:grid;place-items:center;height:100vh;background:#0a0f1e;color:#eaf3ff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  .card{max-width:640px;background:#0f1830;border:1px solid #1a2843;border-radius:20px;padding:26px}
+  a{color:#4fb3ff}
+  input,button{width:100%;padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:#eaf3ff;font-size:18px}
+  button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700}
+</style>
+<body>
+  <div class="card">
+    <h1>404 — Page Not Found</h1>
+    <p>The page you’re looking for doesn’t exist. Try searching a tool:</p>
+    <form action="/" method="get" onsubmit="location.href='/?q='+encodeURIComponent(this.q.value);return false;">
+      <input name="q" placeholder="Search tools… (e.g. calendar, json, base64)">
+      <div style="height:10px"></div>
+      <button type="submit">Search</button>
+    </form>
+    <p><a href="/">← Back to Home</a></p>
+  </div>
+</body>
+</html>
