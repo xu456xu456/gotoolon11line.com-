@@ -29,31 +29,30 @@
     .logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
 
     /* === Language dropdown: prominent trigger + panel === */
-.lang-trigger{
-  margin-left:auto;
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 14px;border-radius:999px;
-  background:linear-gradient(180deg,#2a78ff,#0050d4);
-  color:#fff;border:none;font-weight:800;letter-spacing:.2px;cursor:pointer;
-  box-shadow:0 8px 24px rgba(0,0,0,.25);
-}
-.lang-trigger:hover{filter:brightness(1.06)}
-.lang-trigger:focus{outline:2px solid #4fb3ff; outline-offset:2px}
+    .lang-trigger{
+      margin-left:auto;
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 14px;border-radius:999px;
+      background:linear-gradient(180deg,#2a78ff,#0050d4);
+      color:#fff;border:none;font-weight:800;letter-spacing:.2px;cursor:pointer;
+      box-shadow:0 8px 24px rgba(0,0,0,.25);
+    }
+    .lang-trigger:hover{filter:brightness(1.06)}
+    .lang-trigger:focus{outline:2px solid #4fb3ff; outline-offset:2px}
 
-.lang-panel{
-  position:fixed; top:64px; right:18px; z-index:1000;
-  background:#0f1830; border:1px solid #1a2843; border-radius:16px;
-  padding:14px; display:none; width:min(420px, calc(100vw - 24px));
-  box-shadow:0 20px 60px rgba(0,0,0,.45);
-}
-.lang-panel.open{ display:block }
-.lang-panel h3{margin:0 0 10px; font-size:16px; color:#cfe5ff}
-.lang-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px }
-.lang-grid a{
-  display:block;text-align:center;padding:10px 10px;border:1px solid #24365b;background:#0f1a2f;border-radius:12px;text-decoration:none;color:var(--fg);font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
-}
-.lang-grid a.active{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
-@media (max-width: 520px){ header{flex-wrap:wrap; gap:10px} .lang-panel{right:12px; top:56px; width:calc(100vw - 24px)} }
+    .lang-panel{
+      position:fixed; top:64px; right:18px; z-index:1000;
+      background:#0f1830; border:1px solid #1a2843; border-radius:16px;
+      padding:14px; display:none; width:min(420px, calc(100vw - 24px));
+      box-shadow:0 20px 60px rgba(0,0,0,.45);
+    }
+    .lang-panel.open{ display:block }
+    .lang-panel h3{margin:0 0 10px; font-size:16px; color:#cfe5ff}
+    .lang-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px }
+    .lang-grid a{
+      display:block;text-align:center;padding:10px 10px;border:1px solid #24365b;background:#0f1a2f;border-radius:12px;text-decoration:none;color:var(--fg);font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+    }
+    .lang-grid a.active{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
 
     main{margin:10px auto 64px}
     h1{font-size:34px;margin:10px 0 10px} h2{font-size:26px;margin:18px 0 10px}
@@ -77,20 +76,27 @@
     h2.group + section.grid{margin-top:10px} section.grid{margin-bottom:22px}
 
     @media (min-width: 900px){ h2.group{position:sticky;top:0;z-index:10;background:rgba(11,23,50,.88);backdrop-filter:blur(6px)} }
-    @media (max-width: 520px){ header{flex-wrap:wrap; gap:10px} .langbar{margin-left:0; width:100%} }
+    @media (max-width: 520px){ header{flex-wrap:wrap; gap:10px} .lang-panel{right:12px; top:56px; width:calc(100vw - 24px)} }
     @media print{ header,footer,.no-print{display:none!important} body{background:#fff;color:#000} .card,.tool{border:none} }
 
     html[dir="rtl"] body{direction:rtl}
+
+    /* === Egg banner (easter eggs) === */
+    .egg-banner{position:fixed;top:0;left:0;right:0;display:none;background:#d82a2a;color:#fff;border-bottom:1px solid #9b1515;z-index:2000}
+    .egg-banner .inner{max-width:1200px;margin:0 auto;padding:10px 48px 10px 16px;font-weight:800;letter-spacing:.3px;position:relative}
+    .egg-banner .close{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+    @media (max-width:520px){ .egg-banner .inner{padding:10px 44px 10px 12px;font-size:15px} }
   </style>
 </head>
 <body>
+  <div id="egg-banner" class="egg-banner" role="status" aria-live="polite"></div>
   <header>
     <a class="logo" href="/" aria-label="GoToolOnline home"><span>🛠️</span><strong>GoToolOnline</strong></a>
     <button class="lang-trigger" id="langBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="langPanel">🌐 Language</button>
-<div class="lang-panel" id="langPanel" role="dialog" aria-label="Select language">
-  <h3 id="langTitle">Select language</h3>
-  <div class="lang-grid" id="langbar"></div>
-</div>
+    <div class="lang-panel" id="langPanel" role="dialog" aria-label="Select language">
+      <h3 id="langTitle">Select language</h3>
+      <div class="lang-grid" id="langbar"></div>
+    </div>
   </header>
 
   <main>
@@ -276,35 +282,30 @@
     if (lang==='ar') document.documentElement.dir='rtl';
     document.documentElement.lang = (lang==='ph'?'tl':(lang==='ng'?'en':lang));
 
-    // 顶部语言按钮：写 Cookie + 刷新（不改 URL、不改站内链接）
+    // 顶部语言下拉面板：写 Cookie + 刷新（不改 URL、不改站内链接）
     const bar = document.getElementById('langbar');
-LANGS.forEach(code=>{
-  const a=document.createElement('a');
-  a.textContent=NAMES[code];
-  if(code===lang) a.className='active';
-  a.addEventListener('click', ()=>{
-    document.cookie = `lang=${code};path=/;max-age=31536000`;
-    location.reload();
-  });
-  bar.appendChild(a);
-});
+    const btn = document.getElementById('langBtn');
+    const panel = document.getElementById('langPanel');
+    const title = document.getElementById('langTitle');
+    const LABELS = {en:'Language', ph:'Language', id:'Bahasa', vi:'Ngôn ngữ', bn:'ভাষা', ng:'Language', sw:'Lugha', ar:'اللغة', zh:'语言'};
 
-// 触发按钮 & 面板开关
-const btn = document.getElementById('langBtn');
-const panel = document.getElementById('langPanel');
-const title = document.getElementById('langTitle');
-const LABELS = {en:'Language', ph:'Language', id:'Bahasa', vi:'Ngôn ngữ', bn:'ভাষা', ng:'Language', sw:'Lugha', ar:'اللغة', zh:'语言'};
-function setBtnLabel(){ btn.textContent = '🌐 ' + (NAMES[lang]||'Language'); btn.setAttribute('aria-label', LABELS[lang]||'Language'); title.textContent = (LABELS[lang]||'Language') + (lang==='ar'?'':' selection'); }
-setBtnLabel();
-function openLang(open){
-  panel.classList.toggle('open', !!open);
-  btn.setAttribute('aria-expanded', !!open);
-}
-btn.addEventListener('click', (e)=>{ e.stopPropagation(); openLang(!panel.classList.contains('open')); });
-// 点击外部关闭
-document.addEventListener('click', (e)=>{ if(panel.classList.contains('open')){ const within = panel.contains(e.target) || btn.contains(e.target); if(!within) openLang(false); } });
-// ESC 关闭
-document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') openLang(false); });
+    LANGS.forEach(code=>{
+      const a=document.createElement('a');
+      a.textContent=NAMES[code];
+      if(code===lang) a.className='active';
+      a.addEventListener('click', ()=>{
+        document.cookie = `lang=${code};path=/;max-age=31536000`;
+        location.reload();
+      });
+      bar.appendChild(a);
+    });
+
+    function setBtnLabel(){ btn.textContent = '🌐 ' + (NAMES[lang]||'Language'); btn.setAttribute('aria-label', LABELS[lang]||'Language'); title.textContent = (LABELS[lang]||'Language') + (lang==='ar'?'':' selection'); }
+    setBtnLabel();
+    function openLang(open){ panel.classList.toggle('open', !!open); btn.setAttribute('aria-expanded', !!open); }
+    btn.addEventListener('click', (e)=>{ e.stopPropagation(); openLang(!panel.classList.contains('open')); });
+    document.addEventListener('click', (e)=>{ if(panel.classList.contains('open')){ const within = panel.contains(e.target) || btn.contains(e.target); if(!within) openLang(false); } });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') openLang(false); });
 
     // ================ 多语言文案与 SEO（含中文） ================
     const I18N = {
@@ -558,7 +559,7 @@ document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') openLang(false)
       else { /* en */ if(goBtn) goBtn.textContent='Search'; }
 
       // 按钮行为：Search => 执行过滤；Clear => 清空并过滤
-      if (goBtn) goBtn.addEventListener('click', ()=>applyFilter());
+      if (goBtn) goBtn.addEventListener('click', ()=>{ triggerEgg((search.value||'').trim()); applyFilter(); });
     })();
 
     // 年份
@@ -584,7 +585,7 @@ document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') openLang(false)
       box.innerHTML=''; box.appendChild(h2); box.appendChild(wrap);
     })();
 
-    // 搜索/筛选
+    // 搜索/筛选 + 彩蛋
     const search = document.getElementById('search'), clearBtn=document.getElementById('clear'); let activeCat='all';
     function applyFilter(){
       const q=(search.value||'').toLowerCase().trim();
@@ -598,7 +599,22 @@ document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') openLang(false)
         group.classList.toggle('hide',!anyVisible);
       });
     }
+
+    // === Easter eggs ===
+    const EGGS = {
+      '林小小':'欢迎林大小姐莅临指导工作',
+      '戴迎秀':'欢迎戴大小姐莅临指导工作',
+      '彭冬梅':'欢迎彭大小姐莅临指导工作',
+      '徐玉芳':'欢迎最好的老姐莅临指导工作'
+    };
+    let eggTimer = null;
+    const eggEl = document.getElementById('egg-banner');
+    function hideEgg(){ if(!eggEl) return; eggEl.style.display='none'; eggEl.innerHTML=''; if(eggTimer){ clearTimeout(eggTimer); eggTimer=null; } }
+    function showEgg(msg){ if(!eggEl) return; eggEl.innerHTML = '<div class="inner">'+ msg +'<button class="close" aria-label="Close">×</button></div>'; eggEl.style.display='block'; const btn=eggEl.querySelector('.close'); if(btn) btn.onclick = hideEgg; if(eggTimer){ clearTimeout(eggTimer);} eggTimer = setTimeout(hideEgg, 8000); }
+    function triggerEgg(q){ if(!q) return; const msg = EGGS[q.trim()]; if(msg){ showEgg(msg); } }
+
     if (search) search.addEventListener('input', applyFilter);
+    if (search) search.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ triggerEgg((search.value||'').trim()); applyFilter(); } });
     if (clearBtn) clearBtn.addEventListener('click', ()=>{ search.value=''; applyFilter(); });
 
     document.querySelectorAll('#chips .chip').forEach(c=>{
