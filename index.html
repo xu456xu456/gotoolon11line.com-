@@ -28,11 +28,11 @@
     header{display:flex;align-items:center;gap:12px;margin:20px auto 8px}
     .logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
 
+    /* Language dropdown button + panel */
     .lang-trigger{margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:linear-gradient(180deg,#2a78ff,#0050d4);color:#fff;border:none;font-weight:800;letter-spacing:.2px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.25)}
     .lang-trigger:hover{filter:brightness(1.06)}
     .lang-trigger:focus{outline:2px solid #4fb3ff; outline-offset:2px}
-
-    .lang-panel{position:fixed; top:64px; right:18px; z-index:1000;background:#0f1830; border:1px solid #1a2843; border-radius:16px;padding:14px; display:none; width:min(420px, calc(100vw - 24px));box-shadow:0 20px 60px rgba(0,0,0,.45)}
+    .lang-panel{position:fixed; top:64px; right:18px; z-index:1200;background:#0f1830; border:1px solid #1a2843; border-radius:16px;padding:14px; display:none; width:min(420px, calc(100vw - 24px));box-shadow:0 20px 60px rgba(0,0,0,.45)}
     .lang-panel.open{ display:block }
     .lang-panel h3{margin:0 0 10px; font-size:16px; color:#cfe5ff}
     .lang-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px }
@@ -65,6 +65,7 @@
 
     html[dir="rtl"] body{direction:rtl}
 
+    /* Egg banner bigger, centered, mobile-friendly */
     .egg-banner{position:fixed;top:0;left:0;right:0;display:none;background:#d82a2a;color:#fff;border-bottom:1px solid #9b1515;z-index:2000}
     .egg-banner .inner{max-width:1200px;margin:0 auto;padding:calc(10px + env(safe-area-inset-top)) 56px 12px 16px;font-weight:800;letter-spacing:.3px;position:relative;text-align:center;font-size:clamp(16px,2.8vw,28px);line-height:1.35}
     .egg-banner .close{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;padding:6px}
@@ -118,6 +119,7 @@
       </nav>
     </section>
 
+    <!-- Calculators -->
     <h2 class="group" id="h-cal">Calculators</h2>
     <section class="grid" data-group="calculators">
       <a class="tool calculators" href="/calculators/basic-calculator/"><strong id="l-basic">🧮 Basic Calculator</strong><div class="muted" id="s-basic">Four functions, percent, memory</div></a>
@@ -130,6 +132,7 @@
       <a class="tool calculators" href="/calculators/date-difference/"><strong id="l-date">📅 Date Difference</strong><div class="muted" id="s-date">Days between dates</div></a>
     </section>
 
+    <!-- Converters -->
     <h2 class="group" id="h-conv">Converters</h2>
     <section class="grid" data-group="converter">
       <a class="tool converter" href="/converter/unit-converter/">
@@ -142,6 +145,7 @@
       </a>
     </section>
 
+    <!-- Time -->
     <h2 class="group" id="h-time">Time</h2>
     <section class="grid" data-group="time">
       <a class="tool time" href="/time/timezone-converter/">
@@ -157,11 +161,13 @@
       <a class="tool calendar" href="/calendar/week-number-finder/"><strong id="l-week">📅# Week Number Finder</strong><div class="muted" id="s-week">ISO week from date</div></a>
     </section>
 
+    <!-- Calendars -->
     <h2 class="group" id="h-calend">Calendars</h2>
     <section class="grid" data-group="calendar">
       <a class="tool calendar" href="/calendar/printable-2026-calendar/"><strong id="l-printcal">🖨️📅 Printable Calendar</strong><div class="muted" id="s-printcal">PDF-ready monthly pages</div></a>
     </section>
 
+    <!-- Utilities -->
     <h2 class="group" id="h-utils">Utilities</h2>
     <section class="grid" data-group="tools">
       <a class="tool tools" href="/tools/password-generator/"><strong id="l-pass">🔐 Password Generator</strong><div class="muted" id="s-pass">Strong random passwords</div></a>
@@ -174,6 +180,7 @@
       <a class="tool tools" href="/tools/lottery-number-generator/"><strong id="l-lotto">🎟️ Lottery Number Generator</strong><div class="muted" id="s-lotto">For entertainment only</div></a>
     </section>
 
+    <!-- Writing -->
     <h2 class="group" id="h-write">Writing</h2>
     <section class="grid" data-group="writing">
       <a class="tool writing" href="/writing/word-counter/"><strong id="l-word">📝 Word Counter</strong><div class="muted" id="s-word">Words & chars</div></a>
@@ -181,6 +188,7 @@
       <a class="tool writing" href="/writing/text-case-converter/"><strong id="l-case">🔠 Text Case Converter</strong><div class="muted" id="s-case">UPPER / lower / Title</div></a>
     </section>
 
+    <!-- FAQ -->
     <section class="card" id="homepage-faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading" style="margin:0 0 8px">FAQ</h2>
       <details><summary id="q1">Are these tools free to use?</summary><p id="a1">Yes. GoToolOnline tools are free to use with no sign-up required.</p></details>
@@ -227,10 +235,10 @@
       const nav = (navigator.language||'en').toLowerCase();
 
       let lang = 'en';
-      if (urlLang && ['en','ph','id','vi','bn','ng','sw','ar','zh'].includes(urlLang)) {
+      if (urlLang && LANGS.includes(urlLang)) {
         lang = urlLang;
         document.cookie = `lang=${lang};path=/;max-age=31536000`;
-      } else if (cookieLang && ['en','ph','id','vi','bn','ng','sw','ar','zh'].includes(cookieLang)) {
+      } else if (cookieLang && LANGS.includes(cookieLang)) {
         lang = cookieLang;
       } else {
         lang = MAP_BROWSER[nav] || MAP_BROWSER[nav.split('-')[0]] || 'en';
@@ -240,16 +248,17 @@
 
     const lang = pickLang();
 
-    if (lang==='ar') document.documentElement.dir='rtl';
+    if (lang==='ar') document.documentElement.dir='rtl'; else document.documentElement.dir='ltr';
     document.documentElement.lang = (lang==='ph'?'tl':(lang==='ng'?'en':lang));
 
+    // Build dropdown
     const bar = document.getElementById('langbar');
     const btn = document.getElementById('langBtn');
     const panel = document.getElementById('langPanel');
     const title = document.getElementById('langTitle');
     const LABELS = {en:'Language', ph:'Wika', id:'Bahasa', vi:'Ngôn ngữ', bn:'ভাষা', ng:'Language', sw:'Lugha', ar:'اللغة', zh:'语言'};
 
-    ['en','ph','id','vi','bn','ng','sw','ar','zh'].forEach(code=>{
+    LANGS.forEach(code=>{
       const a=document.createElement('a');
       a.textContent=NAMES[code];
       if(code===lang) a.className='active';
@@ -267,6 +276,7 @@
     document.addEventListener('click', (e)=>{ if(panel.classList.contains('open')){ const within = panel.contains(e.target) || btn.contains(e.target); if(!within) openLang(false); } });
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') openLang(false); });
 
+    // ================= I18N =================
     const I18N = {};
 
 I18N.en = { title:"GoToolOnline — 30+ Free Online Tools (All-in-One)",
@@ -725,7 +735,7 @@ I18N.ar = { title:"GoToolOnline · أدوات مجانية على الإنترن
   footer_links:{about:"حول", privacy:"الخصوصية", terms:"الشروط", contact:"اتصال"}
 };
 
-// Fill Nigeria with English defaults if missing
+// Nigeria defaults from EN
 if (!I18N.ng.tools) I18N.ng.tools = I18N.en.tools;
 if (!I18N.ng.faq) I18N.ng.faq = I18N.en.faq;
 
@@ -739,6 +749,7 @@ const D = I18N[lang] || I18N.en;
   m('description', D.desc); og('title', D.title); og('description', D.desc);
 })();
 
+// headings
 document.getElementById('t-hero').textContent = D.hero;
 const tipP = document.getElementById('t-tip'); if (tipP) tipP.firstChild.nodeValue = (D.tip||'') + ' ';
 const chips = D.chips || I18N.en.chips;
@@ -760,7 +771,7 @@ document.getElementById('h-utils').textContent = H.utils;
 document.getElementById('h-write').textContent = H.write;
 document.getElementById('h-dev').textContent = H.dev;
 
-// Titles and subtitles
+// tool titles
 const T = Object.assign({}, I18N.en.tools||{}, D.tools||{});
 function setPair(id, key){
   const pair = T && T[key]; if(!pair) return;
@@ -778,6 +789,7 @@ setPair('l-pass','pass'); setPair('l-ip','ip'); setPair('l-rng','rng'); setPair(
 setPair('l-word','word'); setPair('l-char','char'); setPair('l-case','tcase');
 setPair('l-url','url'); setPair('l-json','json'); setPair('l-htmlmin','htmlmin'); setPair('l-b64','b64'); setPair('l-hash','hash'); setPair('l-jwt','jwt');
 
+// FAQ + footer
 function setIf(id, html){ const el=document.getElementById(id); if(el && typeof html==='string') el.innerHTML=html; }
 if (D.faq){
   setIf('faq-heading', D.faq_title || 'FAQ');
@@ -787,8 +799,21 @@ if (D.faq){
   setIf('q4', D.faq.q4); setIf('a4', D.faq.a4);
 }
 document.getElementById('t-foot').textContent = D.foot || I18N.en.foot;
+(function footerTexts(){
+  if (D.footer_links){
+    const m = D.footer_links;
+    const fAbout = document.getElementById('f-about');
+    const fPrivacy = document.getElementById('f-privacy');
+    const fTerms = document.getElementById('f-terms');
+    const fContact = document.getElementById('f-contact');
+    if (fAbout && m.about) fAbout.textContent = m.about;
+    if (fPrivacy && m.privacy) fPrivacy.textContent = m.privacy;
+    if (fTerms && m.terms) fTerms.textContent = m.terms;
+    if (fContact && m.contact) fContact.textContent = m.contact;
+  }
+})();
 
-// Quick links text + label
+// Quick links + search placeholders
 (function quickLinks(){
   const ql = document.getElementById('quick-links');
   const anchors = ql.querySelectorAll('a');
@@ -813,26 +838,11 @@ document.getElementById('t-foot').textContent = D.foot || I18N.en.foot;
   if (goBtn) goBtn.addEventListener('click', ()=>{ triggerEgg((search.value||'').trim()); applyFilter(); });
 })();
 
-// Footer link labels
-(function footerTexts(){
-  if (D.footer_links){
-    const m = D.footer_links;
-    const fAbout = document.getElementById('f-about');
-    const fPrivacy = document.getElementById('f-privacy');
-    const fTerms = document.getElementById('f-terms');
-    const fContact = document.getElementById('f-contact');
-    if (fAbout && m.about) fAbout.textContent = m.about;
-    if (fPrivacy && m.privacy) fPrivacy.textContent = m.privacy;
-    if (fTerms && m.terms) fTerms.textContent = m.terms;
-    if (fContact && m.contact) fContact.textContent = m.contact;
-  }
-})();
-
+// Year + search filter
 var y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
-
-const search = document.getElementById('search'), clearBtn=document.getElementById('clear'); let activeCat='all';
+const searchEl = document.getElementById('search'), clearBtnEl=document.getElementById('clear'); let activeCat='all';
 function applyFilter(){
-  const q=(search.value||'').toLowerCase().trim();
+  const q=(searchEl.value||'').toLowerCase().trim();
   document.querySelectorAll('.tool').forEach(el=>{
     const text=el.textContent.toLowerCase(); const inCat=(activeCat==='all')||el.classList.contains(activeCat); const match=!q||text.includes(q);
     el.classList.toggle('hide', !(inCat && match));
@@ -843,18 +853,9 @@ function applyFilter(){
     group.classList.toggle('hide',!anyVisible);
   });
 }
-
-// Eggs
-const EGGS = {'林小小':'欢迎林大小姐莅临指导工作','戴迎秀':'欢迎戴大小姐莅临指导工作','彭冬梅':'欢迎彭大小姐莅临指导工作','徐玉芳':'欢迎最好的老姐莅临指导工作'};
-let eggTimer = null;
-const eggEl = document.getElementById('egg-banner');
-function hideEgg(){ if(!eggEl) return; eggEl.style.display='none'; eggEl.innerHTML=''; if(eggTimer){ clearTimeout(eggTimer); eggTimer=null; } }
-function showEgg(msg){ if(!eggEl) return; eggEl.innerHTML = '<div class="inner">'+ msg +'<button class="close" aria-label="Close">×</button></div>'; eggEl.style.display='block'; const btn=eggEl.querySelector('.close'); if(btn) btn.onclick = hideEgg; if(eggTimer){ clearTimeout(eggTimer);} eggTimer = setTimeout(hideEgg, 8000); }
-function triggerEgg(q){ if(!q) return; const msg = EGGS[q.trim()]; if(msg){ showEgg(msg); } }
-
-if (search) search.addEventListener('input', applyFilter);
-if (search) search.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ triggerEgg((search.value||'').trim()); applyFilter(); } });
-if (clearBtn) clearBtn.addEventListener('click', ()=>{ search.value=''; applyFilter(); });
+if (searchEl) searchEl.addEventListener('input', applyFilter);
+if (searchEl) searchEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ triggerEgg((searchEl.value||'').trim()); applyFilter(); } });
+if (clearBtnEl) clearBtnEl.addEventListener('click', ()=>{ searchEl.value=''; applyFilter(); });
 
 document.querySelectorAll('#chips .chip').forEach(c=>{
   c.addEventListener('click', ()=>{
@@ -865,7 +866,14 @@ document.querySelectorAll('#chips .chip').forEach(c=>{
 });
 (function(){ const hash=(location.hash||'').replace('#',''); const chip=document.querySelector(`#chips .chip[data-cat="${hash}"]`); if (chip){ document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('active')); chip.classList.add('active'); activeCat=hash; } applyFilter(); })();
 
-const siteDescEl = document.getElementById('site-desc');
-if (siteDescEl){ siteDescEl.textContent = D.site_desc || D.desc || siteDescEl.textContent; }
-
-})();\n  </script>\n</body>\n</html>\n
+// Eggs
+const EGGS = {'林小小':'欢迎林大小姐莅临指导工作','戴迎秀':'欢迎戴大小姐莅临指导工作','彭冬梅':'欢迎彭大小姐莅临指导工作','徐玉芳':'欢迎最好的老姐莅临指导工作'};
+let eggTimer = null;
+const eggEl = document.getElementById('egg-banner');
+function hideEgg(){ if(!eggEl) return; eggEl.style.display='none'; eggEl.innerHTML=''; if(eggTimer){ clearTimeout(eggTimer); eggTimer=null; } }
+function showEgg(msg){ if(!eggEl) return; eggEl.innerHTML = '<div class="inner">'+ msg +'<button class="close" aria-label="Close">×</button></div>'; eggEl.style.display='block'; const btn=eggEl.querySelector('.close'); if(btn) btn.onclick = hideEgg; if(eggTimer){ clearTimeout(eggTimer);} eggTimer = setTimeout(hideEgg, 8000); }
+function triggerEgg(q){ if(!q) return; const msg = EGGS[q.trim()]; if(msg){ showEgg(msg); } }
+  })();
+  </script>
+</body>
+</html>
