@@ -1,26 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="robots" content="index,follow" />
-  <title>GoToolOnline</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🛠️</text></svg>'">
-
-  <!-- 基础 OG（多语言文案由脚本覆盖） -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="GoToolOnline">
-  <meta property="og:title" content="GoToolOnline">
-  <meta property="og:description" content="Fast, free online tools.">
-  <meta property="og:image" content="https://www.gotoolonline.com/og.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GoToolOnline">
-  <meta name="twitter:description" content="Fast, free online tools.">
-  <meta name="twitter:image" content="https://www.gotoolonline.com/og.jpg">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="index,follow" name="robots"/>
+<title>GoToolOnline</title>
+<link href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'&gt;&lt;text x='6' y='52' font-size='48'&gt;🛠️&lt;/text&gt;&lt;/svg&gt;'" rel="icon"/>
+<!-- 基础 OG（多语言文案由脚本覆盖） -->
+<meta content="website" property="og:type"/>
+<meta content="GoToolOnline" property="og:site_name"/>
+<meta content="GoToolOnline" property="og:title"/>
+<meta content="Fast, free online tools." property="og:description"/>
+<meta content="https://www.gotoolonline.com/og.jpg" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="GoToolOnline" name="twitter:title"/>
+<meta content="Fast, free online tools." name="twitter:description"/>
+<meta content="https://www.gotoolonline.com/og.jpg" name="twitter:image"/>
+<style>
     :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
     *{box-sizing:border-box}
     body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--fg)}
@@ -73,153 +72,137 @@
   </style>
 </head>
 <body>
-  <div id="egg-banner" class="egg-banner" role="status" aria-live="polite"></div>
-  <header>
-    <a class="logo" href="/" aria-label="GoToolOnline home"><span>🛠️</span><strong>GoToolOnline</strong></a>
-    <button class="lang-trigger" id="langBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="langPanel">🌐 Language</button>
-    <div class="lang-panel" id="langPanel" role="dialog" aria-label="Select language">
-      <h3 id="langTitle">Select language</h3>
-      <div class="lang-grid" id="langbar"></div>
-    </div>
-  </header>
-
-  <main>
-    <section class="card">
-      <h1 id="t-hero">All Tools — One Page (30+)</h1>
-
-      <div class="toolbar no-print" role="search" aria-label="Site search">
-        <input id="search" type="search" placeholder="Search tools… (e.g. calendar, json, base64, bmi)" style="flex:1" aria-label="Search tools">
-        <button id="go" aria-label="Apply search">Search</button>
-        <button id="clear" aria-label="Clear search">Clear</button>
-      </div>
-
-      <p class="muted" style="margin-top:8px" id="t-tip">
+<div aria-live="polite" class="egg-banner" id="egg-banner" role="status"></div>
+<header>
+<a aria-label="GoToolOnline home" class="logo" href="./"><span>🛠️</span><strong>GoToolOnline</strong></a>
+<button aria-controls="langPanel" aria-expanded="false" aria-haspopup="dialog" class="lang-trigger" id="langBtn">🌐 Language</button>
+<div aria-label="Select language" class="lang-panel" id="langPanel" role="dialog">
+<h3 id="langTitle">Select language</h3>
+<div class="lang-grid" id="langbar"></div>
+</div>
+</header>
+<main>
+<section class="card">
+<h1 id="t-hero">All Tools — One Page (30+)</h1>
+<div aria-label="Site search" class="toolbar no-print" role="search">
+<input aria-label="Search tools" id="search" placeholder="Search tools… (e.g. calendar, json, base64, bmi)" style="flex:1" type="search"/>
+<button aria-label="Apply search" id="go">Search</button>
+<button aria-label="Clear search" id="clear">Clear</button>
+</div>
+<p class="muted" id="t-tip" style="margin-top:8px">
         Tip: type to filter instantly. Click a chip to filter by category. <strong>More tools coming soon.</strong>
-      </p>
-
-      <p class="muted" style="margin-top:6px" id="quick-links">
-        <span id="quick-label">Quick links:</span>
-        <a href="/converter/unit-converter/">Online Unit Converter</a> ·
-        <a href="/currency/currency-converter/">Free Currency Converter</a> ·
-        <a href="/time/timezone-converter/">World Time by Country/City</a> ·
-        <a href="/time/countdown-timer/">Countdown Timer</a> ·
-        <a href="/time/stopwatch/">Stopwatch</a> ·
-        <a href="/developer/json-formatter/">JSON Formatter</a>
-      </p>
-
-      <nav class="toolbar no-print" id="chips" style="margin-top:8px" aria-label="Filter by category">
-        <span class="chip active" data-cat="all" id="c-all">All</span>
-        <span class="chip" data-cat="calculators" id="c-cal">Calculators</span>
-        <span class="chip" data-cat="converter" id="c-conv">Converters</span>
-        <span class="chip" data-cat="time" id="c-time">Time</span>
-        <span class="chip" data-cat="calendar" id="c-calend">Calendars</span>
-        <span class="chip" data-cat="tools" id="c-utils">Utilities</span>
-        <span class="chip" data-cat="writing" id="c-write">Writing</span>
-        <span class="chip" data-cat="dev" id="c-dev">Dev</span>
-      </nav>
-    </section>
-
-    <!-- Calculators -->
-    <h2 class="group" id="h-cal">Calculators</h2>
-    <section class="grid" data-group="calculators">
-      <a class="tool calculators" href="/calculators/basic-calculator/"><strong id="l-basic">🧮 Basic Calculator</strong><div class="muted" id="s-basic">Four functions, percent, memory</div></a>
-      <a class="tool calculators" href="/calculators/scientific-calculator/"><strong id="l-sci">🧪 Scientific Calculator</strong><div class="muted" id="s-sci">Functions, DEG/RAD, history</div></a>
-      <a class="tool calculators" href="/calculators/mortgage/"><strong id="l-mort">🏠 Mortgage Calculator</strong><div class="muted" id="s-mort">Payment & amortization</div></a>
-      <a class="tool calculators" href="/calculators/tip-split/"><strong id="l-tip">🍽️ Tip & Split Bill</strong><div class="muted" id="s-tip">Per-person share</div></a>
-      <a class="tool calculators" href="/calculators/age-calculator/"><strong id="l-age">🧮 Age Calculator</strong><div class="muted" id="s-age">Exact age in years, months, days</div></a>
-      <a class="tool calculators" href="/calculators/bmi-calculator/"><strong id="l-bmi">⚖️ BMI Calculator</strong><div class="muted" id="s-bmi">Body Mass Index</div></a>
-      <a class="tool calculators" href="/calculators/percentage-calculator/"><strong id="l-pct">➗ Percentage Calculator</strong><div class="muted" id="s-pct">Percent of / change</div></a>
-      <a class="tool calculators" href="/calculators/date-difference/"><strong id="l-date">📅 Date Difference</strong><div class="muted" id="s-date">Days between dates</div></a>
-    </section>
-
-    <!-- Converters -->
-    <h2 class="group" id="h-conv">Converters</h2>
-    <section class="grid" data-group="converter">
-      <a class="tool converter" href="/converter/unit-converter/">
-        <strong id="l-unit">🔁 Unit Converter</strong>
-        <div class="muted" id="s-unit">18 categories · 300+ units</div>
-      </a>
-      <a class="tool converter" href="/currency/currency-converter/">
-        <strong id="l-fx">💱 Currency Converter</strong>
-        <div class="muted" id="s-fx">Live FX + manual rate</div>
-      </a>
-    </section>
-
-    <!-- Time -->
-    <h2 class="group" id="h-time">Time</h2>
-    <section class="grid" data-group="time">
-      <a class="tool time" href="/time/timezone-converter/">
-        <strong id="l-world">🌍🕒 World Time (by Country)</strong>
-        <div class="muted" id="s-world">See local time across countries</div>
-      </a>
-      <a class="tool time" href="/time/unix-timestamp/">
-        <strong id="l-unix">🕰️ Unix Timestamp Converter</strong>
-        <div class="muted" id="s-unix">Epoch ↔ Local/UTC</div>
-      </a>
-      <a class="tool time" href="/time/countdown-timer/"><strong id="l-ctd">⏳ Countdown Timer</strong><div class="muted" id="s-ctd">Simple countdown</div></a>
-      <a class="tool time" href="/time/stopwatch/"><strong id="l-sw">⏱️ Stopwatch</strong><div class="muted" id="s-sw">Online stopwatch</div></a>
-      <a class="tool calendar" href="/calendar/week-number-finder/"><strong id="l-week">📅# Week Number Finder</strong><div class="muted" id="s-week">ISO week from date</div></a>
-    </section>
-
-    <!-- Calendars -->
-    <h2 class="group" id="h-calend">Calendars</h2>
-    <section class="grid" data-group="calendar">
-      <a class="tool calendar" href="/calendar/printable-2026-calendar/"><strong id="l-printcal">🖨️📅 Printable Calendar</strong><div class="muted" id="s-printcal">PDF-ready monthly pages</div></a>
-    </section>
-
-    <!-- Utilities -->
-    <h2 class="group" id="h-utils">Utilities</h2>
-    <section class="grid" data-group="tools">
-      <a class="tool tools" href="/tools/password-generator/"><strong id="l-pass">🔐 Password Generator</strong><div class="muted" id="s-pass">Strong random passwords</div></a>
-      <a class="tool tools" href="/tools/ip-lookup/"><strong id="l-ip">🌐 IP Address Lookup</strong><div class="muted" id="s-ip">Your public IP</div></a>
-      <a class="tool tools" href="/tools/random-number-generator/"><strong id="l-rng">🎲 Random Number Generator</strong><div class="muted" id="s-rng">Secure RNG when available</div></a>
-      <a class="tool tools" href="/tools/qr-code-generator/"><strong id="l-qr">🔳 QR Code Generator</strong><div class="muted" id="s-qr">Create QR codes</div></a>
-      <a class="tool tools" href="/tools/color-picker/"><strong id="l-color">🎨 Color Picker</strong><div class="muted" id="s-color">Pick & copy hex</div></a>
-      <a class="tool tools" href="/tools/qr-code-scanner/"><strong id="l-scan">📷 QR Code Scanner</strong><div class="muted" id="s-scan">Camera or image</div></a>
-      <a class="tool tools" href="/tools/palette-extractor/"><strong id="l-pal">🎨 Palette from Image</strong><div class="muted" id="s-pal">Extract colors</div></a>
-      <a class="tool tools" href="/tools/lottery-number-generator/"><strong id="l-lotto">🎟️ Lottery Number Generator</strong><div class="muted" id="s-lotto">For entertainment only</div></a>
-    </section>
-
-    <!-- Writing -->
-    <h2 class="group" id="h-write">Writing</h2>
-    <section class="grid" data-group="writing">
-      <a class="tool writing" href="/writing/word-counter/"><strong id="l-word">📝 Word Counter</strong><div class="muted" id="s-word">Words & chars</div></a>
-      <a class="tool writing" href="/writing/character-counter/"><strong id="l-char">🔡 Character Counter</strong><div class="muted" id="s-char">Counts all chars</div></a>
-      <a class="tool writing" href="/writing/text-case-converter/"><strong id="l-case">🔠 Text Case Converter</strong><div class="muted" id="s-case">UPPER / lower / Title</div></a>
-    </section>
-
-    <!-- FAQ -->
-    <section class="card" id="homepage-faq" aria-labelledby="faq-heading">
-      <h2 id="faq-heading" style="margin:0 0 8px">FAQ</h2>
-      <details><summary id="q1">Are these tools free to use?</summary><p id="a1">Yes. GoToolOnline tools are free to use with no sign-up required.</p></details>
-      <details><summary id="q2">Do they work offline?</summary><p id="a2">Most tools run locally in your browser. The currency converter supports manual rates for offline use, and can fetch live rates when online.</p></details>
-      <details><summary id="q3">How is my privacy protected?</summary><p id="a3">Most tools process your input only in the browser and do not upload data to servers. See our <a href="/privacy/">Privacy Policy</a> for details.</p></details>
-      <details><summary id="q4">Can I bookmark tools I use often?</summary><p id="a4">Absolutely. Bookmark any tool page to open it instantly next time.</p></details>
-    </section>
-  </main>
-
-  <footer>
+</p>
+<p class="muted" id="quick-links" style="margin-top:6px">
+<span id="quick-label">Quick links:</span>
+<a href="converter/unit-converter/">Online Unit Converter</a> ·
+        <a href="currency/currency-converter/">Free Currency Converter</a> ·
+        <a href="time/timezone-converter/">World Time by Country/City</a> ·
+        <a href="time/countdown-timer/">Countdown Timer</a> ·
+        <a href="time/stopwatch/">Stopwatch</a> ·
+        <a href="developer/json-formatter/">JSON Formatter</a>
+</p>
+<nav aria-label="Filter by category" class="toolbar no-print" id="chips" style="margin-top:8px">
+<span class="chip active" data-cat="all" id="c-all">All</span>
+<span class="chip" data-cat="calculators" id="c-cal">Calculators</span>
+<span class="chip" data-cat="converter" id="c-conv">Converters</span>
+<span class="chip" data-cat="time" id="c-time">Time</span>
+<span class="chip" data-cat="calendar" id="c-calend">Calendars</span>
+<span class="chip" data-cat="tools" id="c-utils">Utilities</span>
+<span class="chip" data-cat="writing" id="c-write">Writing</span>
+<span class="chip" data-cat="dev" id="c-dev">Dev</span>
+</nav>
+</section>
+<!-- Calculators -->
+<h2 class="group" id="h-cal">Calculators</h2>
+<section class="grid" data-group="calculators">
+<a class="tool calculators" href="calculators/basic-calculator/"><strong id="l-basic">🧮 Basic Calculator</strong><div class="muted" id="s-basic">Four functions, percent, memory</div></a>
+<a class="tool calculators" href="calculators/scientific-calculator/"><strong id="l-sci">🧪 Scientific Calculator</strong><div class="muted" id="s-sci">Functions, DEG/RAD, history</div></a>
+<a class="tool calculators" href="calculators/mortgage/"><strong id="l-mort">🏠 Mortgage Calculator</strong><div class="muted" id="s-mort">Payment &amp; amortization</div></a>
+<a class="tool calculators" href="calculators/tip-split/"><strong id="l-tip">🍽️ Tip &amp; Split Bill</strong><div class="muted" id="s-tip">Per-person share</div></a>
+<a class="tool calculators" href="calculators/age-calculator/"><strong id="l-age">🧮 Age Calculator</strong><div class="muted" id="s-age">Exact age in years, months, days</div></a>
+<a class="tool calculators" href="calculators/bmi-calculator/"><strong id="l-bmi">⚖️ BMI Calculator</strong><div class="muted" id="s-bmi">Body Mass Index</div></a>
+<a class="tool calculators" href="calculators/percentage-calculator/"><strong id="l-pct">➗ Percentage Calculator</strong><div class="muted" id="s-pct">Percent of / change</div></a>
+<a class="tool calculators" href="calculators/date-difference/"><strong id="l-date">📅 Date Difference</strong><div class="muted" id="s-date">Days between dates</div></a>
+</section>
+<!-- Converters -->
+<h2 class="group" id="h-conv">Converters</h2>
+<section class="grid" data-group="converter">
+<a class="tool converter" href="converter/unit-converter/">
+<strong id="l-unit">🔁 Unit Converter</strong>
+<div class="muted" id="s-unit">18 categories · 300+ units</div>
+</a>
+<a class="tool converter" href="currency/currency-converter/">
+<strong id="l-fx">💱 Currency Converter</strong>
+<div class="muted" id="s-fx">Live FX + manual rate</div>
+</a>
+</section>
+<!-- Time -->
+<h2 class="group" id="h-time">Time</h2>
+<section class="grid" data-group="time">
+<a class="tool time" href="time/timezone-converter/">
+<strong id="l-world">🌍🕒 World Time (by Country)</strong>
+<div class="muted" id="s-world">See local time across countries</div>
+</a>
+<a class="tool time" href="time/unix-timestamp/">
+<strong id="l-unix">🕰️ Unix Timestamp Converter</strong>
+<div class="muted" id="s-unix">Epoch ↔ Local/UTC</div>
+</a>
+<a class="tool time" href="time/countdown-timer/"><strong id="l-ctd">⏳ Countdown Timer</strong><div class="muted" id="s-ctd">Simple countdown</div></a>
+<a class="tool time" href="time/stopwatch/"><strong id="l-sw">⏱️ Stopwatch</strong><div class="muted" id="s-sw">Online stopwatch</div></a>
+<a class="tool calendar" href="calendar/week-number-finder/"><strong id="l-week">📅# Week Number Finder</strong><div class="muted" id="s-week">ISO week from date</div></a>
+</section>
+<!-- Calendars -->
+<h2 class="group" id="h-calend">Calendars</h2>
+<section class="grid" data-group="calendar">
+<a class="tool calendar" href="calendar/printable-2026-calendar/"><strong id="l-printcal">🖨️📅 Printable Calendar</strong><div class="muted" id="s-printcal">PDF-ready monthly pages</div></a>
+</section>
+<!-- Utilities -->
+<h2 class="group" id="h-utils">Utilities</h2>
+<section class="grid" data-group="tools">
+<a class="tool tools" href="tools/password-generator/"><strong id="l-pass">🔐 Password Generator</strong><div class="muted" id="s-pass">Strong random passwords</div></a>
+<a class="tool tools" href="tools/ip-lookup/"><strong id="l-ip">🌐 IP Address Lookup</strong><div class="muted" id="s-ip">Your public IP</div></a>
+<a class="tool tools" href="tools/random-number-generator/"><strong id="l-rng">🎲 Random Number Generator</strong><div class="muted" id="s-rng">Secure RNG when available</div></a>
+<a class="tool tools" href="tools/qr-code-generator/"><strong id="l-qr">🔳 QR Code Generator</strong><div class="muted" id="s-qr">Create QR codes</div></a>
+<a class="tool tools" href="tools/color-picker/"><strong id="l-color">🎨 Color Picker</strong><div class="muted" id="s-color">Pick &amp; copy hex</div></a>
+<a class="tool tools" href="tools/qr-code-scanner/"><strong id="l-scan">📷 QR Code Scanner</strong><div class="muted" id="s-scan">Camera or image</div></a>
+<a class="tool tools" href="tools/palette-extractor/"><strong id="l-pal">🎨 Palette from Image</strong><div class="muted" id="s-pal">Extract colors</div></a>
+<a class="tool tools" href="tools/lottery-number-generator/"><strong id="l-lotto">🎟️ Lottery Number Generator</strong><div class="muted" id="s-lotto">For entertainment only</div></a>
+</section>
+<!-- Writing -->
+<h2 class="group" id="h-write">Writing</h2>
+<section class="grid" data-group="writing">
+<a class="tool writing" href="writing/word-counter/"><strong id="l-word">📝 Word Counter</strong><div class="muted" id="s-word">Words &amp; chars</div></a>
+<a class="tool writing" href="writing/character-counter/"><strong id="l-char">🔡 Character Counter</strong><div class="muted" id="s-char">Counts all chars</div></a>
+<a class="tool writing" href="writing/text-case-converter/"><strong id="l-case">🔠 Text Case Converter</strong><div class="muted" id="s-case">UPPER / lower / Title</div></a>
+</section>
+<!-- FAQ -->
+<section aria-labelledby="faq-heading" class="card" id="homepage-faq">
+<h2 id="faq-heading" style="margin:0 0 8px">FAQ</h2>
+<details><summary id="q1">Are these tools free to use?</summary><p id="a1">Yes. GoToolOnline tools are free to use with no sign-up required.</p></details>
+<details><summary id="q2">Do they work offline?</summary><p id="a2">Most tools run locally in your browser. The currency converter supports manual rates for offline use, and can fetch live rates when online.</p></details>
+<details><summary id="q3">How is my privacy protected?</summary><p id="a3">Most tools process your input only in the browser and do not upload data to servers. See our <a href="privacy/">Privacy Policy</a> for details.</p></details>
+<details><summary id="q4">Can I bookmark tools I use often?</summary><p id="a4">Absolutely. Bookmark any tool page to open it instantly next time.</p></details>
+</section>
+</main>
+<footer>
     © <span id="y"></span> GoToolOnline.com · <span id="t-foot">Free online tools for everyone</span> ·
-    <a href="/about/" style="color:#8cd1ff" id="f-about">About</a> ·
-    <a href="/privacy/" style="color:#8cd1ff" id="f-privacy">Privacy</a> ·
-    <a href="/terms/" style="color:#8cd1ff" id="f-terms">Terms</a> ·
-    <a href="/contact/" style="color:#8cd1ff" id="f-contact">Contact</a>
-
-    <p class="muted" style="margin-top:14px" id="site-desc">
-      GoToolOnline brings 30+ fast, free tools together: calculators, unit & currency converters, world time, countdowns and stopwatches,
+    <a href="about/" id="f-about" style="color:#8cd1ff">About</a> ·
+    <a href="privacy/" id="f-privacy" style="color:#8cd1ff">Privacy</a> ·
+    <a href="terms/" id="f-terms" style="color:#8cd1ff">Terms</a> ·
+    <a href="contact/" id="f-contact" style="color:#8cd1ff">Contact</a>
+<p class="muted" id="site-desc" style="margin-top:14px">
+      GoToolOnline brings 30+ fast, free tools together: calculators, unit &amp; currency converters, world time, countdowns and stopwatches,
       printable calendars, plus handy writing and developer utilities (JSON formatter, URL/Base64, hash, and more). Big buttons, clean layout,
       privacy-friendly, and many tools work offline.
     </p>
-  </footer>
-
-  <noscript>
-    <div style="max-width:1200px;margin:0 auto 24px;padding:0 18px;color:#ffd1d1">
+</footer>
+<noscript>
+<div style="max-width:1200px;margin:0 auto 24px;padding:0 18px;color:#ffd1d1">
       JavaScript is disabled. You can still browse tools via the links above.
     </div>
-  </noscript>
-
-  <!-- ===== 脚本必须放在末尾；另外也加了 DOMContentLoaded 保护 ===== -->
-  <script>
+</noscript>
+<!-- ===== 脚本必须放在末尾；另外也加了 DOMContentLoaded 保护 ===== -->
+<script>
   (function(){
     const onReady = (fn)=>{ if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded', fn, {once:true});} else {fn();} };
     onReady(function init(){
