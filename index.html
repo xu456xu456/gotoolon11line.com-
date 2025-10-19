@@ -7,7 +7,7 @@
   <title>GoToolOnline</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🛠️</text></svg>'">
 
-  <!-- 预置一些基础 OG，稍后会被脚本按本地语言覆盖 -->
+  <!-- 基础 OG（多语言文案由脚本覆盖） -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GoToolOnline">
   <meta property="og:title" content="GoToolOnline">
@@ -22,12 +22,13 @@
 
   <style>
     :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
-    *{box-sizing:border-box} body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--fg)}
+    *{box-sizing:border-box}
+    body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--fg)}
     header,footer,main{max-width:1200px;margin:0 auto;padding:0 18px}
     header{display:flex;align-items:center;gap:12px;margin:20px auto 8px}
     .logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
     .langbar{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
-    .langbar a{padding:6px 10px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;text-decoration:none;color:var(--fg);font-size:14px}
+    .langbar a{padding:6px 10px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;text-decoration:none;color:var(--fg);font-size:14px;cursor:pointer}
     .langbar a.active{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
     main{margin:10px auto 64px}
     h1{font-size:34px;margin:10px 0 10px} h2{font-size:26px;margin:18px 0 10px}
@@ -41,22 +42,23 @@
     .tool{display:block;background:#0d142a;border:1px solid #1b2c52;border-radius:16px;padding:16px;text-decoration:none;color:var(--fg)}
     .tool strong{font-size:20px;display:block;margin-bottom:6px}
     .tool:hover{border-color:var(--acc);box-shadow:0 0 0 3px rgba(79,179,255,.18)}
-    .muted{color:var(--muted)} .chip{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;cursor:pointer;font-size:16px}
-    .chip.active{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)} .group{margin-top:8px} .hide{display:none!important}
+    .muted{color:var(--muted)}
+    .chip{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;cursor:pointer;font-size:16px}
+    .chip.active{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    .hide{display:none!important}
     footer{color:var(--muted);font-size:15px;margin:40px auto}
     /* Section headers */
     h2.group{background:linear-gradient(180deg,#0b1732,#0b1d3f);color:#cfe5ff;border:1px solid #20355e;border-left:5px solid #4fb3ff;border-radius:14px;padding:10px 14px;letter-spacing:.2px;margin:36px 0 12px}
     h2.group + section.grid{margin-top:10px} section.grid{margin-bottom:22px}
     @media (min-width: 900px){ h2.group{position:sticky;top:0;z-index:10;background:rgba(11,23,50,.88);backdrop-filter:blur(6px)} }
     @media print{ header,footer,.no-print{display:none!important} body{background:#fff;color:#000} .card,.tool{border:none} }
-    /* RTL 小修 */
-    html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .langbar{margin-left:0;margin-right:auto}
+    html[dir="rtl"] body{direction:rtl}
   </style>
 </head>
 <body>
   <header>
     <a class="logo" href="/" aria-label="GoToolOnline home"><span>🛠️</span><strong>GoToolOnline</strong></a>
-    <nav class="langbar" id="langbar"><!-- 语言按钮由脚本渲染 --></nav>
+    <nav class="langbar" id="langbar"></nav>
   </header>
 
   <main>
@@ -174,7 +176,7 @@
       <a class="tool developer" href="/developer/jwt-decoder/"><strong id="l-jwt">🔑 JWT Decoder</strong><div class="muted" id="s-jwt">Local decode</div></a>
     </section>
 
-    <!-- Homepage FAQ -->
+    <!-- FAQ -->
     <section class="card" id="homepage-faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading" style="margin:0 0 8px">FAQ</h2>
       <details><summary id="q1">Are these tools free to use?</summary><p id="a1">Yes. GoToolOnline tools are free to use with no sign-up required.</p></details>
@@ -183,7 +185,7 @@
       <details><summary id="q4">Can I bookmark tools I use often?</summary><p id="a4">Absolutely. Bookmark any tool page to open it instantly next time.</p></details>
     </section>
 
-    <!-- Related tools (自动外链区) -->
+    <!-- Related（可选） -->
     <section class="card" id="related"></section>
   </main>
 
@@ -208,14 +210,53 @@
   </noscript>
 
   <script>
-  /************ 语言与本地 SEO 配置（含 zh 简体） ************/
+  // ================= 语言：支持 ?lang=xx / #lang=xx + Cookie，按钮保留；不改内部链接 =================
   (function(){
-    // 支持语言：新增 zh
     const LANGS = ['en','ph','id','vi','bn','ng','sw','ar','zh'];
     const NAMES = {en:'English', ph:'Tagalog', id:'Bahasa Indonesia', vi:'Tiếng Việt', bn:'বাংলা', ng:'English (NG)', sw:'Kiswahili', ar:'العربية', zh:'简体中文'};
     const MAP_BROWSER = {en:'en', tl:'ph', fil:'ph', id:'id', vi:'vi', bn:'bn', sw:'sw', ar:'ar', zh:'zh', 'zh-cn':'zh', 'zh-hans':'zh'};
 
-    // 首页多语言文案与 SEO
+    function getCookie(name){ return ('; '+document.cookie).split('; '+name+'=').pop().split(';')[0] || ''; }
+    function pickLang(){
+      const url = new URL(location.href);
+      const qLang = (url.searchParams.get('lang') || '').toLowerCase();
+      const hLang = ((location.hash.match(/(?:^|[?#&])lang=([a-z-]+)/i)||[])[1]||'').toLowerCase();
+      const urlLang = qLang || hLang;
+
+      const cookieLang = getCookie('lang');
+      const nav = (navigator.language||'en').toLowerCase();
+
+      let lang = 'en';
+      if (urlLang && LANGS.includes(urlLang)) {
+        lang = urlLang;
+        document.cookie = `lang=${lang};path=/;max-age=31536000`;
+      } else if (cookieLang && LANGS.includes(cookieLang)) {
+        lang = cookieLang;
+      } else {
+        lang = MAP_BROWSER[nav] || MAP_BROWSER[nav.split('-')[0]] || 'en';
+      }
+      return lang;
+    }
+
+    const lang = pickLang();
+
+    if (lang==='ar') document.documentElement.dir='rtl';
+    document.documentElement.lang = (lang==='ph'?'tl':(lang==='ng'?'en':lang));
+
+    // 顶部语言按钮：写 Cookie + 刷新（不改 URL、不改站内链接）
+    const bar = document.getElementById('langbar');
+    LANGS.forEach(code=>{
+      const a=document.createElement('a');
+      a.textContent=NAMES[code];
+      if(code===lang) a.className='active';
+      a.addEventListener('click', ()=>{
+        document.cookie = `lang=${code};path=/;max-age=31536000`;
+        location.reload();
+      });
+      bar.appendChild(a);
+    });
+
+    // ================ 多语言文案与 SEO（含中文） ================
     const I18N = {
       en:{ title:"GoToolOnline — 30+ Free Online Tools (All-in-One)",
            desc:"All tools on one page: calculators, converters, time, calendars, writing and developer utilities. Fast, free, no login.",
@@ -265,78 +306,7 @@
              q4:"Can I bookmark tools I use often?", a4:"Absolutely. Bookmark any tool page to open it instantly next time."
            },
            foot:"Free online tools for everyone",
-           links_quick:["Online Unit Converter","Free Currency Converter","World Time by Country/City","Countdown Timer","Stopwatch","JSON Formatter"],
-           ogLocale:"en_AU"
-      },
-      ph:{ title:"GoToolOnline · Mga Libreng Online na Tool",
-           desc:"Lahat ng tool sa iisang pahina: kalkulador, converter, oras, kalendaryo, pagsusulat at developer utilities. Mabilis, libre, walang login.",
-           hero:"Lahat ng Tool — Isang Pahina",
-           tip:"Tip: mag-type para agad ma-filter. I-click ang chip para i-filter ayon sa kategorya.",
-           chips:{all:"Lahat", cal:"Kalkulador", conv:"Converter", time:"Oras", calend:"Kalendaryo", utils:"Mga Utility", write:"Pagsusulat", dev:"Dev"},
-           h:{cal:"Kalkulador", conv:"Converter", time:"Oras", calend:"Kalendaryo", utils:"Mga Utility", write:"Pagsusulat", dev:"Developer"},
-           tools:{}, faq:{}, foot:"Libreng online na mga tool para sa lahat",
-           links_quick:["Online Unit Converter","Libreng Currency Converter","World Time","Countdown Timer","Stopwatch","JSON Formatter"],
-           ogLocale:"tl_PH"
-      },
-      id:{ title:"GoToolOnline · Alat Online Gratis",
-           desc:"Semua alat di satu halaman: kalkulator, konverter, waktu, kalender, tulis & utilitas developer. Cepat, gratis, tanpa login.",
-           hero:"Semua Alat — Satu Halaman",
-           tip:"Ketik untuk memfilter seketika. Klik chip untuk memfilter menurut kategori.",
-           chips:{all:"Semua", cal:"Kalkulator", conv:"Konverter", time:"Waktu", calend:"Kalender", utils:"Utilitas", write:"Penulisan", dev:"Dev"},
-           h:{cal:"Kalkulator", conv:"Konverter", time:"Waktu", calend:"Kalender", utils:"Utilitas", write:"Penulisan", dev:"Pengembang"},
-           tools:{}, faq:{}, foot:"Alat online gratis untuk semua orang",
-           links_quick:["Konverter Satuan","Konverter Mata Uang","Waktu Dunia","Hitung Mundur","Stopwatch","Formatter JSON"],
-           ogLocale:"id_ID"
-      },
-      vi:{ title:"GoToolOnline · Công cụ trực tuyến miễn phí",
-           desc:"Tất cả công cụ trên một trang: máy tính, chuyển đổi, thời gian, lịch, viết và tiện ích cho lập trình. Nhanh, miễn phí, không cần đăng nhập.",
-           hero:"Tất cả công cụ — Một trang",
-           tip:"Gõ để lọc ngay. Bấm chip để lọc theo nhóm.",
-           chips:{all:"Tất cả", cal:"Máy tính", conv:"Chuyển đổi", time:"Thời gian", calend:"Lịch", utils:"Tiện ích", write:"Viết", dev:"Dev"},
-           h:{cal:"Máy tính", conv:"Chuyển đổi", time:"Thời gian", calend:"Lịch", utils:"Tiện ích", write:"Viết", dev:"Lập trình"},
-           tools:{}, faq:{}, foot:"Công cụ trực tuyến miễn phí cho mọi người",
-           links_quick:["Đổi đơn vị","Đổi tiền tệ","Giờ thế giới","Đếm ngược","Bấm giờ","Định dạng JSON"],
-           ogLocale:"vi_VN"
-      },
-      bn:{ title:"GoToolOnline · ফ্রি অনলাইন টুলস",
-           desc:"সব টুল এক পাতায়: ক্যালকুলেটর, কনভার্টার, সময়, ক্যালেন্ডার, রাইটিং ও ডেভেলপার ইউটিলিটি। দ্রুত, ফ্রি, লগইন ছাড়া।",
-           hero:"সব টুল — এক পাতা",
-           tip:"টাইপ করলেই ফিল্টার হবে। চিপে ক্লিক করে ক্যাটেগরি অনুযায়ী ফিল্টার করুন।",
-           chips:{all:"সব", cal:"ক্যালকুলেটর", conv:"কনভার্টার", time:"সময়", calend:"ক্যালেন্ডার", utils:"ইউটিলিটি", write:"রাইটিং", dev:"ডেভ"},
-           h:{cal:"ক্যালকুলেটর", conv:"কনভার্টার", time:"সময়", calend:"ক্যালেন্ডার", utils:"ইউটিলিটি", write:"রাইটিং", dev:"ডেভেলপার"},
-           tools:{}, faq:{}, foot:"সবার জন্য ফ্রি অনলাইন টুলস",
-           links_quick:["ইউনিট কনভার্টার","কারেন্সি কনভার্টার","বিশ্ব সময়","কাউন্টডাউন","স্টপওয়াচ","JSON ফরম্যাটার"],
-           ogLocale:"bn_BD"
-      },
-      ng:{ title:"GoToolOnline — Free Online Tools (Nigeria)",
-           desc:"Fast, free tools for Nigeria & beyond: calculators, converters, time, calendars, writing and dev utilities.",
-           hero:"All Tools — One Page",
-           tip:"Type to filter instantly. Click a chip to filter by category.",
-           chips:{all:"All", cal:"Calculators", conv:"Converters", time:"Time", calend:"Calendars", utils:"Utilities", write:"Writing", dev:"Dev"},
-           h:{cal:"Calculators", conv:"Converters", time:"Time", calend:"Calendars", utils:"Utilities", write:"Writing", dev:"Developer"},
-           tools:{}, faq:{}, foot:"Free online tools for everyone",
-           links_quick:["Online Unit Converter","Free Currency Converter","World Time","Countdown Timer","Stopwatch","JSON Formatter"],
-           ogLocale:"en_NG"
-      },
-      sw:{ title:"GoToolOnline · Zana Mtandaoni Bure",
-           desc:"Zana zote kwenye ukurasa mmoja: kalkuleta, vigeuzi, muda, kalenda, uandishi na zana za msanidi. Haraka, bure, bila kuingia.",
-           hero:"Zana Zote — Ukurasa Mmoja",
-           tip:"Andika kutafuta mara moja. Bofya chip kuchuja kwa kundi.",
-           chips:{all:"Zote", cal:"Kalkuleta", conv:"Vigeuzi", time:"Muda", calend:"Kalenda", utils:"Zana", write:"Uandishi", dev:"Dev"},
-           h:{cal:"Kalkuleta", conv:"Vigeuzi", time:"Muda", calend:"Kalenda", utils:"Zana", write:"Uandishi", dev:"Msanidi"},
-           tools:{}, faq:{}, foot:"Zana mtandaoni bure kwa wote",
-           links_quick:["Kigeuzi cha Vitengo","Kigeuzi cha Sarafu","Saa za Dunia","Kipima Muda","Stopwatch","Mpangilia JSON"],
-           ogLocale:"sw_KE"
-      },
-      ar:{ title:"GoToolOnline · أدوات مجانية على الإنترنت",
-           desc:"جميع الأدوات في صفحة واحدة: حاسبات، محولات، الوقت، التقويمات، أدوات الكتابة والمطور. سريع ومجاني وبدون تسجيل.",
-           hero:"كل الأدوات — صفحة واحدة",
-           tip:"اكتب للتصفية فورًا. انقر على الشارة للتصفية حسب الفئة.",
-           chips:{all:"الكل", cal:"حاسبات", conv:"محولات", time:"الوقت", calend:"تقويمات", utils:"أدوات", write:"كتابة", dev:"للمطور"},
-           h:{cal:"حاسبات", conv:"محولات", time:"الوقت", calend:"تقويمات", utils:"أدوات", write:"كتابة", dev:"للمطور"},
-           tools:{}, faq:{}, foot:"أدوات مجانية للجميع",
-           links_quick:["محوّل الوحدات","محوّل العملات","وقت العالم","العدّاد التنازلي","ساعة الإيقاف","منسّق JSON"],
-           ogLocale:"ar"
+           links_quick:["Online Unit Converter","Free Currency Converter","World Time by Country/City","Countdown Timer","Stopwatch","JSON Formatter"]
       },
       zh:{ title:"GoToolOnline · 30+ 免费在线工具（汇总页）",
            desc:"把常用工具放到一页：计算器、单位/货币换算、世界时区、倒计时/秒表、可打印日历、写作与开发小工具。免费、无登录、加载后离线可用。",
@@ -382,59 +352,84 @@
            faq:{
              q1:"这些工具免费吗？", a1:"免费，无需登录，绝大多数在浏览器本地运行。",
              q2:"离线可用吗？", a2:"页面加载后，多数工具可离线使用；货币换算可手动填汇率。",
-             q3:"隐私如何保障？", a3:"通常不上传你的数据，详见隐私政策。",
+             q3:"隐私如何保障？", a3:'通常不上传你的数据，详见 <a href="/privacy/">隐私政策</a>。',
              q4:"能收藏常用工具吗？", a4:"可以，把工具页加入浏览器书签即可。"
            },
            foot:"免费、实用、对隐私友好",
-           links_quick:["单位换算","货币换算","世界时间","倒计时","秒表","JSON 格式化"],
-           ogLocale:"zh_CN"
+           links_quick:["单位换算","货币换算","世界时间","倒计时","秒表","JSON 格式化"]
+      },
+      ph:{ title:"GoToolOnline · Mga Libreng Online na Tool",
+           desc:"Lahat ng tool sa iisang pahina: kalkulador, converter, oras, kalendaryo, pagsusulat at developer utilities. Mabilis, libre, walang login.",
+           hero:"Lahat ng Tool — Isang Pahina",
+           tip:"Tip: mag-type para agad ma-filter. I-click ang chip para i-filter ayon sa kategorya.",
+           chips:{all:"Lahat", cal:"Kalkulador", conv:"Converter", time:"Oras", calend:"Kalendaryo", utils:"Mga Utility", write:"Pagsusulat", dev:"Dev"},
+           h:{cal:"Kalkulador", conv:"Converter", time:"Oras", calend:"Kalendaryo", utils:"Mga Utility", write:"Pagsusulat", dev:"Developer"},
+           links_quick:["Online Unit Converter","Libreng Currency Converter","World Time","Countdown Timer","Stopwatch","JSON Formatter"]
+      },
+      id:{ title:"GoToolOnline · Alat Online Gratis",
+           desc:"Semua alat di satu halaman: kalkulator, konverter, waktu, kalender, tulis & utilitas developer. Cepat, gratis, tanpa login.",
+           hero:"Semua Alat — Satu Halaman",
+           tip:"Ketik untuk memfilter seketika. Klik chip untuk memfilter menurut kategori.",
+           chips:{all:"Semua", cal:"Kalkulator", conv:"Konverter", time:"Waktu", calend:"Kalender", utils:"Utilitas", write:"Penulisan", dev:"Dev"},
+           h:{cal:"Kalkulator", conv:"Konverter", time:"Waktu", calend:"Kalender", utils:"Utilitas", write:"Penulisan", dev:"Pengembang"},
+           links_quick:["Konverter Satuan","Konverter Mata Uang","Waktu Dunia","Hitung Mundur","Stopwatch","Formatter JSON"]
+      },
+      vi:{ title:"GoToolOnline · Công cụ trực tuyến miễn phí",
+           desc:"Tất cả công cụ trên một trang: máy tính, chuyển đổi, thời gian, lịch, viết và tiện ích cho lập trình. Nhanh, miễn phí, không cần đăng nhập.",
+           hero:"Tất cả công cụ — Một trang",
+           tip:"Gõ để lọc ngay. Bấm chip để lọc theo nhóm.",
+           chips:{all:"Tất cả", cal:"Máy tính", conv:"Chuyển đổi", time:"Thời gian", calend:"Lịch", utils:"Tiện ích", write:"Viết", dev:"Dev"},
+           h:{cal:"Máy tính", conv:"Chuyển đổi", time:"Thời gian", calend:"Lịch", utils:"Tiện ích", write:"Viết", dev:"Lập trình"},
+           links_quick:["Đổi đơn vị","Đổi tiền tệ","Giờ thế giới","Đếm ngược","Bấm giờ","Định dạng JSON"]
+      },
+      bn:{ title:"GoToolOnline · ফ্রি অনলাইন টুলস",
+           desc:"সব টুল এক পাতায়: ক্যালকুলেটর, কনভার্টার, সময়, ক্যালেন্ডার, রাইটিং ও ডেভেলপার ইউটিলিটি। দ্রুত, ফ্রি, লগইন ছাড়া।",
+           hero:"সব টুল — এক পাতা",
+           tip:"টাইপ করলেই ফিল্টার হবে। চিপে ক্লিক করে ক্যাটেগরি অনুযায়ী ফিল্টার করুন।",
+           chips:{all:"সব", cal:"ক্যালকুলেটর", conv:"কনভার্টার", time:"সময়", calend:"ক্যালেন্ডার", utils:"ইউটিলিটি", write:"রাইটিং", dev:"ডেভ"},
+           h:{cal:"ক্যালকুলেটর", conv:"কনভার্টার", time:"সময়", calend:"ক্যালেন্ডার", utils:"ইউটিলিটি", write:"রাইটিং", dev:"ডেভেলপার"},
+           links_quick:["ইউনিট কনভার্টার","কারেন্সি কনভার্টার","বিশ্ব সময়","কাউন্টডাউন","স্টপওয়াচ","JSON ফরম্যাটার"]
+      },
+      ng:{ title:"GoToolOnline — Free Online Tools (Nigeria)",
+           desc:"Fast, free tools for Nigeria & beyond: calculators, converters, time, calendars, writing and dev utilities.",
+           hero:"All Tools — One Page",
+           tip:"Type to filter instantly. Click a chip to filter by category.",
+           chips:{all:"All", cal:"Calculators", conv:"Converters", time:"Time", calend:"Calendars", utils:"Utilities", write:"Writing", dev:"Dev"},
+           h:{cal:"Calculators", conv:"Converters", time:"Time", calend:"Calendars", utils:"Utilities", write:"Writing", dev:"Developer"},
+           links_quick:["Online Unit Converter","Free Currency Converter","World Time","Countdown Timer","Stopwatch","JSON Formatter"]
+      },
+      sw:{ title:"GoToolOnline · Zana Mtandaoni Bure",
+           desc:"Zana zote kwenye ukurasa mmoja: kalkuleta, vigeuzi, muda, kalenda, uandishi na zana za msanidi. Haraka, bure, bila kuingia.",
+           hero:"Zana Zote — Ukurasa Mmoja",
+           tip:"Andika kutafuta mara moja. Bofya chip kuchuja kwa kundi.",
+           chips:{all:"Zote", cal:"Kalkuleta", conv:"Vigeuzi", time:"Muda", calend:"Kalenda", utils:"Zana", write:"Uandishi", dev:"Dev"},
+           h:{cal:"Kalkuleta", conv:"Vigeuzi", time:"Muda", calend:"Kalenda", utils:"Zana", write:"Uandishi", dev:"Msanidi"},
+           links_quick:["Kigeuzi cha Vitengo","Kigeuzi cha Sarafu","Saa za Dunia","Kipima Muda","Stopwatch","Mpangilia JSON"]
+      },
+      ar:{ title:"GoToolOnline · أدوات مجانية على الإنترنت",
+           desc:"جميع الأدوات في صفحة واحدة: حاسبات، محولات، الوقت، التقويمات، أدوات الكتابة والمطور. سريع ومجاني وبدون تسجيل.",
+           hero:"كل الأدوات — صفحة واحدة",
+           tip:"اكتب للتصفية فورًا. انقر على الشارة للتصفية حسب الفئة.",
+           chips:{all:"الكل", cal:"حاسبات", conv:"محولات", time:"الوقت", calend:"تقويمات", utils:"أدوات", write:"كتابة", dev:"للمطور"},
+           h:{cal:"حاسبات", conv:"محولات", time:"الوقت", calend:"تقويمات", utils:"أدوات", write:"كتابة", dev:"للمطور"},
+           links_quick:["محوّل الوحدات","محوّل العملات","وقت العالم","العدّاد التنازلي","ساعة الإيقاف","منسّق JSON"]
       }
     };
 
-    // 识别当前语言（根路径自动跳转；各语言页渲染）
-    const seg = location.pathname.split('/').filter(Boolean);
-    let lang = (seg[0]||'').toLowerCase();
-    if (!LANGS.includes(lang)) {
-      const c = ('; '+document.cookie).split('; lang=').pop().split(';')[0];
-      const nav = (navigator.language||'en').toLowerCase();
-      const guess = c || MAP_BROWSER[nav] || MAP_BROWSER[nav.split('-')[0]] || 'en';
-      location.replace('/'+(LANGS.includes(guess)?guess:'en')+'/');
-      return;
-    }
-    document.cookie = `lang=${lang};path=/;max-age=31536000`;
-    if (lang==='ar'){ document.documentElement.dir='rtl'; }
-    document.documentElement.lang = (lang==='ph'?'tl':(lang==='ng'?'en':lang));
-
-    // 渲染语言切换
-    const bar = document.getElementById('langbar');
-    LANGS.forEach(code=>{
-      const a = document.createElement('a');
-      a.href = '/'+code+'/';
-      a.textContent = NAMES[code];
-      if (code===lang) a.className='active';
-      bar.appendChild(a);
-    });
-
-    // 修正站内链接到当前语言前缀
-    function fixInternalLinks(){
-      document.querySelectorAll('a[href^="/"]').forEach(a=>{
-        const u = new URL(a.getAttribute('href'), location.origin);
-        const parts = u.pathname.split('/').filter(Boolean);
-        if (!parts.length) return;
-        parts[0] = lang;
-        u.pathname = '/'+parts.join('/')+(u.pathname.endsWith('/')?'':'/');
-        a.setAttribute('href', u.pathname+u.search+u.hash);
-      });
-    }
-    fixInternalLinks();
-
-    // 文案注入
     const D = I18N[lang] || I18N.en;
-    // 顶部文案
+
+    // 基础 meta/OG
+    (function meta(){
+      document.title = D.title || document.title;
+      function m(name, content){ if(!content) return; let x=document.querySelector(`meta[name="${name}"]`); if(!x){ x=document.createElement('meta'); x.setAttribute('name',name); document.head.appendChild(x);} x.setAttribute('content',content); }
+      function og(p, content){ if(!content) return; let x=document.querySelector(`meta[property="og:${p}"]`); if(!x){ x=document.createElement('meta'); x.setAttribute('property',`og:${p}`); document.head.appendChild(x);} x.setAttribute('content',content); }
+      m('description', D.desc); og('title', D.title); og('description', D.desc);
+    })();
+
+    // 顶部/分组/Chip 文案
     document.getElementById('t-hero').textContent = D.hero;
-    document.getElementById('t-tip').firstChild.nodeValue = (D.tip||'')+' ';
-    // 分类 chip
-    const chips = D.chips||I18N.en.chips;
+    const tipP = document.getElementById('t-tip'); if (tipP) tipP.firstChild.nodeValue = (D.tip||'') + ' ';
+    const chips = D.chips || I18N.en.chips;
     document.getElementById('c-all').textContent = chips.all;
     document.getElementById('c-cal').textContent = chips.cal;
     document.getElementById('c-conv').textContent = chips.conv;
@@ -443,8 +438,8 @@
     document.getElementById('c-utils').textContent = chips.utils;
     document.getElementById('c-write').textContent = chips.write;
     document.getElementById('c-dev').textContent = chips.dev;
-    // 分组标题
-    const H = D.h||I18N.en.h;
+
+    const H = D.h || I18N.en.h;
     document.getElementById('h-cal').textContent = H.cal;
     document.getElementById('h-conv').textContent = H.conv;
     document.getElementById('h-time').textContent = H.time;
@@ -453,9 +448,15 @@
     document.getElementById('h-write').textContent = H.write;
     document.getElementById('h-dev').textContent = H.dev;
 
-    // 工具名称与副标题（若该语言未定义，则沿用英文）
+    // 工具标题/副标题
     const T = Object.assign({}, I18N.en.tools, D.tools||{});
-    function setPair(id, key){ const pair=T[key]; if(!pair) return; const [t,s]=pair; const el=document.getElementById(id); if(el) el.textContent=t; const sid='s-'+id.split('-')[1]; const se=document.getElementById(sid); if(se && s) se.textContent=s; }
+    function setPair(id, key){
+      const pair = T[key]; if(!pair) return;
+      const [t,s]=pair; const el=document.getElementById(id);
+      if(el) el.textContent=t;
+      const sid='s-'+id.split('-')[1]; const se=document.getElementById(sid);
+      if(se && s) se.textContent=s;
+    }
     setPair('l-basic','basic'); setPair('l-sci','sci'); setPair('l-mort','mort'); setPair('l-tip','tip');
     setPair('l-age','age'); setPair('l-bmi','bmi'); setPair('l-pct','pct'); setPair('l-date','date');
     setPair('l-unit','unit'); setPair('l-fx','fx');
@@ -465,79 +466,54 @@
     setPair('l-word','word'); setPair('l-char','char'); setPair('l-case','tcase');
     setPair('l-url','url'); setPair('l-json','json'); setPair('l-htmlmin','htmlmin'); setPair('l-b64','b64'); setPair('l-hash','hash'); setPair('l-jwt','jwt');
 
-    // FAQ/页脚
+    // FAQ/页脚/Quick links + 输入占位
+    function setIf(id, html){ const el=document.getElementById(id); if(el && typeof html==='string') el.innerHTML=html; }
     if (D.faq && D.faq.q1){
-      document.getElementById('faq-heading').textContent = (lang==='zh'?'常见问题':'FAQ');
-      document.getElementById('q1').textContent = D.faq.q1; document.getElementById('a1').textContent = D.faq.a1;
-      document.getElementById('q2').textContent = D.faq.q2; document.getElementById('a2').textContent = D.faq.a2;
-      document.getElementById('q3').textContent = D.faq.q3; document.getElementById('a3').innerHTML = (D.faq.a3||'').replace('隐私政策','<a href="/privacy/">隐私政策</a>').replace('Privacy Policy','<a href="/privacy/">Privacy Policy</a>');
-      document.getElementById('q4').textContent = D.faq.q4; document.getElementById('a4').textContent = D.faq.a4;
+      setIf('faq-heading', lang==='zh' ? '常见问题' : 'FAQ');
+      setIf('q1', D.faq.q1); setIf('a1', D.faq.a1);
+      setIf('q2', D.faq.q2); setIf('a2', D.faq.a2);
+      setIf('q3', D.faq.q3); setIf('a3', D.faq.a3);
+      setIf('q4', D.faq.q4); setIf('a4', D.faq.a4);
     }
     document.getElementById('t-foot').textContent = D.foot || I18N.en.foot;
 
-    // Quick links 文案
-    const ql = document.getElementById('quick-links');
-    const anchors = ql.querySelectorAll('a');
-    const txts = D.links_quick || I18N.en.links_quick;
-    anchors.forEach((a,i)=>{ if(txts[i]) a.textContent = txts[i]; });
+    (function quickLinks(){
+      const ql = document.getElementById('quick-links');
+      const anchors = ql.querySelectorAll('a');
+      const txts = D.links_quick || I18N.en.links_quick;
+      anchors.forEach((a,i)=>{ if(txts[i]) a.textContent = txts[i]; });
+
+      const search=document.getElementById('search'), clearBtn=document.getElementById('clear');
+      if (lang==='zh'){ search.placeholder='搜索工具…（如：日历、JSON、Base64、BMI）'; clearBtn.textContent='清空'; }
+      else if (lang==='vi'){ search.placeholder='Tìm công cụ… (vd: lịch, json, base64, bmi)'; clearBtn.textContent='Xóa'; }
+      else if (lang==='id'){ search.placeholder='Cari alat… (mis: kalender, json, base64, bmi)'; clearBtn.textContent='Bersihkan'; }
+      else if (lang==='ph'){ search.placeholder='Hanapin ang tool… (hal. calendar, json, base64, bmi)'; clearBtn.textContent='Clear'; }
+      else if (lang==='bn'){ search.placeholder='টুল খুঁজুন… (যেমন: calendar, json, base64, bmi)'; clearBtn.textContent='Clear'; }
+      else if (lang==='sw'){ search.placeholder='Tafuta zana… (k.m. kalenda, json, base64, bmi)'; clearBtn.textContent='Futa'; }
+      else if (lang==='ar'){ search.placeholder='ابحث عن أداة… (مثل: calendar, json, base64, bmi)'; clearBtn.textContent='مسح'; }
+    })();
 
     // 年份
     var y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
 
-    // 本地化 SEO：title / meta / og / canonical / hreflang
-    (function seo(){
-      const cur = location.origin.replace(/\/$/,'') + location.pathname;
-      document.title = D.title || document.title;
-      function meta(name, content){ if(!content) return; let m=document.querySelector(`meta[name="${name}"]`); if(!m){ m=document.createElement('meta'); m.setAttribute('name',name); document.head.appendChild(m);} m.setAttribute('content',content); }
-      function og(p, content){ if(!content) return; let m=document.querySelector(`meta[property="og:${p}"]`); if(!m){ m=document.createElement('meta'); m.setAttribute('property',`og:${p}`); document.head.appendChild(m);} m.setAttribute('content',content); }
-      function link(rel, href, attr){ if(!href) return; let l=document.querySelector(`link[rel="${rel}"][href="${href}"]`); if(!l){ l=document.createElement('link'); l.setAttribute('rel',rel); l.setAttribute('href',href); if(attr) Object.entries(attr).forEach(([k,v])=>l.setAttribute(k,v)); document.head.appendChild(l);} }
-
-      meta('description', D.desc);
-      og('title', D.title); og('description', D.desc); og('url', cur);
-      const loc = D.ogLocale || (lang==='ph'?'tl_PH':(lang==='ng'?'en_NG':(lang==='ar'?'ar':(lang==='zh'?'zh_CN':'en_AU'))));
-      og('locale', loc);
-
-      // canonical
-      link('canonical', cur.endsWith('/')?cur:cur+'/');
-
-      // hreflang（9种 + x-default，含 zh-CN）
-      const base = location.origin;
-      const alt = {
-        'en'   : base+'/en/',
-        'tl'   : base+'/ph/',
-        'id'   : base+'/id/',
-        'vi'   : base+'/vi/',
-        'bn'   : base+'/bn/',
-        'en-NG': base+'/ng/',
-        'sw'   : base+'/sw/',
-        'ar'   : base+'/ar/',
-        'zh-CN': base+'/zh/',
-        'x-default': base+'/en/'
-      };
-      Object.entries(alt).forEach(([hl,href])=> link('alternate', href, {hreflang:hl}));
-    })();
-
-    // 相关工具（简单版）
+    // 相关工具（简单网内部署）
     (function related(){
-      const box = document.getElementById('related');
-      if(!box) return;
-      const titleMap = {en:'Related Tools',ph:'Kaugnay na Mga Tool',id:'Alat Terkait',vi:'Công cụ liên quan',bn:'সম্পর্কিত টুলস',ng:'Related Tools',sw:'Zana Zinazohusiana',ar:'أدوات ذات صلة', zh:'相关工具'};
+      const langMapTxt = {en:'Related Tools', zh:'相关工具', ph:'Kaugnay na Mga Tool', id:'Alat Terkait', vi:'Công cụ liên quan', bn:'সম্পর্কিত টুলস', ng:'Related Tools', sw:'Zana Zinazohusiana', ar:'أدوات ذات صلة'};
       const items = [
-        {slug:'name/brand-name-generator/', label:{en:'Brand Name Generator',ph:'Tagalikha ng Pangalan ng Brand',id:'Pembangkit Nama Merek',vi:'Tạo tên thương hiệu',bn:'ব্র্যান্ড নাম জেনারেটর',ng:'Brand Name Generator',sw:'Kizalisha Jina la Chapa',ar:'مولّد أسماء العلامات', zh:'品牌起名器'}},
-        {slug:'name/business-name-generator/', label:{en:'Business Name Generator',ph:'Tagalikha ng Pangalan ng Negosyo',id:'Pembangkit Nama Bisnis',vi:'Tạo tên doanh nghiệp',bn:'বিজনেস নাম জেনারেটর',ng:'Business Name Generator',sw:'Kizalisha Jina la Biashara',ar:'مولّد أسماء الأعمال', zh:'公司/店铺起名器'}},
-        {slug:'name/domain-name-generator/', label:{en:'Domain Name Ideas',ph:'Mga Ideya sa Pangalan ng Domain',id:'Ide Nama Domain',vi:'Gợi ý tên miền',bn:'ডোমেইন নাম আইডিয়া',ng:'Domain Name Ideas',sw:'Mawazo ya Jina la Kikoa',ar:'أفكار أسماء النطاقات', zh:'域名灵感'}},
-        {slug:'pdf/merge/', label:{en:'Merge PDF',ph:'Pagsamahin ang PDF',id:'Gabung PDF',vi:'Gộp PDF',bn:'PDF মার্জ',ng:'Merge PDF',sw:'Unganisha PDF',ar:'دمج PDF', zh:'PDF 合并'}},
-        {slug:'image/compressor/', label:{en:'Image Compressor',ph:'Tagapiga ng Larawan',id:'Kompresor Gambar',vi:'Nén ảnh',bn:'ইমেজ কমপ্রেসর',ng:'Image Compressor',sw:'Kibonyeza Picha',ar:'ضاغط الصور', zh:'图片压缩'}},
-        {slug:'text/case-converter/', label:{en:'Text Case Converter',ph:'Converter ng Case ng Teksto',id:'Pengubah Huruf Teks',vi:'Chuyển đổi chữ hoa/thường',bn:'টেক্সট কেস কনভার্টার',ng:'Text Case Converter',sw:'Kibadilishaji Herufi',ar:'محوّل حالة النص', zh:'大小写转换'}}
+        {href:'/name/brand-name-generator/', label:{en:'Brand Name Generator', zh:'品牌起名器'}},
+        {href:'/name/business-name-generator/', label:{en:'Business Name Generator', zh:'公司/店铺起名器'}},
+        {href:'/name/domain-name-generator/', label:{en:'Domain Name Ideas', zh:'域名灵感'}},
+        {href:'/pdf/merge/', label:{en:'Merge PDF', zh:'PDF 合并'}},
+        {href:'/image/compressor/', label:{en:'Image Compressor', zh:'图片压缩'}},
+        {href:'/text/case-converter/', label:{en:'Text Case Converter', zh:'大小写转换'}}
       ];
-      const h2 = document.createElement('h2'); h2.textContent = titleMap[lang] || 'Related'; h2.className='group';
-      const ul = document.createElement('ul'); ul.style.display='grid'; ul.style.gridTemplateColumns='repeat(auto-fill,minmax(260px,1fr))'; ul.style.gap='12px'; ul.style.padding='0'; ul.style.listStyle='none';
+      const box=document.getElementById('related'); if(!box) return;
+      const h2=document.createElement('h2'); h2.className='group'; h2.textContent=langMapTxt[lang]||langMapTxt.en;
+      const wrap=document.createElement('div'); wrap.className='grid';
       items.forEach(it=>{
-        const li = document.createElement('li');
-        const a = document.createElement('a'); a.className='tool'; a.href = '/'+lang+'/'+it.slug; a.textContent = it.label[lang] || it.label.en;
-        li.appendChild(a); ul.appendChild(li);
+        const a=document.createElement('a'); a.className='tool'; a.href=it.href; a.textContent=it.label[lang]||it.label.en; wrap.appendChild(a);
       });
-      box.innerHTML=''; box.appendChild(h2); box.appendChild(ul);
+      box.innerHTML=''; box.appendChild(h2); box.appendChild(wrap);
     })();
 
     // 搜索/筛选
@@ -557,17 +533,12 @@
     if (search) search.addEventListener('input', applyFilter);
     if (clearBtn) clearBtn.addEventListener('click', ()=>{ search.value=''; applyFilter(); });
 
-    // 本地化占位符/按钮文案（简体中文也处理）
-    if (lang==='zh'){ search.placeholder='搜索工具…（如：日历、JSON、Base64、BMI）'; clearBtn.textContent='清空'; }
-    else if (lang==='vi'){ search.placeholder='Tìm công cụ… (vd: lịch, json, base64, bmi)'; clearBtn.textContent='Xóa'; }
-    else if (lang==='id'){ search.placeholder='Cari alat… (mis: kalender, json, base64, bmi)'; clearBtn.textContent='Bersihkan'; }
-    else if (lang==='ph'){ search.placeholder='Hanapin ang tool… (hal. calendar, json, base64, bmi)'; clearBtn.textContent='Clear'; }
-    else if (lang==='bn'){ search.placeholder='টুল খুঁজুন… (যেমন: calendar, json, base64, bmi)'; clearBtn.textContent='Clear'; }
-    else if (lang==='sw'){ search.placeholder='Tafuta zana… (k.m. kalenda, json, base64, bmi)'; clearBtn.textContent='Futa'; }
-    else if (lang==='ar'){ search.placeholder='ابحث عن أداة… (مثل: calendar, json, base64, bmi)'; clearBtn.textContent='مسح'; }
-
     document.querySelectorAll('#chips .chip').forEach(c=>{
-      c.addEventListener('click', ()=>{ document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('active')); c.classList.add('active'); activeCat=c.dataset.cat; applyFilter(); history.replaceState({},'', activeCat!=='all'?'#'+activeCat:location.pathname); });
+      c.addEventListener('click', ()=>{
+        document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('active'));
+        c.classList.add('active'); activeCat=c.dataset.cat; applyFilter();
+        history.replaceState({},'', activeCat!=='all'?'#'+activeCat:location.pathname);
+      });
     });
     (function(){ const hash=(location.hash||'').replace('#',''); const chip=document.querySelector(`#chips .chip[data-cat="${hash}"]`); if (chip){ document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('active')); chip.classList.add('active'); activeCat=hash; } applyFilter(); })();
   })();
