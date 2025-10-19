@@ -1,170 +1,81 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>GoToolOnline — 30+ Free Online Tools (All-in-One)</title>
-  <meta name="description" content="All tools on one page: calculators, converters, calendars, time, writing, and developer utilities. Big fonts & bold buttons. More tools coming soon.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://gotoolonline.com/">
-
-  <!-- Icons & Fonts -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="index,follow" />
+  <title>GoToolOnline</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='6' y='52' font-size='48'>🛠️</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <!-- Open Graph / Twitter -->
+  <!-- 预置一些基础 OG，稍后会被脚本按本地语言覆盖 -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GoToolOnline">
-  <meta property="og:title" content="GoToolOnline — 30+ Free Online Tools (All-in-One)">
-  <meta property="og:description" content="All tools on one page: calculators, converters, calendars, time, writing, and developer utilities.">
-  <meta property="og:url" content="https://gotoolonline.com/">
-  <!-- Recommended social preview image (replace with your real file path) -->
-  <meta property="og:image" content="https://gotoolonline.com/og.jpg">
+  <meta property="og:title" content="GoToolOnline">
+  <meta property="og:description" content="Fast, free online tools.">
+  <meta property="og:image" content="https://www.gotoolonline.com/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GoToolOnline — 30+ Free Online Tools (All-in-One)">
-  <meta name="twitter:description" content="All tools on one page: calculators, converters, calendars, time, writing, and developer utilities.">
-  <meta name="twitter:image" content="https://gotoolonline.com/og.jpg">
-
-  <!-- JSON-LD: Organization + WebSite (SearchAction) + Breadcrumb + FAQ -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"GoToolOnline",
-    "url":"https://gotoolonline.com",
-    "logo":"https://gotoolonline.com/logo.png",
-    "sameAs":[]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebSite",
-    "name":"GoToolOnline",
-    "url":"https://gotoolonline.com/",
-    "potentialAction":{
-      "@type":"SearchAction",
-      "target":"https://gotoolonline.com/?q={search_term_string}",
-      "query-input":"required name=search_term_string"
-    }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"BreadcrumbList",
-    "itemListElement":[
-      {"@type":"ListItem","position":1,"name":"Home","item":"https://gotoolonline.com/"}
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {
-        "@type":"Question",
-        "name":"Are these tools free to use?",
-        "acceptedAnswer":{"@type":"Answer","text":"Yes. GoToolOnline tools are free to use with no sign-up required."}
-      },
-      {
-        "@type":"Question",
-        "name":"Do they work offline?",
-        "acceptedAnswer":{"@type":"Answer","text":"Most tools run locally in your browser. The currency converter supports manual rates for offline use, and can fetch live rates when online."}
-      },
-      {
-        "@type":"Question",
-        "name":"How is my privacy protected?",
-        "acceptedAnswer":{"@type":"Answer","text":"Most tools process your input only in the browser and do not upload data to servers. See our Privacy Policy for details."}
-      },
-      {
-        "@type":"Question",
-        "name":"Can I bookmark tools I use often?",
-        "acceptedAnswer":{"@type":"Answer","text":"Absolutely. Bookmark any tool page to open it instantly next time."}
-      }
-    ]
-  }
-  </script>
+  <meta name="twitter:title" content="GoToolOnline">
+  <meta name="twitter:description" content="Fast, free online tools.">
+  <meta name="twitter:image" content="https://www.gotoolonline.com/og.jpg">
 
   <style>
     :root { --bg:#0a0f1e; --card:#0f1830; --muted:#9fb0c3; --fg:#eaf3ff; --acc:#4fb3ff; }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);}
-    header{max-width:1200px;margin:24px auto 8px;display:flex;gap:14px;align-items:center;padding:0 18px;}
-    header a.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
-    main{max-width:1200px;margin:10px auto 64px;padding:0 18px}
-    h1{font-size:34px;margin:10px 0 10px}
-    h2{font-size:26px;margin:18px 0 10px}
+    *{box-sizing:border-box} body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"PingFang SC",sans-serif;background:var(--bg);color:var(--fg)}
+    header,footer,main{max-width:1200px;margin:0 auto;padding:0 18px}
+    header{display:flex;align-items:center;gap:12px;margin:20px auto 8px}
+    .logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);font-weight:800;font-size:24px}
+    .langbar{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+    .langbar a{padding:6px 10px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;text-decoration:none;color:var(--fg);font-size:14px}
+    .langbar a.active{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
+    main{margin:10px auto 64px}
+    h1{font-size:34px;margin:10px 0 10px} h2{font-size:26px;margin:18px 0 10px}
     p,label,.muted{font-size:18px;line-height:1.6}
     .card{background:var(--card);border:1px solid #1a2843;border-radius:20px;padding:20px;margin:16px 0}
     .toolbar{display:flex;gap:12px;flex-wrap:wrap}
-    input,select,button{padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:var(--fg);font-size:18px}
+    input,button{padding:14px;border-radius:12px;border:1px solid #24365b;background:#0f1a2f;color:var(--fg);font-size:18px}
     button{cursor:pointer;background:linear-gradient(180deg,#2a78ff,#0050d4);border:none;font-weight:700;letter-spacing:.2px}
     button:hover{filter:brightness(1.06)}
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:12px}
     .tool{display:block;background:#0d142a;border:1px solid #1b2c52;border-radius:16px;padding:16px;text-decoration:none;color:var(--fg)}
     .tool strong{font-size:20px;display:block;margin-bottom:6px}
     .tool:hover{border-color:var(--acc);box-shadow:0 0 0 3px rgba(79,179,255,.18)}
-    .muted{color:var(--muted)}
-    footer{max-width:1200px;margin:40px auto;padding:0 18px;color:var(--muted);font-size:15px}
-    .chip{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;cursor:pointer;font-size:16px}
-    .chip.active{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)}
-    .group{margin-top:8px}
-    .hide{display:none!important}
-    @media print{ header,footer,.no-print{display:none!important} body{background:#fff;color:#000} .card,.tool{border:none} }
-
+    .muted{color:var(--muted)} .chip{padding:8px 12px;border:1px solid #24365b;background:#0f1a2f;border-radius:999px;cursor:pointer;font-size:16px}
+    .chip.active{border-color:#4fb3ff;box-shadow:0 0 0 3px rgba(79,179,255,.18)} .group{margin-top:8px} .hide{display:none!important}
+    footer{color:var(--muted);font-size:15px;margin:40px auto}
     /* Section headers */
-    h2.group{
-      background: linear-gradient(180deg,#0b1732,#0b1d3f);
-      color: #cfe5ff;
-      border: 1px solid #20355e;
-      border-left: 5px solid #4fb3ff;
-      border-radius: 14px;
-      padding: 10px 14px;
-      letter-spacing: .2px;
-      margin: 36px 0 12px;
-    }
-    h2.group + section.grid{ margin-top: 10px; }
-    section.grid{ margin-bottom: 22px; }
-    @media (min-width: 900px){
-      h2.group{
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        background: rgba(11,23,50,.88);
-        backdrop-filter: blur(6px);
-      }
-    }
+    h2.group{background:linear-gradient(180deg,#0b1732,#0b1d3f);color:#cfe5ff;border:1px solid #20355e;border-left:5px solid #4fb3ff;border-radius:14px;padding:10px 14px;letter-spacing:.2px;margin:36px 0 12px}
+    h2.group + section.grid{margin-top:10px} section.grid{margin-bottom:22px}
+    @media (min-width: 900px){ h2.group{position:sticky;top:0;z-index:10;background:rgba(11,23,50,.88);backdrop-filter:blur(6px)} }
+    @media print{ header,footer,.no-print{display:none!important} body{background:#fff;color:#000} .card,.tool{border:none} }
+    /* RTL 小修 */
+    html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .langbar{margin-left:0;margin-right:auto}
   </style>
 </head>
 <body>
   <header>
     <a class="logo" href="/" aria-label="GoToolOnline home"><span>🛠️</span><strong>GoToolOnline</strong></a>
+    <nav class="langbar" id="langbar"><!-- 语言按钮由脚本渲染 --></nav>
   </header>
 
   <main>
     <section class="card">
-      <h1>All Tools — One Page (30+)</h1>
+      <h1 id="t-hero">All Tools — One Page (30+)</h1>
 
       <div class="toolbar no-print" role="search" aria-label="Site search">
         <input id="search" type="search" placeholder="Search tools… (e.g. calendar, json, base64, bmi)" style="flex:1" aria-label="Search tools">
         <button id="clear" aria-label="Clear search">Clear</button>
       </div>
 
-      <p class="muted" style="margin-top:8px">
+      <p class="muted" style="margin-top:8px" id="t-tip">
         Tip: type to filter instantly. Click a chip to filter by category. <strong>More tools coming soon.</strong>
       </p>
 
-      <!-- Textual quick links with descriptive anchors -->
-      <p class="muted" style="margin-top:6px">
+      <p class="muted" style="margin-top:6px" id="quick-links">
         Quick links:
         <a href="/converter/unit-converter/">Online Unit Converter</a> ·
-        <a href="/currency/currency-converter/">Free Currency Converter (live + manual)</a> ·
+        <a href="/currency/currency-converter/">Free Currency Converter</a> ·
         <a href="/time/timezone-converter/">World Time by Country/City</a> ·
         <a href="/time/countdown-timer/">Countdown Timer</a> ·
         <a href="/time/stopwatch/">Stopwatch</a> ·
@@ -172,131 +83,121 @@
       </p>
 
       <nav class="toolbar no-print" id="chips" style="margin-top:8px" aria-label="Filter by category">
-        <span class="chip active" data-cat="all">All</span>
-        <span class="chip" data-cat="calculators">Calculators</span>
-        <span class="chip" data-cat="converter">Converters</span>
-        <span class="chip" data-cat="time">Time</span>
-        <span class="chip" data-cat="calendar">Calendars</span>
-        <span class="chip" data-cat="tools">Utilities</span>
-        <span class="chip" data-cat="writing">Writing</span>
-        <span class="chip" data-cat="developer">Dev</span>
+        <span class="chip active" data-cat="all" id="c-all">All</span>
+        <span class="chip" data-cat="calculators" id="c-cal">Calculators</span>
+        <span class="chip" data-cat="converter" id="c-conv">Converters</span>
+        <span class="chip" data-cat="time" id="c-time">Time</span>
+        <span class="chip" data-cat="calendar" id="c-calend">Calendars</span>
+        <span class="chip" data-cat="tools" id="c-utils">Utilities</span>
+        <span class="chip" data-cat="writing" id="c-write">Writing</span>
+        <span class="chip" data-cat="developer" id="c-dev">Dev</span>
       </nav>
     </section>
 
     <!-- Calculators -->
-    <h2 class="group" id="calculators">Calculators</h2>
+    <h2 class="group" id="h-cal">Calculators</h2>
     <section class="grid" data-group="calculators">
-      <a class="tool calculators" href="/calculators/basic-calculator/"><strong>🧮 Basic Calculator</strong><div class="muted">Four functions, percent, memory</div></a>
-      <a class="tool calculators" href="/calculators/scientific-calculator/"><strong>🧪 Scientific Calculator</strong><div class="muted">Functions, DEG/RAD, history</div></a>
-      <a class="tool calculators" href="/calculators/mortgage/"><strong>🏠 Mortgage Calculator</strong><div class="muted">Payment & amortization</div></a>
-      <a class="tool calculators" href="/calculators/tip-split/"><strong>🍽️ Tip & Split Bill</strong><div class="muted">Per-person share</div></a>
-      <a class="tool calculators" href="/calculators/age-calculator/"><strong>🧮 Age Calculator</strong><div class="muted">Exact age in years, months, days</div></a>
-      <a class="tool calculators" href="/calculators/bmi-calculator/"><strong>⚖️ BMI Calculator</strong><div class="muted">Body Mass Index</div></a>
-      <a class="tool calculators" href="/calculators/percentage-calculator/"><strong>➗ Percentage Calculator</strong><div class="muted">Percent of / change</div></a>
-      <a class="tool calculators" href="/calculators/date-difference/"><strong>📅 Date Difference</strong><div class="muted">Days between dates</div></a>
+      <a class="tool calculators" href="/calculators/basic-calculator/"><strong id="l-basic">🧮 Basic Calculator</strong><div class="muted" id="s-basic">Four functions, percent, memory</div></a>
+      <a class="tool calculators" href="/calculators/scientific-calculator/"><strong id="l-sci">🧪 Scientific Calculator</strong><div class="muted" id="s-sci">Functions, DEG/RAD, history</div></a>
+      <a class="tool calculators" href="/calculators/mortgage/"><strong id="l-mort">🏠 Mortgage Calculator</strong><div class="muted" id="s-mort">Payment & amortization</div></a>
+      <a class="tool calculators" href="/calculators/tip-split/"><strong id="l-tip">🍽️ Tip & Split Bill</strong><div class="muted" id="s-tip">Per-person share</div></a>
+      <a class="tool calculators" href="/calculators/age-calculator/"><strong id="l-age">🧮 Age Calculator</strong><div class="muted" id="s-age">Exact age in years, months, days</div></a>
+      <a class="tool calculators" href="/calculators/bmi-calculator/"><strong id="l-bmi">⚖️ BMI Calculator</strong><div class="muted" id="s-bmi">Body Mass Index</div></a>
+      <a class="tool calculators" href="/calculators/percentage-calculator/"><strong id="l-pct">➗ Percentage Calculator</strong><div class="muted" id="s-pct">Percent of / change</div></a>
+      <a class="tool calculators" href="/calculators/date-difference/"><strong id="l-date">📅 Date Difference</strong><div class="muted" id="s-date">Days between dates</div></a>
     </section>
 
     <!-- Converters -->
-    <h2 class="group" id="converter">Converters</h2>
+    <h2 class="group" id="h-conv">Converters</h2>
     <section class="grid" data-group="converter">
       <a class="tool converter" href="/converter/unit-converter/">
-        <strong>🔁 Unit Converter</strong>
-        <div class="muted">18 categories · 300+ units</div>
+        <strong id="l-unit">🔁 Unit Converter</strong>
+        <div class="muted" id="s-unit">18 categories · 300+ units</div>
       </a>
       <a class="tool converter" href="/currency/currency-converter/">
-        <strong>💱 Currency Converter</strong>
-        <div class="muted">Live FX + manual rate</div>
+        <strong id="l-fx">💱 Currency Converter</strong>
+        <div class="muted" id="s-fx">Live FX + manual rate</div>
       </a>
     </section>
 
     <!-- Time -->
-    <h2 class="group" id="time">Time</h2>
+    <h2 class="group" id="h-time">Time</h2>
     <section class="grid" data-group="time">
       <a class="tool time" href="/time/timezone-converter/">
-        <strong>🌍🕒 World Time (by Country)</strong>
-        <div class="muted">See local time across countries</div>
+        <strong id="l-world">🌍🕒 World Time (by Country)</strong>
+        <div class="muted" id="s-world">See local time across countries</div>
       </a>
       <a class="tool time" href="/time/unix-timestamp/">
-        <strong>🕰️ Unix Timestamp Converter</strong>
-        <div class="muted">Epoch ↔ Local/UTC</div>
+        <strong id="l-unix">🕰️ Unix Timestamp Converter</strong>
+        <div class="muted" id="s-unix">Epoch ↔ Local/UTC</div>
       </a>
-      <a class="tool time" href="/time/countdown-timer/"><strong>⏳ Countdown Timer</strong><div class="muted">Simple countdown</div></a>
-      <a class="tool time" href="/time/stopwatch/"><strong>⏱️ Stopwatch</strong><div class="muted">Online stopwatch</div></a>
-      <a class="tool calendar" href="/calendar/week-number-finder/"><strong>📅# Week Number Finder</strong><div class="muted">ISO week from date</div></a>
+      <a class="tool time" href="/time/countdown-timer/"><strong id="l-ctd">⏳ Countdown Timer</strong><div class="muted" id="s-ctd">Simple countdown</div></a>
+      <a class="tool time" href="/time/stopwatch/"><strong id="l-sw">⏱️ Stopwatch</strong><div class="muted" id="s-sw">Online stopwatch</div></a>
+      <a class="tool calendar" href="/calendar/week-number-finder/"><strong id="l-week">📅# Week Number Finder</strong><div class="muted" id="s-week">ISO week from date</div></a>
     </section>
 
     <!-- Calendars -->
-    <h2 class="group" id="calendar">Calendars</h2>
+    <h2 class="group" id="h-calend">Calendars</h2>
     <section class="grid" data-group="calendar">
-      <a class="tool calendar" href="/calendar/printable-2026-calendar/"><strong>🖨️📅 Printable Calendar</strong><div class="muted">PDF-ready monthly pages</div></a>
+      <a class="tool calendar" href="/calendar/printable-2026-calendar/"><strong id="l-printcal">🖨️📅 Printable Calendar</strong><div class="muted" id="s-printcal">PDF-ready monthly pages</div></a>
     </section>
 
     <!-- Utilities -->
-    <h2 class="group" id="tools">Utilities</h2>
+    <h2 class="group" id="h-utils">Utilities</h2>
     <section class="grid" data-group="tools">
-      <a class="tool tools" href="/tools/password-generator/"><strong>🔐 Password Generator</strong><div class="muted">Strong random passwords</div></a>
-      <a class="tool tools" href="/tools/ip-lookup/"><strong>🌐 IP Address Lookup</strong><div class="muted">Your public IP</div></a>
-      <a class="tool tools" href="/tools/random-number-generator/"><strong>🎲 Random Number Generator</strong><div class="muted">Secure RNG when available</div></a>
-      <a class="tool tools" href="/tools/qr-code-generator/"><strong>🔳 QR Code Generator</strong><div class="muted">Create QR codes</div></a>
-      <a class="tool tools" href="/tools/color-picker/"><strong>🎨 Color Picker</strong><div class="muted">Pick & copy hex</div></a>
-      <a class="tool tools" href="/tools/qr-code-scanner/"><strong>📷 QR Code Scanner</strong><div class="muted">Camera or image</div></a>
-      <a class="tool tools" href="/tools/palette-extractor/"><strong>🎨 Palette from Image</strong><div class="muted">Extract colors</div></a>
-      <a class="tool tools" href="/tools/lottery-number-generator/">
-        <strong>🎟️ Lottery Number Generator</strong>
-        <div class="muted">For entertainment only</div>
-      </a>
+      <a class="tool tools" href="/tools/password-generator/"><strong id="l-pass">🔐 Password Generator</strong><div class="muted" id="s-pass">Strong random passwords</div></a>
+      <a class="tool tools" href="/tools/ip-lookup/"><strong id="l-ip">🌐 IP Address Lookup</strong><div class="muted" id="s-ip">Your public IP</div></a>
+      <a class="tool tools" href="/tools/random-number-generator/"><strong id="l-rng">🎲 Random Number Generator</strong><div class="muted" id="s-rng">Secure RNG when available</div></a>
+      <a class="tool tools" href="/tools/qr-code-generator/"><strong id="l-qr">🔳 QR Code Generator</strong><div class="muted" id="s-qr">Create QR codes</div></a>
+      <a class="tool tools" href="/tools/color-picker/"><strong id="l-color">🎨 Color Picker</strong><div class="muted" id="s-color">Pick & copy hex</div></a>
+      <a class="tool tools" href="/tools/qr-code-scanner/"><strong id="l-scan">📷 QR Code Scanner</strong><div class="muted" id="s-scan">Camera or image</div></a>
+      <a class="tool tools" href="/tools/palette-extractor/"><strong id="l-pal">🎨 Palette from Image</strong><div class="muted" id="s-pal">Extract colors</div></a>
+      <a class="tool tools" href="/tools/lottery-number-generator/"><strong id="l-lotto">🎟️ Lottery Number Generator</strong><div class="muted" id="s-lotto">For entertainment only</div></a>
     </section>
 
     <!-- Writing -->
-    <h2 class="group" id="writing">Writing</h2>
+    <h2 class="group" id="h-write">Writing</h2>
     <section class="grid" data-group="writing">
-      <a class="tool writing" href="/writing/word-counter/"><strong>📝 Word Counter</strong><div class="muted">Words & chars</div></a>
-      <a class="tool writing" href="/writing/character-counter/"><strong>🔡 Character Counter</strong><div class="muted">Counts all chars</div></a>
-      <a class="tool writing" href="/writing/text-case-converter/"><strong>🔠 Text Case Converter</strong><div class="muted">UPPER / lower / Title</div></a>
+      <a class="tool writing" href="/writing/word-counter/"><strong id="l-word">📝 Word Counter</strong><div class="muted" id="s-word">Words & chars</div></a>
+      <a class="tool writing" href="/writing/character-counter/"><strong id="l-char">🔡 Character Counter</strong><div class="muted" id="s-char">Counts all chars</div></a>
+      <a class="tool writing" href="/writing/text-case-converter/"><strong id="l-case">🔠 Text Case Converter</strong><div class="muted" id="s-case">UPPER / lower / Title</div></a>
     </section>
 
     <!-- Developer -->
-    <h2 class="group" id="developer">Developer</h2>
+    <h2 class="group" id="h-dev">Developer</h2>
     <section class="grid" data-group="developer">
-      <a class="tool developer" href="/developer/url-encoder-decoder/"><strong>🔗 URL Encoder / Decoder</strong><div class="muted">Encode or decode URLs</div></a>
-      <a class="tool developer" href="/developer/json-formatter/"><strong>🧩 JSON Formatter / Validator</strong><div class="muted">Validate & pretty-print</div></a>
-      <a class="tool developer" href="/developer/html-minifier/"><strong>🧹 HTML Minifier (Basic)</strong><div class="muted">Collapse whitespace</div></a>
-      <a class="tool developer" href="/developer/base64-encoder/"><strong>📦 Base64 Encoder / Decoder</strong><div class="muted">Text ⇄ Base64</div></a>
-      <a class="tool developer" href="/developer/hash-generator/"><strong>🔒 SHA-256 Hash Generator</strong><div class="muted">WebCrypto hashing</div></a>
-      <a class="tool developer" href="/developer/jwt-decoder/"><strong>🔑 JWT Decoder</strong><div class="muted">Local decode</div></a>
+      <a class="tool developer" href="/developer/url-encoder-decoder/"><strong id="l-url">🔗 URL Encoder / Decoder</strong><div class="muted" id="s-url">Encode or decode URLs</div></a>
+      <a class="tool developer" href="/developer/json-formatter/"><strong id="l-json">🧩 JSON Formatter / Validator</strong><div class="muted" id="s-json">Validate & pretty-print</div></a>
+      <a class="tool developer" href="/developer/html-minifier/"><strong id="l-htmlmin">🧹 HTML Minifier (Basic)</strong><div class="muted" id="s-htmlmin">Collapse whitespace</div></a>
+      <a class="tool developer" href="/developer/base64-encoder/"><strong id="l-b64">📦 Base64 Encoder / Decoder</strong><div class="muted" id="s-b64">Text ⇄ Base64</div></a>
+      <a class="tool developer" href="/developer/hash-generator/"><strong id="l-hash">🔒 SHA-256 Hash Generator</strong><div class="muted" id="s-hash">WebCrypto hashing</div></a>
+      <a class="tool developer" href="/developer/jwt-decoder/"><strong id="l-jwt">🔑 JWT Decoder</strong><div class="muted" id="s-jwt">Local decode</div></a>
     </section>
 
     <!-- Homepage FAQ -->
     <section class="card" id="homepage-faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading" style="margin:0 0 8px">FAQ</h2>
-      <details>
-        <summary>Are these tools free to use?</summary>
-        <p>Yes. GoToolOnline tools are free to use with no sign-up required.</p>
-      </details>
-      <details>
-        <summary>Do they work offline?</summary>
-        <p>Most tools run locally in your browser. The currency converter supports manual rates for offline use, and can fetch live rates when online.</p>
-      </details>
-      <details>
-        <summary>How is my privacy protected?</summary>
-        <p>Most tools process your input only in the browser and do not upload data to servers. See our <a href="/privacy/">Privacy Policy</a> for details.</p>
-      </details>
-      <details>
-        <summary>Can I bookmark tools I use often?</summary>
-        <p>Absolutely. Bookmark any tool page to open it instantly next time.</p>
-      </details>
+      <details><summary id="q1">Are these tools free to use?</summary><p id="a1">Yes. GoToolOnline tools are free to use with no sign-up required.</p></details>
+      <details><summary id="q2">Do they work offline?</summary><p id="a2">Most tools run locally in your browser. The currency converter supports manual rates for offline use, and can fetch live rates when online.</p></details>
+      <details><summary id="q3">How is my privacy protected?</summary><p id="a3">Most tools process your input only in the browser and do not upload data to servers. See our <a href="/privacy/">Privacy Policy</a> for details.</p></details>
+      <details><summary id="q4">Can I bookmark tools I use often?</summary><p id="a4">Absolutely. Bookmark any tool page to open it instantly next time.</p></details>
     </section>
+
+    <!-- Related tools (自动外链区) -->
+    <section class="card" id="related"></section>
   </main>
 
   <footer>
-    © <span id="y"></span> GoToolOnline.com · Free online tools for everyone ·
-    <a href="/about/" style="color:#8cd1ff">About</a> ·
-    <a href="/privacy/" style="color:#8cd1ff">Privacy</a> ·
-    <a href="/terms/" style="color:#8cd1ff">Terms</a> ·
-    <a href="/contact/" style="color:#8cd1ff">Contact</a>
+    © <span id="y"></span> GoToolOnline.com · <span id="t-foot">Free online tools for everyone</span> ·
+    <a href="/about/" style="color:#8cd1ff" id="f-about">About</a> ·
+    <a href="/privacy/" style="color:#8cd1ff" id="f-privacy">Privacy</a> ·
+    <a href="/terms/" style="color:#8cd1ff" id="f-terms">Terms</a> ·
+    <a href="/contact/" style="color:#8cd1ff" id="f-contact">Contact</a>
 
-    <p class="muted" style="margin-top:14px">
-      GoToolOnline brings 30+ fast, free tools together: calculators, unit & currency converters, world time, countdowns and stopwatches, printable calendars, plus handy writing and developer utilities (JSON formatter, URL/Base64, hash, and more). Big buttons, clean layout, privacy-friendly, and many tools work offline.
+    <p class="muted" style="margin-top:14px" id="site-desc">
+      GoToolOnline brings 30+ fast, free tools together: calculators, unit & currency converters, world time, countdowns and stopwatches,
+      printable calendars, plus handy writing and developer utilities (JSON formatter, URL/Base64, hash, and more). Big buttons, clean layout,
+      privacy-friendly, and many tools work offline.
     </p>
   </footer>
 
@@ -307,62 +208,535 @@
   </noscript>
 
   <script>
-    // Dynamic year
-    (function(){ var y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear(); })();
+  /************ 语言与本地 SEO 配置（内联，复制即可） ************/
+  (function(){
+    // 支持的语言与目录：en, ph(Tagalog), id, vi, bn, ng(English-NG), sw, ar(RTL)
+    const LANGS = ['en','ph','id','vi','bn','ng','sw','ar'];
+    const NAMES = {en:'English', ph:'Tagalog', id:'Bahasa Indonesia', vi:'Tiếng Việt', bn:'বাংলা', ng:'English (NG)', sw:'Kiswahili', ar:'العربية'};
+    const MAP_BROWSER = {en:'en', tl:'ph', fil:'ph', id:'id', vi:'vi', bn:'bn', sw:'sw', ar:'ar'};
 
-    // Filter by text & category
-    const search = document.getElementById('search');
-    const clearBtn = document.getElementById('clear');
-    const chips = document.querySelectorAll('#chips .chip');
-    let activeCat = 'all';
+    // 文案与 SEO（只放首页需要的关键字段；可以随时改）
+    const I18N = {
+      en:{ title:"GoToolOnline — 30+ Free Online Tools (All-in-One)",
+           desc:"All tools on one page: calculators, converters, time, calendars, writing and developer utilities. Fast, free, no login.",
+           hero:"All Tools — One Page (30+)",
+           tip:"Tip: type to filter instantly. Click a chip to filter by category. More tools coming soon.",
+           chips:{all:"All", cal:"Calculators", conv:"Converters", time:"Time", calend:"Calendars", utils:"Utilities", write:"Writing", dev:"Dev"},
+           h:{cal:"Calculators", conv:"Converters", time:"Time", calend:"Calendars", utils:"Utilities", write:"Writing", dev:"Developer"},
+           tools:{
+             basic:["🧮 Basic Calculator","Four functions, percent, memory"],
+             sci:["🧪 Scientific Calculator","Functions, DEG/RAD, history"],
+             mort:["🏠 Mortgage Calculator","Payment & amortization"],
+             tip:["🍽️ Tip & Split Bill","Per-person share"],
+             age:["🧮 Age Calculator","Exact age in years, months, days"],
+             bmi:["⚖️ BMI Calculator","Body Mass Index"],
+             pct:["➗ Percentage Calculator","Percent of / change"],
+             date:["📅 Date Difference","Days between dates"],
+             unit:["🔁 Unit Converter","18 categories · 300+ units"],
+             fx:["💱 Currency Converter","Live FX + manual rate"],
+             world:["🌍🕒 World Time (by Country)","See local time across countries"],
+             unix:["🕰️ Unix Timestamp Converter","Epoch ↔ Local/UTC"],
+             ctd:["⏳ Countdown Timer","Simple countdown"],
+             sw:["⏱️ Stopwatch","Online stopwatch"],
+             week:["📅# Week Number Finder","ISO week from date"],
+             printcal:["🖨️📅 Printable Calendar","PDF-ready monthly pages"],
+             pass:["🔐 Password Generator","Strong random passwords"],
+             ip:["🌐 IP Address Lookup","Your public IP"],
+             rng:["🎲 Random Number Generator","Secure RNG when available"],
+             qr:["🔳 QR Code Generator","Create QR codes"],
+             color:["🎨 Color Picker","Pick & copy hex"],
+             scan:["📷 QR Code Scanner","Camera or image"],
+             pal:["🎨 Palette from Image","Extract colors"],
+             lotto:["🎟️ Lottery Number Generator","For entertainment only"],
+             word:["📝 Word Counter","Words & chars"],
+             char:["🔡 Character Counter","Counts all chars"],
+             tcase:["🔠 Text Case Converter","UPPER / lower / Title"],
+             url:["🔗 URL Encoder / Decoder","Encode or decode URLs"],
+             json:["🧩 JSON Formatter / Validator","Validate & pretty-print"],
+             htmlmin:["🧹 HTML Minifier (Basic)","Collapse whitespace"],
+             b64:["📦 Base64 Encoder / Decoder","Text ⇄ Base64"],
+             hash:["🔒 SHA-256 Hash Generator","WebCrypto hashing"],
+             jwt:["🔑 JWT Decoder","Local decode"]
+           },
+           faq:{
+             q1:"Are these tools free to use?", a1:"Yes. GoToolOnline tools are free to use with no sign-up required.",
+             q2:"Do they work offline?", a2:"Most tools run locally in your browser. The currency converter supports manual rates for offline use, and can fetch live rates when online.",
+             q3:"How is my privacy protected?", a3:'Most tools process your input only in the browser and do not upload data to servers. See our Privacy Policy for details.',
+             q4:"Can I bookmark tools I use often?", a4:"Absolutely. Bookmark any tool page to open it instantly next time."
+           },
+           foot:"Free online tools for everyone",
+           links_quick:["Online Unit Converter","Free Currency Converter","World Time by Country/City","Countdown Timer","Stopwatch","JSON Formatter"],
+           ogLocale:"en_AU"
+      },
+      ph:{ title:"GoToolOnline · Mga Libreng Online na Tool",
+           desc:"Lahat ng tool sa iisang pahina: kalkulador, converter, oras, kalendaryo, pagsusulat at developer utilities. Mabilis, libre, walang login.",
+           hero:"Lahat ng Tool — Isang Pahina",
+           tip:"Tip: mag-type para agad ma-filter. I-click ang chip para i-filter ayon sa kategorya.",
+           chips:{all:"Lahat", cal:"Kalkulador", conv:"Converter", time:"Oras", calend:"Kalendaryo", utils:"Mga Utility", write:"Pagsusulat", dev:"Dev"},
+           h:{cal:"Kalkulador", conv:"Converter", time:"Oras", calend:"Kalendaryo", utils:"Mga Utility", write:"Pagsusulat", dev:"Developer"},
+           tools:{
+             basic:["🧮 Pangunahing Kalkulador","Apat na operasyon, porsyento, memorya"],
+             sci:["🧪 Siyentipikong Kalkulador","Mga function, DEG/RAD, history"],
+             mort:["🏠 Mortgage Calculator","Bayad at amortization"],
+             tip:["🍽️ Tip at Hati ng Bill","Hati kada tao"],
+             age:["🧮 Age Calculator","Eksaktong edad (taon/buwan/araw)"],
+             bmi:["⚖️ BMI Calculator","Body Mass Index"],
+             pct:["➗ Percentage Calculator","Porsyento at pagbabago"],
+             date:["📅 Pagitan ng Petsa","Araw sa pagitan"],
+             unit:["🔁 Unit Converter","18 kategorya · 300+ unit"],
+             fx:["💱 Currency Converter","Live FX + manual"],
+             world:["🌍🕒 Oras ng Mundo (By Country)","Lokal na oras ng iba’t ibang bansa"],
+             unix:["🕰️ Unix Timestamp Converter","Epoch ↔ Local/UTC"],
+             ctd:["⏳ Countdown Timer","Payak na countdown"],
+             sw:["⏱️ Stopwatch","Online stopwatch"],
+             week:["📅# Week Number Finder","ISO week"],
+             printcal:["🖨️📅 Printable Calendar","Handa sa PDF"],
+             pass:["🔐 Password Generator","Malalakas na password"],
+             ip:["🌐 IP Lookup","Iyong public IP"],
+             rng:["🎲 Random Number","Secure RNG kung meron"],
+             qr:["🔳 QR Code Generator","Gumawa ng QR"],
+             color:["🎨 Color Picker","Pumili & kopya ng hex"],
+             scan:["📷 QR Scanner","Camera o imahe"],
+             pal:["🎨 Palette mula sa Imahe","Kunin ang mga kulay"],
+             lotto:["🎟️ Lottery Number","Aliwan lamang"],
+             word:["📝 Word Counter","Mga salita & char"],
+             char:["🔡 Character Counter","Bilangin lahat ng char"],
+             tcase:["🔠 Text Case Converter","UPPER / lower / Title"],
+             url:["🔗 URL Encoder/Decoder","Encode o decode URL"],
+             json:["🧩 JSON Formatter","Validate & pretty-print"],
+             htmlmin:["🧹 HTML Minifier","I-collapse whitespace"],
+             b64:["📦 Base64 Encoder/Decoder","Text ⇄ Base64"],
+             hash:["🔒 SHA-256 Hash","WebCrypto hashing"],
+             jwt:["🔑 JWT Decoder","Local decode"]
+           },
+           faq:{q1:"Libre ba ang mga tool?",a1:"Oo, libre at walang sign-up.",
+                q2:"Gumagana ba offline?",a2:"Karamihan ay local sa browser; currency converter pwedeng manual rates offline.",
+                q3:"Paano ang privacy?",a3:"Kadalasan hindi ina-upload ang data. Tingnan ang Privacy Policy.",
+                q4:"Pwede bang i-bookmark?",a4:"Oo, i-bookmark ang paborito mong tool."},
+           foot:"Libreng online na mga tool para sa lahat",
+           links_quick:["Online Unit Converter","Libreng Currency Converter","World Time","Countdown Timer","Stopwatch","JSON Formatter"],
+           ogLocale:"tl_PH"
+      },
+      id:{ title:"GoToolOnline · Alat Online Gratis",
+           desc:"Semua alat di satu halaman: kalkulator, konverter, waktu, kalender, tulis & utilitas developer. Cepat, gratis, tanpa login.",
+           hero:"Semua Alat — Satu Halaman",
+           tip:"Ketik untuk memfilter seketika. Klik chip untuk memfilter menurut kategori.",
+           chips:{all:"Semua", cal:"Kalkulator", conv:"Konverter", time:"Waktu", calend:"Kalender", utils:"Utilitas", write:"Penulisan", dev:"Dev"},
+           h:{cal:"Kalkulator", conv:"Konverter", time:"Waktu", calend:"Kalender", utils:"Utilitas", write:"Penulisan", dev:"Pengembang"},
+           tools:{
+             basic:["🧮 Kalkulator Dasar","Empat fungsi, persen, memori"],
+             sci:["🧪 Kalkulator Ilmiah","Fungsi, DEG/RAD, riwayat"],
+             mort:["🏠 Kalkulator Hipotek","Cicilan & amortisasi"],
+             tip:["🍽️ Tip & Bagi Tagihan","Per orang"],
+             age:["🧮 Kalkulator Umur","Umur tepat (tahun/bulan/hari)"],
+             bmi:["⚖️ Kalkulator BMI","Indeks Massa Tubuh"],
+             pct:["➗ Kalkulator Persentase","Persen & perubahan"],
+             date:["📅 Selisih Tanggal","Hari di antara"],
+             unit:["🔁 Konverter Satuan","18 kategori · 300+ satuan"],
+             fx:["💱 Konverter Mata Uang","Kurs live + manual"],
+             world:["🌍🕒 Waktu Dunia (per Negara)","Lihat waktu lokal"],
+             unix:["🕰️ Konverter Unix Timestamp","Epoch ↔ Lokal/UTC"],
+             ctd:["⏳ Hitung Mundur","Sederhana"],
+             sw:["⏱️ Stopwatch","Stopwatch online"],
+             week:["📅# Nomor Minggu ISO","ISO week"],
+             printcal:["🖨️📅 Kalender Cetak","Siap PDF"],
+             pass:["🔐 Generator Sandi","Sandi kuat"],
+             ip:["🌐 IP Lookup","IP publik Anda"],
+             rng:["🎲 Angka Acak","RNG aman bila tersedia"],
+             qr:["🔳 Generator QR","Buat kode QR"],
+             color:["🎨 Pemilih Warna","Pilih & salin hex"],
+             scan:["📷 Pemindai QR","Kamera atau gambar"],
+             pal:["🎨 Palet dari Gambar","Ekstrak warna"],
+             lotto:["🎟️ Angka Lotere","Hanya hiburan"],
+             word:["📝 Penghitung Kata","Kata & karakter"],
+             char:["🔡 Penghitung Karakter","Hitung semua karakter"],
+             tcase:["🔠 Konverter Huruf","BESAR / kecil / Title"],
+             url:["🔗 Pengode/Decoder URL","Encode/Decode URL"],
+             json:["🧩 JSON Formatter","Validasi & pretty-print"],
+             htmlmin:["🧹 HTML Minifier","Rapatkan spasi"],
+             b64:["📦 Encoder/Decoder Base64","Teks ⇄ Base64"],
+             hash:["🔒 Hash SHA-256","WebCrypto hashing"],
+             jwt:["🔑 Decoder JWT","Decode lokal"]
+           },
+           faq:{q1:"Gratis?",a1:"Ya, gratis tanpa login.",
+                q2:"Offline?",a2:"Kebanyakan berjalan lokal di browser; konverter mata uang bisa manual.",
+                q3:"Privasi?",a3:"Data umumnya tidak di-upload. Lihat Privacy Policy.",
+                q4:"Bookmark?",a4:"Bisa, tandai halaman alat favorit."},
+           foot:"Alat online gratis untuk semua orang",
+           links_quick:["Konverter Satuan","Konverter Mata Uang","Waktu Dunia","Hitung Mundur","Stopwatch","Formatter JSON"],
+           ogLocale:"id_ID"
+      },
+      vi:{ title:"GoToolOnline · Công cụ trực tuyến miễn phí",
+           desc:"Tất cả công cụ trên một trang: máy tính, chuyển đổi, thời gian, lịch, viết và tiện ích cho lập trình. Nhanh, miễn phí, không cần đăng nhập.",
+           hero:"Tất cả công cụ — Một trang",
+           tip:"Gõ để lọc ngay. Bấm chip để lọc theo nhóm.",
+           chips:{all:"Tất cả", cal:"Máy tính", conv:"Chuyển đổi", time:"Thời gian", calend:"Lịch", utils:"Tiện ích", write:"Viết", dev:"Dev"},
+           h:{cal:"Máy tính", conv:"Chuyển đổi", time:"Thời gian", calend:"Lịch", utils:"Tiện ích", write:"Viết", dev:"Lập trình"},
+           tools:{
+             basic:["🧮 Máy tính cơ bản","4 phép toán, %, bộ nhớ"],
+             sci:["🧪 Máy tính khoa học","Hàm, DEG/RAD, lịch sử"],
+             mort:["🏠 Tính khoản vay thế chấp","Trả góp & khấu hao"],
+             tip:["🍽️ Tính tiền tip & chia hóa đơn","Theo người"],
+             age:["🧮 Tính tuổi","Tuổi chính xác"],
+             bmi:["⚖️ Tính BMI","Chỉ số khối cơ thể"],
+             pct:["➗ Tính phần trăm","Tỉ lệ & thay đổi"],
+             date:["📅 Khoảng cách ngày","Số ngày giữa 2 mốc"],
+             unit:["🔁 Chuyển đổi đơn vị","18 nhóm · 300+ đơn vị"],
+             fx:["💱 Chuyển đổi tiền tệ","Tỉ giá live + thủ công"],
+             world:["🌍🕒 Giờ thế giới (theo quốc gia)","Xem giờ địa phương"],
+             unix:["🕰️ Unix Timestamp","Epoch ↔ Local/UTC"],
+             ctd:["⏳ Đếm ngược","Đơn giản"],
+             sw:["⏱️ Bấm giờ","Trực tuyến"],
+             week:["📅# Số tuần ISO","Theo chuẩn ISO"],
+             printcal:["🖨️📅 Lịch in","Sẵn sàng PDF"],
+             pass:["🔐 Tạo mật khẩu","Mật khẩu mạnh"],
+             ip:["🌐 Tra IP","IP công cộng của bạn"],
+             rng:["🎲 Số ngẫu nhiên","RNG an toàn nếu có"],
+             qr:["🔳 Tạo QR","Tạo mã QR"],
+             color:["🎨 Bảng màu","Chọn & sao chép hex"],
+             scan:["📷 Quét QR","Camera hoặc ảnh"],
+             pal:["🎨 Bảng màu từ ảnh","Trích xuất màu"],
+             lotto:["🎟️ Số xổ số","Chỉ để giải trí"],
+             word:["📝 Đếm từ","Từ & ký tự"],
+             char:["🔡 Đếm ký tự","Tất cả ký tự"],
+             tcase:["🔠 Chuyển chữ hoa/thường","UPPER / lower / Title"],
+             url:["🔗 Mã hoá/giải mã URL","Encode/Decode URL"],
+             json:["🧩 Định dạng JSON","Kiểm tra & pretty-print"],
+             htmlmin:["🧹 Nén HTML","Thu gọn khoảng trắng"],
+             b64:["📦 Mã hoá/giải mã Base64","Text ⇄ Base64"],
+             hash:["🔒 Băm SHA-256","WebCrypto hashing"],
+             jwt:["🔑 Giải mã JWT","Cục bộ"]
+           },
+           faq:{q1:"Miễn phí?",a1:"Có, miễn phí, không cần đăng nhập.",
+                q2:"Dùng offline?",a2:"Đa số chạy trong trình duyệt; đổi tiền có chế độ thủ công.",
+                q3:"Riêng tư?",a3:"Dữ liệu thường không tải lên server.",
+                q4:"Bookmark?",a4:"Bạn có thể đánh dấu công cụ hay dùng."},
+           foot:"Công cụ trực tuyến miễn phí cho mọi người",
+           links_quick:["Đổi đơn vị","Đổi tiền tệ","Giờ thế giới","Đếm ngược","Bấm giờ","Định dạng JSON"],
+           ogLocale:"vi_VN"
+      },
+      bn:{ title:"GoToolOnline · ফ্রি অনলাইন টুলস",
+           desc:"সব টুল এক পাতায়: ক্যালকুলেটর, কনভার্টার, সময়, ক্যালেন্ডার, রাইটিং ও ডেভেলপার ইউটিলিটি। দ্রুত, ফ্রি, লগইন ছাড়া।",
+           hero:"সব টুল — এক পাতা",
+           tip:"টাইপ করলেই ফিল্টার হবে। চিপে ক্লিক করে ক্যাটেগরি অনুযায়ী ফিল্টার করুন।",
+           chips:{all:"সব", cal:"ক্যালকুলেটর", conv:"কনভার্টার", time:"সময়", calend:"ক্যালেন্ডার", utils:"ইউটিলিটি", write:"রাইটিং", dev:"ডেভ"},
+           h:{cal:"ক্যালকুলেটর", conv:"কনভার্টার", time:"সময়", calend:"ক্যালেন্ডার", utils:"ইউটিলিটি", write:"রাইটিং", dev:"ডেভেলপার"},
+           tools:{
+             basic:["🧮 বেসিক ক্যালকুলেটর","চার ফাংশন, পার্সেন্ট, মেমরি"],
+             sci:["🧪 সায়েন্টিফিক ক্যালকুলেটর","ফাংশন, DEG/RAD, হিস্ট্রি"],
+             mort:["🏠 মর্টগেজ ক্যালকুলেটর","কিস্তি ও অ্যামর্টাইজেশন"],
+             tip:["🍽️ টিপ ও বিল ভাগ","প্রতি জন"],
+             age:["🧮 বয়স ক্যালকুলেটর","বছর/মাস/দিন"],
+             bmi:["⚖️ BMI ক্যালকুলেটর","বডি মাস ইনডেক্স"],
+             pct:["➗ শতাংশ ক্যালকুলেটর","পার্সেন্ট/চেঞ্জ"],
+             date:["📅 তারিখের পার্থক্য","মাঝের দিন"],
+             unit:["🔁 ইউনিট কনভার্টার","১৮ ক্যাটেগরি · ৩০০+ ইউনিট"],
+             fx:["💱 কারেন্সি কনভার্টার","লাইভ + ম্যানুয়াল"],
+             world:["🌍🕒 বিশ্ব সময় (দেশভিত্তিক)","লোকাল টাইম দেখুন"],
+             unix:["🕰️ ইউনিক্স টাইমস্ট্যাম্প","Epoch ↔ Local/UTC"],
+             ctd:["⏳ কাউন্টডাউন টাইমার","সহজ কাউন্টডাউন"],
+             sw:["⏱️ স্টপওয়াচ","অনলাইন স্টপওয়াচ"],
+             week:["📅# সপ্তাহ নম্বর","ISO week"],
+             printcal:["🖨️📅 প্রিন্টেবল ক্যালেন্ডার","PDF প্রস্তুত"],
+             pass:["🔐 পাসওয়ার্ড জেনারেটর","শক্তিশালী পাসওয়ার্ড"],
+             ip:["🌐 IP লুকআপ","আপনার পাবলিক IP"],
+             rng:["🎲 র‍্যান্ডম নাম্বার","সিকিউর RNG"],
+             qr:["🔳 QR কোড জেনারেটর","QR তৈরি"],
+             color:["🎨 কালার পিকার","Hex কপি"],
+             scan:["📷 QR স্ক্যানার","ক্যামেরা/ছবি"],
+             pal:["🎨 ইমেজ প্যালেট","রং বের করুন"],
+             lotto:["🎟️ লটারি নাম্বার","মজা করার জন্য"],
+             word:["📝 শব্দ গণক","শব্দ ও অক্ষর"],
+             char:["🔡 ক্যারেক্টার কাউন্টার","সব অক্ষর গণনা"],
+             tcase:["🔠 টেক্সট কেস কনভার্টার","UPPER/lower/Title"],
+             url:["🔗 URL এনকোড/ডিকোড","URL রূপান্তর"],
+             json:["🧩 JSON ফরম্যাটার","Validate & pretty-print"],
+             htmlmin:["🧹 HTML মিনিফায়ার","Whitespace কমান"],
+             b64:["📦 Base64 এনকোড/ডিকোড","Text ⇄ Base64"],
+             hash:["🔒 SHA-256 হ্যাশ","WebCrypto hashing"],
+             jwt:["🔑 JWT ডিকোডার","লোকাল ডিকোড"]
+           },
+           faq:{q1:"ফ্রি?",a1:"হ্যাঁ, ফ্রি এবং লগইন ছাড়া।",
+                q2:"অফলাইন?",a2:"বেশিরভাগ টুল ব্রাউজারেই চলে; কারেন্সি কনভার্টারে ম্যানুয়াল রেট আছে।",
+                q3:"প্রাইভেসি?",a3:"ডেটা সাধারণত সার্ভারে আপলোড হয় না।",
+                q4:"বুকমার্ক?",a4:"হ্যাঁ, প্রিয় টুল বুকমার্ক করুন।"},
+           foot:"সবার জন্য ফ্রি অনলাইন টুলস",
+           links_quick:["ইউনিট কনভার্টার","কারেন্সি কনভার্টার","বিশ্ব সময়","কাউন্টডাউন","স্টপওয়াচ","JSON ফরম্যাটার"],
+           ogLocale:"bn_BD"
+      },
+      ng:{ // 英语（尼日利亚），复用英文文案，但 hreflang 用 en-NG
+           title:"GoToolOnline — Free Online Tools (Nigeria)",
+           desc:"Fast, free tools for Nigeria & beyond: calculators, converters, time, calendars, writing and dev utilities.",
+           hero:"All Tools — One Page",
+           tip:"Type to filter instantly. Click a chip to filter by category.",
+           chips:{all:"All", cal:"Calculators", conv:"Converters", time:"Time", calend:"Calendars", utils:"Utilities", write:"Writing", dev:"Dev"},
+           h:{cal:"Calculators", conv:"Converters", time:"Time", calend:"Calendars", utils:"Utilities", write:"Writing", dev:"Developer"},
+           tools: I18N ? I18N.en.tools : undefined, // 占位
+           faq: I18N ? I18N.en.faq : undefined,
+           foot:"Free online tools for everyone",
+           links_quick:["Online Unit Converter","Free Currency Converter","World Time","Countdown Timer","Stopwatch","JSON Formatter"],
+           ogLocale:"en_NG"
+      },
+      sw:{ title:"GoToolOnline · Zana Mtandaoni Bure",
+           desc:"Zana zote kwenye ukurasa mmoja: kalkuleta, vigeuzi, muda, kalenda, uandishi na zana za msanidi. Haraka, bure, bila kuingia.",
+           hero:"Zana Zote — Ukurasa Mmoja",
+           tip:"Andika kutafuta mara moja. Bofya chip kuchuja kwa kundi.",
+           chips:{all:"Zote", cal:"Kalkuleta", conv:"Vigeuzi", time:"Muda", calend:"Kalenda", utils:"Zana", write:"Uandishi", dev:"Dev"},
+           h:{cal:"Kalkuleta", conv:"Vigeuzi", time:"Muda", calend:"Kalenda", utils:"Zana", write:"Uandishi", dev:"Msanidi"},
+           tools:{
+             basic:["🧮 Kalkuleta ya Msingi","Kazi nne, asilimia, kumbukumbu"],
+             sci:["🧪 Kalkuleta ya Kisayansi","Kazi, DEG/RAD, historia"],
+             mort:["🏠 Kalkuleta ya Rehani","Malipo & amortization"],
+             tip:["🍽️ Bakshishi & Gawanyo","Kila mtu"],
+             age:["🧮 Kikokotoo cha Umri","Miaka/Miezi/Siku"],
+             bmi:["⚖️ Kikokotoo cha BMI","Body Mass Index"],
+             pct:["➗ Kikokotoo cha Asilimia","Asilimia & mabadiliko"],
+             date:["📅 Tofauti ya Tarehe","Siku kati ya tarehe"],
+             unit:["🔁 Kigeuzi cha Vitengo","Makundi 18 · Vitengo 300+"],
+             fx:["💱 Kigeuzi cha Sarafu","Live + mwongozo"],
+             world:["🌍🕒 Saa za Dunia (Nchi)","Tazama saa za eneo"],
+             unix:["🕰️ Kigeuzi cha Timestamp","Epoch ↔ Lokal/UTC"],
+             ctd:["⏳ Kipima Muda Heshabu","Rahisi"],
+             sw:["⏱️ Stopwatch","Mtandaoni"],
+             week:["📅# Namba ya Wiki ya ISO","ISO week"],
+             printcal:["🖨️📅 Kalenda ya Kuchapisha","Tayari kwa PDF"],
+             pass:["🔐 Kizalisha Nywila","Nywila imara"],
+             ip:["🌐 Utafutaji wa IP","IP yako ya umma"],
+             rng:["🎲 Namba Nasibu","RNG salama"],
+             qr:["🔳 Kizalisha QR","Tengeneza QR"],
+             color:["🎨 Kichagua Rangi","Chagua & nakili hex"],
+             scan:["📷 Kichanganuzi QR","Kamera au picha"],
+             pal:["🎨 Paleti kutoka Picha","Dondoa rangi"],
+             lotto:["🎟️ Namba za Bahati Nasibu","Burudani tu"],
+             word:["📝 Kihesabia Maneno","Maneno & herufi"],
+             char:["🔡 Kihesabia Herufi","Hesabu zote"],
+             tcase:["🔠 Kibadili Herufi","KUBWA/ndogo/Title"],
+             url:["🔗 Kisimika/Kifoa URL","Encode/Decode URL"],
+             json:["🧩 Mpangilia JSON","Hakikisha & pamba"],
+             htmlmin:["🧹 Kiminya HTML","Punguza nafasi"],
+             b64:["📦 Kisimika/Kifoa Base64","Maandishi ⇄ Base64"],
+             hash:["🔒 Hash ya SHA-256","WebCrypto hashing"],
+             jwt:["🔑 Kifoa JWT","Decode ya ndani"]
+           },
+           faq:{q1:"Bure?",a1:"Ndiyo, bila kujiandikisha.",
+                q2:"Offline?",a2:"Nyingi hukimbia ndani ya kivinjari; sarafu inaweza kwa mwongozo.",
+                q3:"Faragha?",a3:"Data mara nyingi haitumwi kwa seva.",
+                q4:"Alamisha?",a4:"Ndiyo, weka alamisho kwa zana unazotumia mara nyingi."},
+           foot:"Zana mtandaoni bure kwa wote",
+           links_quick:["Kigeuzi cha Vitengo","Kigeuzi cha Sarafu","Saa za Dunia","Kipima Muda","Stopwatch","Mpangilia JSON"],
+           ogLocale:"sw_KE"
+      },
+      ar:{ title:"GoToolOnline · أدوات مجانية على الإنترنت",
+           desc:"جميع الأدوات في صفحة واحدة: حاسبات، محولات، الوقت، التقويمات، أدوات الكتابة والمطور. سريع ومجاني وبدون تسجيل.",
+           hero:"كل الأدوات — صفحة واحدة",
+           tip:"اكتب للتصفية فورًا. انقر على الشارة للتصفية حسب الفئة.",
+           chips:{all:"الكل", cal:"حاسبات", conv:"محولات", time:"الوقت", calend:"تقويمات", utils:"أدوات", write:"كتابة", dev:"للمطور"},
+           h:{cal:"حاسبات", conv:"محولات", time:"الوقت", calend:"تقويمات", utils:"أدوات", write:"كتابة", dev:"للمطور"},
+           tools:{
+             basic:["🧮 حاسبة أساسية","أربع عمليات ونسبة وذاكرة"],
+             sci:["🧪 حاسبة علمية","دوال، درجات/رديان، سجل"],
+             mort:["🏠 حاسبة الرهن","دفعات وإطفاء"],
+             tip:["🍽️ إكرامية وتقسيم الفاتورة","لكل فرد"],
+             age:["🧮 حاسبة العمر","السن بالسنوات/الأشهر/الأيام"],
+             bmi:["⚖️ حاسبة BMI","مؤشر كتلة الجسم"],
+             pct:["➗ حاسبة النسبة","نسبة/تغير"],
+             date:["📅 فرق التواريخ","الأيام بينهما"],
+             unit:["🔁 محوّل الوحدات","18 فئة · 300+ وحدة"],
+             fx:["💱 محوّل العملات","حي + يدوي"],
+             world:["🌍🕒 وقت العالم (حسب الدولة)","شاهد الوقت المحلي"],
+             unix:["🕰️ محوّل Unix Timestamp","Epoch ↔ محلي/UTC"],
+             ctd:["⏳ عدّاد تنازلي","بسيط"],
+             sw:["⏱️ ساعة إيقاف","على الإنترنت"],
+             week:["📅# رقم الأسبوع ISO","حسب ISO"],
+             printcal:["🖨️📅 تقويم للطباعة","جاهز PDF"],
+             pass:["🔐 مولّد كلمات المرور","كلمات قوية"],
+             ip:["🌐 البحث عن IP","عنوانك العام"],
+             rng:["🎲 رقم عشوائي","RNG آمن"],
+             qr:["🔳 مولّد QR","أنشئ رموز QR"],
+             color:["🎨 منتقِي الألوان","اختر ونسخ hex"],
+             scan:["📷 قارئ QR","كاميرا أو صورة"],
+             pal:["🎨 لوحة من صورة","استخرج الألوان"],
+             lotto:["🎟️ أرقام يانصيب","للترفيه فقط"],
+             word:["📝 عدّاد الكلمات","كلمات وأحرف"],
+             char:["🔡 عدّاد الأحرف","يعد كل الأحرف"],
+             tcase:["🔠 محوّل حالة النص","كبيرة/صغيرة/Title"],
+             url:["🔗 ترميز/فك ترميز URL","Encode/Decode"],
+             json:["🧩 منسّق JSON","تحقّق وتنسيق"],
+             htmlmin:["🧹 مصغّر HTML","تقليل الفراغات"],
+             b64:["📦 Base64 ترميز/فك","نص ⇄ Base64"],
+             hash:["🔒 تجزئة SHA-256","WebCrypto hashing"],
+             jwt:["🔑 فك JWT","محلي"]
+           },
+           faq:{q1:"مجاني؟",a1:"نعم، بدون تسجيل.",
+                q2:"أوفلاين؟",a2:"معظم الأدوات تعمل في المتصفح؛ محوّل العملات يدوي عند اللزوم.",
+                q3:"الخصوصية؟",a3:"البيانات غالبًا لا تُرفع للخوادم.",
+                q4:"إشارات مرجعية؟",a4:"نعم، احفظ أدواتك المفضلة."},
+           foot:"أدوات مجانية للجميع",
+           links_quick:["محوّل الوحدات","محوّل العملات","وقت العالم","العدّاد التنازلي","ساعة الإيقاف","منسّق JSON"],
+           ogLocale:"ar"
+      }
+    };
 
-    function applyFilter(){
-      const q = (search.value || '').toLowerCase().trim();
-      const cards = document.querySelectorAll('.tool');
-      cards.forEach(el=>{
-        const text = el.textContent.toLowerCase();
-        const inCat = (activeCat==='all') ? true : el.classList.contains(activeCat);
-        const match = !q || text.includes(q);
-        el.classList.toggle('hide', !(inCat && match));
-      });
-
-      // Hide empty groups (header + grid)
-      document.querySelectorAll('section.grid').forEach(group=>{
-        const anyVisible = Array.from(group.querySelectorAll('.tool')).some(x=>!x.classList.contains('hide'));
-        const header = group.previousElementSibling;
-        if (header && header.matches('h2.group')){
-          header.classList.toggle('hide', !anyVisible);
-        }
-        group.classList.toggle('hide', !anyVisible);
-      });
+    // 识别当前语言（根据目录或根页自动跳转）
+    const seg = location.pathname.split('/').filter(Boolean);
+    let lang = (seg[0]||'').toLowerCase();
+    if (!LANGS.includes(lang)) {
+      // 根域：跳到 cookie 或浏览器语言
+      const c = ('; '+document.cookie).split('; lang=').pop().split(';')[0];
+      const guess = c || MAP_BROWSER[(navigator.language||'en').split('-')[0]] || 'en';
+      location.replace('/'+(LANGS.includes(guess)?guess:'en')+'/');
+      return;
     }
+    document.cookie = `lang=${lang};path=/;max-age=31536000`;
+    if (lang==='ar'){ document.documentElement.dir='rtl'; }
+    document.documentElement.lang = (lang==='ph'?'tl':(lang==='ng'?'en':lang));
 
-    search.addEventListener('input', applyFilter);
-    clearBtn.addEventListener('click', ()=>{ search.value=''; applyFilter(); });
-
-    chips.forEach(c=>{
-      c.addEventListener('click', ()=>{
-        chips.forEach(x=>x.classList.remove('active'));
-        c.classList.add('active');
-        activeCat = c.dataset.cat;
-        applyFilter();
-        // Update URL hash for UX (optional)
-        if (activeCat !== 'all') history.replaceState({}, '', '#'+activeCat);
-        else history.replaceState({}, '', location.pathname);
-      });
+    // 渲染语言切换
+    const bar = document.getElementById('langbar');
+    LANGS.forEach(code=>{
+      const a = document.createElement('a');
+      a.href = '/'+code+'/';
+      a.textContent = NAMES[code];
+      if (code===lang) a.className='active';
+      bar.appendChild(a);
     });
 
-    // Optional: open category from hash
-    (function(){
-      const hash = (location.hash||'').replace('#','');
-      if (hash && document.querySelector(`#chips .chip[data-cat="${hash}"]`)) {
-        document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('active'));
-        const chip = document.querySelector(`#chips .chip[data-cat="${hash}"]`);
-        chip.classList.add('active');
-        activeCat = hash;
-      }
-      applyFilter();
+    // 重写站内链接前缀为当前语言
+    function fixInternalLinks(){
+      document.querySelectorAll('a[href^="/"]').forEach(a=>{
+        const u = new URL(a.getAttribute('href'), location.origin);
+        const parts = u.pathname.split('/').filter(Boolean);
+        if (!parts.length) return;
+        parts[0] = lang;
+        u.pathname = '/'+parts.join('/')+(u.pathname.endsWith('/')?'':'/');
+        a.setAttribute('href', u.pathname+u.search+u.hash);
+      });
+    }
+    fixInternalLinks();
+
+    // 文案注入
+    const D = I18N[lang] || I18N.en;
+    // 标题/提示/分组标题
+    document.getElementById('t-hero').textContent = D.hero;
+    document.getElementById('t-tip').firstChild.nodeValue = D.tip+' ';
+    document.getElementById('c-all').textContent = D.chips.all;
+    document.getElementById('c-cal').textContent = D.chips.cal;
+    document.getElementById('c-conv').textContent = D.chips.conv;
+    document.getElementById('c-time').textContent = D.chips.time;
+    document.getElementById('c-calend').textContent = D.chips.calend;
+    document.getElementById('c-utils').textContent = D.chips.utils;
+    document.getElementById('c-write').textContent = D.chips.write;
+    document.getElementById('c-dev').textContent = D.chips.dev;
+    document.getElementById('h-cal').textContent = D.h.cal;
+    document.getElementById('h-conv').textContent = D.h.conv;
+    document.getElementById('h-time').textContent = D.h.time;
+    document.getElementById('h-calend').textContent = D.h.calend;
+    document.getElementById('h-utils').textContent = D.h.utils;
+    document.getElementById('h-write').textContent = D.h.write;
+    document.getElementById('h-dev').textContent = D.h.dev;
+
+    // 工具名称与副标题
+    const T = D.tools; const set=(id,arr)=>{ if(!arr) return; const [t,s]=arr; const el=document.getElementById(id); if (el) el.textContent=t; const se=document.getElementById('s-'+id.split('-')[1]); if (se && s) se.textContent=s; };
+    set('l-basic',T.basic); set('l-sci',T.sci); set('l-mort',T.mort); set('l-tip',T.tip);
+    set('l-age',T.age); set('l-bmi',T.bmi); set('l-pct',T.pct); set('l-date',T.date);
+    set('l-unit',T.unit); set('l-fx',T.fx);
+    set('l-world',T.world); set('l-unix',T.unix); set('l-ctd',T.ctd); set('l-sw',T.sw); set('l-week',T.week);
+    set('l-printcal',T.printcal);
+    set('l-pass',T.pass); set('l-ip',T.ip); set('l-rng',T.rng); set('l-qr',T.qr); set('l-color',T.color); set('l-scan',T.scan); set('l-pal',T.pal); set('l-lotto',T.lotto);
+    set('l-word',T.word); set('l-char',T.char); set('l-case',T.tcase);
+    set('l-url',T.url); set('l-json',T.json); set('l-htmlmin',T.htmlmin); set('l-b64',T.b64); set('l-hash',T.hash); set('l-jwt',T.jwt);
+
+    // FAQ/页脚
+    document.getElementById('faq-heading').textContent = 'FAQ';
+    document.getElementById('q1').textContent = D.faq.q1; document.getElementById('a1').textContent = D.faq.a1;
+    document.getElementById('q2').textContent = D.faq.q2; document.getElementById('a2').textContent = D.faq.a2;
+    document.getElementById('q3').textContent = D.faq.q3; document.getElementById('a3').innerHTML = (D.faq.a3||'').replace('Privacy Policy','<a href="/privacy/">Privacy Policy</a>');
+    document.getElementById('q4').textContent = D.faq.q4; document.getElementById('a4').textContent = D.faq.a4;
+    document.getElementById('t-foot').textContent = D.foot;
+
+    // Quick links 文案（保持链接）
+    const ql = document.getElementById('quick-links');
+    const anchors = ql.querySelectorAll('a');
+    const txts = D.links_quick || [];
+    anchors.forEach((a,i)=>{ if(txts[i]) a.textContent = txts[i]; });
+
+    // 年份
+    var y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
+
+    // 本地化 SEO：title / meta / og / canonical / hreflang
+    (function seo(){
+      const cur = location.origin.replace(/\/$/,'') + location.pathname;
+      document.title = D.title || document.title;
+      function meta(name, content){ if(!content) return; let m=document.querySelector(`meta[name="${name}"]`); if(!m){ m=document.createElement('meta'); m.setAttribute('name',name); document.head.appendChild(m);} m.setAttribute('content',content); }
+      function og(p, content){ if(!content) return; let m=document.querySelector(`meta[property="og:${p}"]`); if(!m){ m=document.createElement('meta'); m.setAttribute('property',`og:${p}`); document.head.appendChild(m);} m.setAttribute('content',content); }
+      function link(rel, href, attr){ if(!href) return; let l=document.querySelector(`link[rel="${rel}"][href="${href}"]`); if(!l){ l=document.createElement('link'); l.setAttribute('rel',rel); l.setAttribute('href',href); if(attr) Object.entries(attr).forEach(([k,v])=>l.setAttribute(k,v)); document.head.appendChild(l);} }
+
+      meta('description', D.desc);
+      og('title', D.title); og('description', D.desc); og('url', cur); og('locale', D.ogLocale || (lang==='ph'?'tl_PH':(lang==='ng'?'en_NG':(lang==='ar'?'ar':'en_AU'))));
+
+      // canonical
+      link('canonical', cur.endsWith('/')?cur:cur+'/');
+
+      // hreflang（8种 + x-default）
+      const base = location.origin;
+      const alt = {
+        'en'   : base+'/en/',
+        'tl'   : base+'/ph/',
+        'id'   : base+'/id/',
+        'vi'   : base+'/vi/',
+        'bn'   : base+'/bn/',
+        'en-NG': base+'/ng/',
+        'sw'   : base+'/sw/',
+        'ar'   : base+'/ar/',
+        'x-default': base+'/en/'
+      };
+      Object.entries(alt).forEach(([hl,href])=> link('alternate', href, {hreflang:hl}));
     })();
+
+    // 相关工具（简单版 7-12 个）
+    (function related(){
+      const box = document.getElementById('related');
+      if(!box) return;
+      const title = {en:'Related Tools',ph:'Kaugnay na Mga Tool',id:'Alat Terkait',vi:'Công cụ liên quan',bn:'সম্পর্কিত টুলস',ng:'Related Tools',sw:'Zana Zinazohusiana',ar:'أدوات ذات صلة'}[lang] || 'Related';
+      const items = [
+        {slug:'name/brand-name-generator/', label:{en:'Brand Name Generator',ph:'Tagalikha ng Pangalan ng Brand',id:'Pembangkit Nama Merek',vi:'Tạo tên thương hiệu',bn:'ব্র্যান্ড নাম জেনারেটর',ng:'Brand Name Generator',sw:'Kizalisha Jina la Chapa',ar:'مولّد أسماء العلامات'}},
+        {slug:'name/business-name-generator/', label:{en:'Business Name Generator',ph:'Tagalikha ng Pangalan ng Negosyo',id:'Pembangkit Nama Bisnis',vi:'Tạo tên doanh nghiệp',bn:'বিজনেস নাম জেনারেটর',ng:'Business Name Generator',sw:'Kizalisha Jina la Biashara',ar:'مولّد أسماء الأعمال'}},
+        {slug:'name/domain-name-generator/', label:{en:'Domain Name Ideas',ph:'Mga Ideya sa Pangalan ng Domain',id:'Ide Nama Domain',vi:'Gợi ý tên miền',bn:'ডোমেইন নাম আইডিয়া',ng:'Domain Name Ideas',sw:'Mawazo ya Jina la Kikoa',ar:'أفكار أسماء النطاقات'}},
+        {slug:'pdf/merge/', label:{en:'Merge PDF',ph:'Pagsamahin ang PDF',id:'Gabung PDF',vi:'Gộp PDF',bn:'PDF মার্জ',ng:'Merge PDF',sw:'Unganisha PDF',ar:'دمج PDF'}},
+        {slug:'image/compressor/', label:{en:'Image Compressor',ph:'Tagapiga ng Larawan',id:'Kompresor Gambar',vi:'Nén ảnh',bn:'ইমেজ কমপ্রেসর',ng:'Image Compressor',sw:'Kibonyeza Picha',ar:'ضاغط الصور'}},
+        {slug:'text/case-converter/', label:{en:'Text Case Converter',ph:'Converter ng Case ng Teksto',id:'Pengubah Huruf Teks',vi:'Chuyển đổi chữ hoa/thường',bn:'টেক্সট কেস কনভার্টার',ng:'Text Case Converter',sw:'Kibadilishaji Herufi',ar:'محوّل حالة النص'}}
+      ];
+      const h2 = document.createElement('h2'); h2.textContent = title; h2.className='group';
+      const ul = document.createElement('ul'); ul.style.display='grid'; ul.style.gridTemplateColumns='repeat(auto-fill,minmax(260px,1fr))'; ul.style.gap='12px'; ul.style.padding='0'; ul.style.listStyle='none';
+      items.forEach(it=>{
+        const li = document.createElement('li');
+        const a = document.createElement('a'); a.className='tool'; a.href = '/'+lang+'/'+it.slug; a.textContent = it.label[lang] || it.label.en;
+        li.appendChild(a); ul.appendChild(li);
+      });
+      box.innerHTML=''; box.appendChild(h2); box.appendChild(ul);
+    })();
+
+    // 搜索/筛选
+    const search = document.getElementById('search'), clearBtn=document.getElementById('clear'); let activeCat='all';
+    function applyFilter(){
+      const q=(search.value||'').toLowerCase().trim();
+      document.querySelectorAll('.tool').forEach(el=>{
+        const text=el.textContent.toLowerCase(); const inCat=(activeCat==='all')||el.classList.contains(activeCat); const match=!q||text.includes(q);
+        el.classList.toggle('hide', !(inCat && match));
+      });
+      document.querySelectorAll('section.grid').forEach(group=>{
+        const anyVisible = Array.from(group.querySelectorAll('.tool')).some(x=>!x.classList.contains('hide'));
+        const header = group.previousElementSibling; if (header && header.matches('h2.group')) header.classList.toggle('hide',!anyVisible);
+        group.classList.toggle('hide',!anyVisible);
+      });
+    }
+    if (search) search.addEventListener('input', applyFilter);
+    if (clearBtn) clearBtn.addEventListener('click', ()=>{ search.value=''; applyFilter(); });
+    document.querySelectorAll('#chips .chip').forEach(c=>{
+      c.addEventListener('click', ()=>{ document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('active')); c.classList.add('active'); activeCat=c.dataset.cat; applyFilter(); history.replaceState({},'', activeCat!=='all'?'#'+activeCat:location.pathname); });
+    });
+    (function(){ const hash=(location.hash||'').replace('#',''); const chip=document.querySelector(`#chips .chip[data-cat="${hash}"]`); if (chip){ document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('active')); chip.classList.add('active'); activeCat=hash; } applyFilter(); })();
+  })();
   </script>
 </body>
 </html>
